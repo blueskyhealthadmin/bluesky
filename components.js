@@ -56,7 +56,7 @@ function renderHeader(activePage) {
 ═══════════════════════════════════════════════ */
 function renderFooter() {
   const data = getSiteData();
-  const { phones, addressBn, email, website } = data.contact;
+  const { phones, addressBn, email } = data.contact;
 
   document.getElementById("site-footer").innerHTML = `
     <footer class="footer">
@@ -95,7 +95,6 @@ function renderFooter() {
           <address>
             <p>📍 ${addressBn}</p>
             ${phones.map(p => `<p>📞 <a href="tel:${p.replace(/[^\d]/g, '')}">${p}</a></p>`).join("")}
-            <p>🌐 <a href="https://${website}" target="_blank">${website}</a></p>
           </address>
         </div>
       </div>
