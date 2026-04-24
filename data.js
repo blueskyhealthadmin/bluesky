@@ -69,7 +69,7 @@ const DEFAULT_DATA = {
     address: "Mohakhali TB Gate (Opposite of BRAC Center), Dhaka",
     addressBn: "মহাখালি টিবি গেট (ব্র্যাক সেন্টারের বিপরীতে), ঢাকা",
     hours: "সকাল ৮টা — রাত ৯টা (শনি–বৃহস্পতি)",
-    email: "info@blueskyhealth.com.bd",
+    email: "info@blueskyhealthltd.com",
     mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7509059819213!2d90.40198!3d23.7794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c702f9f7e041%3A0x7dce7cd6f2f5b7a0!2sMohakhali%20TB%20Gate%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
   },
 
