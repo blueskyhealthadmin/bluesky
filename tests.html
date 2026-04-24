@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bluesky Health Limited-এর স্বাস্থ্য পরীক্ষা প্যাকেজসমূহ — Standard, Cardiac, Women's, Executive, Whole Body এবং আরও অনেক প্যাকেজ।">
+  <title>টেস্ট প্যাকেজ — Bluesky Health Limited</title>
+  <link rel="icon" href="logo.jpeg" type="image/jpeg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1>স্বাস্থ্য পরীক্ষা প্যাকেজ</h1>
+    <p>আপনার প্রয়োজন অনুযায়ী প্যাকেজ বেছে নিন — বুকিং ও তথ্যের জন্য কল করুন</p>
+    <div class="breadcrumb">
+      <a href="index.html">হোম</a> › টেস্ট প্যাকেজ
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ NOTICE ══════════ -->
+<div style="background:var(--light-blue);border-bottom:1px solid var(--border);padding:.85rem 0;">
+  <div class="container">
+    <p style="font-size:.88rem;color:var(--navy);display:flex;align-items:center;gap:.5rem;">
+      📞 <strong>বিঃদ্রঃ</strong> এই ওয়েবসাইট থেকে সরাসরি বুকিং নেওয়া হয় না। টেস্ট বুক করতে বা তথ্যের জন্য আমাদের নম্বরে কল করুন।
+    </p>
+  </div>
+</div>
+
+<!-- ══════════ PACKAGES ══════════ -->
+<section class="pad bg-white">
+  <div class="container">
+
+    <!-- Category Filter -->
+    <div class="filter-bar" id="pkg-filter-bar"></div>
+
+    <!-- Packages Grid -->
+    <div class="packages-grid" id="packages-grid"></div>
+
+    <!-- Empty -->
+    <div id="pkg-empty" style="display:none;text-align:center;padding:3rem 0;">
+      <p style="color:var(--text-muted);">এই বিভাগে কোনো প্যাকেজ পাওয়া যায়নি।</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ BOOKING CTA ══════════ -->
+<section class="pad-sm bg-light">
+  <div class="container">
+    <div class="callout-strip">
+      <div>
+        <h3>পরীক্ষা করাতে চান?</h3>
+        <p>যেকোনো প্যাকেজ বা পরীক্ষার জন্য আজই আমাদের সাথে যোগাযোগ করুন।</p>
+      </div>
+      <a href="contact.html" class="btn btn-blue">📞 এখনই কল করুন</a>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script>try{if(localStorage.getItem('bsky_data_version')!=='2'){['banners','contact','doctors','packages','services','equipment','stats'].forEach(k=>localStorage.removeItem('bsky_'+k));localStorage.setItem('bsky_data_version','2');}}catch(_){}</script>
+<script src="data.js"></script>
+<script src="components.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const data = getSiteData();
+  let active = "all";
+
+  renderHeader("tests");
+  renderFooter();
+  initBannerPopup();
+
+  // Filter bar
+  const filterBar = document.getElementById("pkg-filter-bar");
+  filterBar.innerHTML = data.packageCategories.map(c =>
+    `<button class="filter-btn${c.id==="all"?" active":""}" data-cat="${c.id}">${c.label}</button>`
+  ).join("");
+
+  filterBar.addEventListener("click", e => {
+    const btn = e.target.closest(".filter-btn");
+    if (!btn) return;
+    active = btn.dataset.cat;
+    filterBar.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    render();
+  });
+
+  function render() {
+    const grid  = document.getElementById("packages-grid");
+    const empty = document.getElementById("pkg-empty");
+    const filtered = active === "all"
+      ? data.packages
+      : data.packages.filter(p => p.category === active);
+    grid.innerHTML  = filtered.map(packageCard).join("");
+    empty.style.display = filtered.length ? "none" : "block";
+  }
+
+  render();
+});
+</script>
+</body>
+</html>

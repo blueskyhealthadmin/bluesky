@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bluesky Health Limited-এর সাথে যোগাযোগ করুন — ঠিকানা, ফোন নম্বর, এবং মানচিত্র।">
+  <title>যোগাযোগ — Bluesky Health Limited</title>
+  <link rel="icon" href="logo.jpeg" type="image/jpeg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1>যোগাযোগ করুন</h1>
+    <p>অ্যাপয়েন্টমেন্ট বা তথ্যের জন্য আমাদের সাথে কথা বলুন</p>
+    <div class="breadcrumb">
+      <a href="index.html">হোম</a> › যোগাযোগ
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ CONTACT DETAILS + MAP ══════════ -->
+<section class="pad bg-white">
+  <div class="container">
+    <div class="contact-grid">
+
+      <!-- Info Card -->
+      <div>
+        <div class="contact-info-card">
+          <h3>📍 আমাদের অবস্থান ও যোগাযোগ</h3>
+
+          <div class="contact-item">
+            <div class="contact-icon">📍</div>
+            <div class="contact-item-body">
+              <h5>ঠিকানা</h5>
+              <p id="contact-address"></p>
+            </div>
+          </div>
+
+          <div class="contact-item" id="contact-phones-block">
+            <div class="contact-icon">📞</div>
+            <div class="contact-item-body">
+              <h5>ফোন নম্বর</h5>
+              <div id="contact-phones-list"></div>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🕗</div>
+            <div class="contact-item-body">
+              <h5>সেবার সময়</h5>
+              <p id="contact-hours"></p>
+            </div>
+          </div>
+
+          <div class="contact-item">
+            <div class="contact-icon">🌐</div>
+            <div class="contact-item-body">
+              <h5>ওয়েবসাইট</h5>
+              <a id="contact-website" href="#"></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Phones -->
+        <div style="margin-top:1.5rem;background:var(--pale-blue);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--border);">
+          <h4 style="color:var(--navy);margin-bottom:1rem;font-size:.95rem;">📞 দ্রুত কল করুন</h4>
+          <div id="quick-phones" style="display:flex;flex-direction:column;gap:.6rem;"></div>
+        </div>
+      </div>
+
+      <!-- Map -->
+      <div>
+        <div class="map-wrap">
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7509059819213!2d90.40198!3d23.7794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c75d5b8abc0d%3A0xabbf6deb23c0cfdb!2sMohakhali%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+            allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+            title="Bluesky Health Limited Location">
+          </iframe>
+        </div>
+        <p style="font-size:.82rem;color:var(--text-muted);margin-top:.75rem;text-align:center;">
+          📍 মহাখালি টিবি গেট, ব্র্যাক সেন্টারের বিপরীতে, ঢাকা
+        </p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ HOW TO REACH ══════════ -->
+<section class="pad-sm bg-light">
+  <div class="container">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <p class="section-label">যাতায়াত</p>
+      <h2 class="section-title">কীভাবে আসবেন?</h2>
+    </div>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🚌</div>
+        <h3>বাস যোগে</h3>
+        <p class="svc-en">By Bus</p>
+        <ul>
+          <li>মহাখালি বাস টার্মিনালে নেমে ৫ মিনিট হাঁটুন</li>
+          <li>ব্র্যাক সেন্টারের বিপরীত দিকে অবস্থিত</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚗</div>
+        <h3>গাড়িযোগে</h3>
+        <p class="svc-en">By Car / CNG</p>
+        <ul>
+          <li>মহাখালি টিবি গেট বলুন</li>
+          <li>পার্কিং সুবিধা আছে</li>
+        </ul>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🚇</div>
+        <h3>যোগাযোগের সময়</h3>
+        <p class="svc-en">Opening Hours</p>
+        <ul>
+          <li>শনি থেকে বৃহস্পতিবার</li>
+          <li>সকাল ৮টা — রাত ৯টা</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script>try{if(localStorage.getItem('bsky_data_version')!=='2'){['banners','contact','doctors','packages','services','equipment','stats'].forEach(k=>localStorage.removeItem('bsky_'+k));localStorage.setItem('bsky_data_version','2');}}catch(_){}</script>
+<script src="data.js"></script>
+<script src="components.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const data = getSiteData();
+  renderHeader("contact");
+  renderFooter();
+  initBannerPopup();
+
+  const c = data.contact;
+
+  // Address
+  const addrEl = document.getElementById("contact-address");
+  if (addrEl) addrEl.textContent = c.addressBn;
+
+  // Hours
+  const hoursEl = document.getElementById("contact-hours");
+  if (hoursEl) hoursEl.textContent = c.hours;
+
+  // Website
+  const webEl = document.getElementById("contact-website");
+  if (webEl) { webEl.href = "https://" + c.website; webEl.textContent = c.website; }
+
+  // Phones
+  const pList = document.getElementById("contact-phones-list");
+  if (pList) {
+    pList.innerHTML = c.phones.map(p =>
+      `<a href="tel:${p.replace(/[^\d]/g,'')}" style="display:block;font-size:.9rem;color:var(--sky);font-weight:500;margin-bottom:.2rem;">${p}</a>`
+    ).join("");
+  }
+
+  // Quick phones
+  const qph = document.getElementById("quick-phones");
+  if (qph) {
+    qph.innerHTML = c.phones.map(p =>
+      `<a href="tel:${p.replace(/[^\d]/g,'')}" class="btn btn-blue btn-sm" style="justify-content:center;">${p}</a>`
+    ).join("");
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel — Bluesky Health Limited</title>
+  <link rel="icon" href="logo.jpeg" type="image/jpeg">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Admin-specific extras */
+    .tab-mobile-select { display:none; }
+    @media(max-width:768px){
+      .tab-mobile-select { display:block; width:100%; margin-bottom:1.25rem; padding:.65rem 1rem; border:1.5px solid var(--border); border-radius:var(--radius); font-size:.92rem; font-family:inherit; }
+      .admin-sidebar { display:none !important; }
+    }
+    .admin-section-actions { display:flex; gap:.65rem; flex-wrap:wrap; margin-bottom:1.25rem; }
+    .modal-overlay { position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9998;display:flex;align-items:center;justify-content:center;padding:1rem; }
+    .modal-box { background:#fff;border-radius:var(--radius-lg);padding:2rem;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:var(--shadow-lg); }
+    .modal-box h3 { color:var(--navy);margin-bottom:1.25rem; }
+    .modal-footer { display:flex;justify-content:flex-end;gap:.65rem;margin-top:1.5rem;padding-top:.75rem;border-top:1px solid var(--border); }
+    .badge-active   { background:#E8F5E9;color:#2E7D32;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600; }
+    .badge-inactive { background:#FFEBEE;color:#C62828;padding:.15rem .55rem;border-radius:999px;font-size:.72rem;font-weight:600; }
+  </style>
+</head>
+<body style="background:var(--off-white);">
+
+<!-- ══════════ LOGIN SCREEN ══════════ -->
+<div id="login-screen">
+  <div class="admin-login">
+    <img src="logo.jpeg" alt="Bluesky Health">
+    <h2>Admin Panel</h2>
+    <p>Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম</p>
+    <div id="login-error" class="login-error" style="display:none;"></div>
+    <div class="form-group">
+      <label for="admin-pass">পাসওয়ার্ড</label>
+      <input type="password" id="admin-pass" placeholder="Admin password" autocomplete="current-password">
+    </div>
+    <button class="btn btn-blue" style="width:100%;justify-content:center;" onclick="doLogin()">লগইন করুন</button>
+    <p style="font-size:.75rem;color:var(--text-muted);margin-top:1rem;">
+      Default password: <code>admin123</code> (change via Settings)
+    </p>
+  </div>
+</div>
+
+<!-- ══════════ ADMIN PANEL ══════════ -->
+<div id="admin-panel" style="display:none;" class="admin-wrap">
+
+  <!-- Admin Header -->
+  <div class="admin-header">
+    <div style="display:flex;align-items:center;gap:.75rem;">
+      <img src="logo.jpeg" alt="Logo" style="height:32px;border-radius:4px;">
+      <h1>Bluesky Health — Admin Panel</h1>
+    </div>
+    <div style="display:flex;gap:.75rem;align-items:center;">
+      <a href="index.html" class="btn btn-sm btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);" target="_blank">🌐 Visit Site</a>
+      <button class="btn btn-sm btn-danger" onclick="doLogout()">লগআউট</button>
+    </div>
+  </div>
+
+  <!-- Mobile tab select -->
+  <div style="padding:.75rem 1rem;background:var(--white);border-bottom:1px solid var(--border);">
+    <select class="tab-mobile-select" onchange="switchTab(this.value)">
+      <option value="tab-banners">Banners</option>
+      <option value="tab-contact">Contact</option>
+      <option value="tab-doctors">Doctors</option>
+      <option value="tab-packages">Packages</option>
+      <option value="tab-services">Services</option>
+      <option value="tab-equipment">Equipment</option>
+      <option value="tab-stats">Stats</option>
+      <option value="tab-settings">Settings</option>
+    </select>
+  </div>
+
+  <div class="admin-layout">
+
+    <!-- Sidebar -->
+    <aside class="admin-sidebar">
+      <h2>সাইট ব্যবস্থাপনা</h2>
+      <div class="admin-nav-item active" data-tab="tab-banners"   onclick="switchTab('tab-banners')">   🖼️ Banners</div>
+      <div class="admin-nav-item"        data-tab="tab-contact"   onclick="switchTab('tab-contact')">   📞 Contact Info</div>
+      <h2>Content</h2>
+      <div class="admin-nav-item"        data-tab="tab-doctors"   onclick="switchTab('tab-doctors')">   👨‍⚕️ Doctors</div>
+      <div class="admin-nav-item"        data-tab="tab-packages"  onclick="switchTab('tab-packages')">  🧪 Packages</div>
+      <div class="admin-nav-item"        data-tab="tab-services"  onclick="switchTab('tab-services')">  🔬 Services</div>
+      <div class="admin-nav-item"        data-tab="tab-equipment" onclick="switchTab('tab-equipment')"> 🏥 Equipment</div>
+      <div class="admin-nav-item"        data-tab="tab-stats"     onclick="switchTab('tab-stats')">     📊 Stats</div>
+      <h2>System</h2>
+      <div class="admin-nav-item"        data-tab="tab-settings"  onclick="switchTab('tab-settings')">  ⚙️ Settings</div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-content">
+
+      <!-- ── BANNERS TAB ── -->
+      <div class="admin-tab active" id="tab-banners">
+        <h2>Banner Management</h2>
+        <p>ওয়েবসাইটের পপ-আপ ব্যানার পরিচালনা করুন। প্রথম ভিজিটে ডিসমিস করলে পারের <strong>24 ঘন্টা</strong> পর্যন্ত ব্যানার দেখাবে না।</p>
+
+        <div class="admin-section-actions">
+          <button class="btn btn-blue btn-sm" onclick="openAddBanner()">নতুন ব্যানার যোগ করুন</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearBannerCache()" title="ব্যানার বাতিলের ডেটা মুছুন (পরীক্ষার জন্য)">&#x267B; পপ-আপ ক্যাশ রিসেট</button>
+          <button class="btn btn-sm btn-ghost" onclick="resetBannersToDefault()" title="সংরক্ষিত ব্যানার মুছে সব ৬টি ডিফল্ট ব্যানারে ফিরুন">&#x21BA; ডিফল্টে রিসেট</button>
+        </div>
+
+        <div class="admin-card">
+          <h3>সক্রিয় ও নিষ্ক্রিয় ব্যানার</h3>
+          <div id="banners-list"></div>
+        </div>
+
+        <div class="alert alert-info">
+          <strong>💡 নির্দেশনা:</strong>
+          ব্যানার ছবি <code>images/banners/</code> ফোল্ডারে রাখুন এবং <em>Image Path</em>-এ পাথ দিন — যেমন: <code>images/banners/dr anisur banner.jpeg</code>।
+          ডিসপ্লে সাইজ ভালো দেখাতে <strong>portrait (tall)</strong> ছবি ব্যবহার করুন (যেমন ডাক্তারের ব্যানার)।
+        </div>
+      </div>
+
+      <!-- ── CONTACT TAB ── -->
+      <div class="admin-tab" id="tab-contact">
+        <h2>Contact Information</h2>
+        <p>যোগাযোগের তথ্য সম্পাদনা করুন — পরিবর্তন সব পেজে একসাথে প্রযোজ্য হবে।</p>
+
+        <div class="admin-card">
+          <h3>ফোন নম্বর (প্রতি লাইনে একটি)</h3>
+          <textarea class="json-editor" id="contact-phones-input" rows="6"></textarea>
+        </div>
+
+        <div class="admin-card">
+          <h3>ঠিকানা</h3>
+          <div class="form-group">
+            <label>ইংরেজি ঠিকানা</label>
+            <input type="text" id="contact-address-en">
+          </div>
+          <div class="form-group">
+            <label>বাংলা ঠিকানা</label>
+            <input type="text" id="contact-address-bn">
+          </div>
+        </div>
+
+        <div class="admin-card">
+          <h3>অন্যান্য তথ্য</h3>
+          <div class="admin-grid-2">
+            <div class="form-group">
+              <label>সেবার সময়</label>
+              <input type="text" id="contact-hours">
+            </div>
+            <div class="form-group">
+              <label>ওয়েবসাইট</label>
+              <input type="text" id="contact-website">
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-blue" onclick="saveContact()">✓ পরিবর্তন সংরক্ষণ করুন</button>
+        <div id="contact-save-msg" class="alert" style="display:none;margin-top:1rem;"></div>
+      </div>
+
+      <!-- ── DOCTORS TAB ── -->
+      <div class="admin-tab" id="tab-doctors">
+        <h2>Doctors Management</h2>
+        <p>চিকিৎসকদের তথ্য যোগ, সম্পাদনা বা মুছে ফেলুন।</p>
+
+        <div class="admin-section-actions">
+          <button class="btn btn-blue btn-sm" onclick="openAddDoctor()">+ নতুন চিকিৎসক যোগ করুন</button>
+          <button class="btn btn-sm btn-ghost" onclick="openJsonEditor('doctors')">📋 JSON সম্পাদনা</button>
+        </div>
+
+        <div class="admin-card">
+          <h3>চিকিৎসক তালিকা</h3>
+          <div id="doctors-admin-list"></div>
+        </div>
+      </div>
+
+      <!-- ── PACKAGES TAB ── -->
+      <div class="admin-tab" id="tab-packages">
+        <h2>Health Packages</h2>
+        <p>স্বাস্থ্য পরীক্ষা প্যাকেজ পরিচালনা করুন।</p>
+
+        <div class="admin-section-actions">
+          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('packages')">📋 JSON সম্পাদনা (সকল প্যাকেজ)</button>
+        </div>
+
+        <div class="admin-card">
+          <h3>প্যাকেজ তালিকা</h3>
+          <div id="packages-admin-list"></div>
+        </div>
+      </div>
+
+      <!-- ── SERVICES TAB ── -->
+      <div class="admin-tab" id="tab-services">
+        <h2>Services</h2>
+        <p>সেবার বিভাগ ও আইটেম সম্পাদনা করুন।</p>
+        <div class="admin-section-actions">
+          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('services')">📋 JSON সম্পাদনা</button>
+        </div>
+        <div class="admin-card">
+          <h3>সেবা তালিকা</h3>
+          <div id="services-admin-list"></div>
+        </div>
+      </div>
+
+      <!-- ── EQUIPMENT TAB ── -->
+      <div class="admin-tab" id="tab-equipment">
+        <h2>Equipment</h2>
+        <p>মেশিনারি ও সরঞ্জামের তথ্য পরিচালনা করুন।</p>
+        <div class="admin-section-actions">
+          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('equipment')">📋 JSON সম্পাদনা</button>
+        </div>
+        <div class="admin-card">
+          <h3>সরঞ্জাম তালিকা</h3>
+          <div id="equipment-admin-list"></div>
+        </div>
+        <div class="alert alert-info" style="margin-top:1rem;">
+          <strong>💡 ছবি আপলোড:</strong> প্রতিটি সরঞ্জামের জন্য <code>images/equipment/</code> ফোল্ডারে ছবি রাখুন এবং JSON-এ পাথ আপডেট করুন।
+        </div>
+      </div>
+
+      <!-- ── STATS TAB ── -->
+      <div class="admin-tab" id="tab-stats">
+        <h2>Stats / Highlights</h2>
+        <p>হোমপেজের পরিসংখ্যান বক্স আপডেট করুন।</p>
+        <div class="admin-card">
+          <h3>পরিসংখ্যান</h3>
+          <div id="stats-admin-list"></div>
+        </div>
+        <button class="btn btn-blue" style="margin-top:.75rem;" onclick="saveStats()">✓ পরিবর্তন সংরক্ষণ করুন</button>
+        <div id="stats-save-msg" class="alert" style="display:none;margin-top:1rem;"></div>
+      </div>
+
+      <!-- ── SETTINGS TAB ── -->
+      <div class="admin-tab" id="tab-settings">
+        <h2>Settings</h2>
+        <p>সিস্টেম সেটিংস পরিচালনা করুন।</p>
+
+        <div class="admin-card">
+          <h3>পাসওয়ার্ড পরিবর্তন</h3>
+          <div class="form-group">
+            <label>বর্তমান পাসওয়ার্ড</label>
+            <input type="password" id="old-pass" placeholder="বর্তমান পাসওয়ার্ড">
+          </div>
+          <div class="form-group">
+            <label>নতুন পাসওয়ার্ড</label>
+            <input type="password" id="new-pass" placeholder="নতুন পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)">
+          </div>
+          <div class="form-group">
+            <label>নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
+            <input type="password" id="confirm-pass" placeholder="পুনরায় লিখুন">
+          </div>
+          <button class="btn btn-blue" onclick="changePassword()">পাসওয়ার্ড পরিবর্তন করুন</button>
+          <div id="pass-msg" class="alert" style="display:none;margin-top:1rem;"></div>
+        </div>
+
+        <div class="admin-card">
+          <h3>ডেটা ব্যবস্থাপনা</h3>
+          <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
+            <button class="btn btn-ghost btn-sm" onclick="exportData()">📥 সমস্ত ডেটা Export করুন</button>
+            <button class="btn btn-warn btn-sm" onclick="confirmReset()">♻️ সব ডিফল্টে পুনরায় সেট করুন</button>
+          </div>
+          <p style="font-size:.8rem;color:var(--text-muted);margin-top:.75rem;">Export করলে একটি JSON ফাইল ডাউনলোড হবে যা পরে Import করা যাবে।</p>
+        </div>
+
+        <div class="admin-card">
+          <h3>Report Download API</h3>
+          <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:.75rem;">ডেভেলপারের কাছ থেকে API URL পেলে এখানে সেট করুন। `report.html` স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।</p>
+          <div class="form-group">
+            <label>API Endpoint URL</label>
+            <input type="url" id="report-api-url" placeholder="https://api.example.com/reports/download">
+          </div>
+          <button class="btn btn-blue btn-sm" onclick="saveReportApi()">✓ API URL সংরক্ষণ করুন</button>
+          <div id="api-save-msg" class="alert" style="display:none;margin-top:1rem;"></div>
+        </div>
+
+        <div class="admin-card">
+          <h3>Doctor Image Folder</h3>
+          <p style="font-size:.85rem;color:var(--text-muted);">চিকিৎসকদের ছবি <code>images/doctors/</code> ফোল্ডারে রাখুন। ফাইল নাম হবে ডাক্তারের ID (যেমন: <code>d1.jpg</code>)।</p>
+          <p style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem;">সরঞ্জামের ছবি <code>images/equipment/</code> ফোল্ডারে রাখুন।</p>
+          <p style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem;">MD-এর ছবি <code>images/md/md-photo.jpg</code> নামে রাখুন।</p>
+        </div>
+      </div>
+
+    </main>
+  </div>
+</div>
+
+<!-- ══════════ MODAL ══════════ -->
+<div id="modal" class="modal-overlay" style="display:none;" onclick="closeModal(event)">
+  <div class="modal-box" id="modal-box">
+    <h3 id="modal-title">Title</h3>
+    <div id="modal-body"></div>
+    <div class="modal-footer" id="modal-footer"></div>
+  </div>
+</div>
+
+<script src="data.js"></script>
+<script>
+/* ═══════════════════════════════════════
+   AUTH
+═══════════════════════════════════════ */
+const DEFAULT_PASS = "admin123";
+
+function getPass() { return localStorage.getItem("bsky_admin_pass") || DEFAULT_PASS; }
+function isLoggedIn() { return sessionStorage.getItem("bsky_admin_auth") === "1"; }
+
+function doLogin() {
+  const val = document.getElementById("admin-pass").value;
+  if (val === getPass()) {
+    sessionStorage.setItem("bsky_admin_auth", "1");
+    showPanel();
+  } else {
+    const err = document.getElementById("login-error");
+    err.style.display = "block";
+    err.textContent = "ভুল পাসওয়ার্ড। আবার চেষ্টা করুন।";
+  }
+}
+
+function doLogout() {
+  sessionStorage.removeItem("bsky_admin_auth");
+  location.reload();
+}
+
+document.getElementById("admin-pass").addEventListener("keydown", e => {
+  if (e.key === "Enter") doLogin();
+});
+
+/* ═══════════════════════════════════════
+   PANEL INIT
+═══════════════════════════════════════ */
+function showPanel() {
+  document.getElementById("login-screen").style.display = "none";
+  document.getElementById("admin-panel").style.display  = "block";
+  loadAllTabs();
+}
+
+if (isLoggedIn()) showPanel();
+
+/* ═══════════════════════════════════════
+   TAB SWITCHER
+═══════════════════════════════════════ */
+function switchTab(id) {
+  document.querySelectorAll(".admin-tab").forEach(t => t.classList.remove("active"));
+  document.querySelectorAll(".admin-nav-item").forEach(n => n.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+  const navItem = document.querySelector(`[data-tab="${id}"]`);
+  if (navItem) navItem.classList.add("active");
+}
+
+/* ═══════════════════════════════════════
+   DATA HELPERS
+═══════════════════════════════════════ */
+function loadKey(k) {
+  try { const s = localStorage.getItem("bsky_"+k); return s ? JSON.parse(s) : null; } catch(_) { return null; }
+}
+function saveKey(k, val) { localStorage.setItem("bsky_"+k, JSON.stringify(val)); }
+function getLiveData() { return getSiteData(); }
+
+/* ═══════════════════════════════════════
+   LOAD ALL TABS
+═══════════════════════════════════════ */
+function loadAllTabs() {
+  renderBannersTab();
+  renderContactTab();
+  renderDoctorsTab();
+  renderPackagesTab();
+  renderServicesTab();
+  renderEquipmentTab();
+  renderStatsTab();
+  loadSettingsTab();
+}
+
+/* ═══════════════════════════════════════
+   BANNERS
+═══════════════════════════════════════ */
+function renderBannersTab() {
+  const data    = getLiveData();
+  const list    = document.getElementById("banners-list");
+  list.innerHTML = data.banners.length
+    ? data.banners.map(b => `
+        <div class="admin-row" id="banner-row-${b.id}">
+          <div style="display:flex;align-items:center;gap:.85rem;flex:1;min-width:0;">
+            <div style="width:60px;height:60px;flex-shrink:0;border-radius:8px;overflow:hidden;background:var(--pale-blue);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;">
+              <img src="${b.src}" alt="thumb" style="width:100%;height:100%;object-fit:cover;"
+                   onerror="this.style.display='none';this.nextElementSibling.style.display='flex'"
+                   loading="lazy">
+              <span style="display:none;font-size:1.5rem;align-items:center;justify-content:center;width:100%;height:100%;">🖼️</span>
+            </div>
+            <div style="min-width:0;">
+              <div class="admin-row-label" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                ${b.active ? `<span class="badge-active">Active</span>` : `<span class="badge-inactive">Inactive</span>`}
+                &nbsp; <strong>${b.alt || "(no title)"}</strong>
+              </div>
+              <div class="admin-row-sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
+                🔗 ${b.link || "No link"} &nbsp;|&nbsp; 📄 ${b.src}
+              </div>
+            </div>
+          </div>
+          <div class="admin-actions">
+            <label class="toggle-switch" title="${b.active?'নিষ্ক্রিয় করুন':'সক্রিয় করুন'}">
+              <input type="checkbox" ${b.active?"checked":""} onchange="toggleBanner('${b.id}',this.checked)">
+              <span class="toggle-slider"></span>
+            </label>
+            <button class="btn btn-sm btn-ghost" onclick="openEditBanner('${b.id}')">সম্পাদনা</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteBanner('${b.id}')">মুছুন</button>
+          </div>
+        </div>`
+      ).join("")
+    : `<p style="color:var(--text-muted);padding:1rem 0;">কোনো ব্যানার নেই।</p>`;
+}
+
+function saveBannersAndRefresh(banners) {
+  saveKey("banners", banners);
+  renderBannersTab();
+}
+
+function toggleBanner(id, active) {
+  const data = getLiveData();
+  const b    = data.banners.find(x => x.id === id);
+  if (b) { b.active = active; saveBannersAndRefresh(data.banners); }
+}
+
+function deleteBanner(id) {
+  if (!confirm("এই ব্যানার মুছে ফেলবেন?")) return;
+  const data  = getLiveData();
+  const arr   = data.banners.filter(b => b.id !== id);
+  saveBannersAndRefresh(arr);
+}
+
+function openAddBanner() {
+  openModal("নতুন ব্যানার যোগ করুন",
+    buildBannerForm({ id: "b" + Date.now(), src: "", alt: "", link: "", active: true }),
+    () => {
+      const b = getBannerFormValues();
+      if (!b.src) { alert("ইমেজ পাথ বা URL দিন।"); return false; }
+      const data = getLiveData();
+      data.banners.push(b);
+      saveBannersAndRefresh(data.banners);
+      return true;
+    }
+  );
+}
+
+function openEditBanner(id) {
+  const data = getLiveData();
+  const b    = data.banners.find(x => x.id === id);
+  if (!b) return;
+  openModal("ব্যানার সম্পাদনা",
+    buildBannerForm(b),
+    () => {
+      const updated = getBannerFormValues();
+      updated.id    = id;
+      const arr     = data.banners.map(x => x.id === id ? updated : x);
+      saveBannersAndRefresh(arr);
+      return true;
+    }
+  );
+}
+
+function buildBannerForm(b) {
+  return `
+    <div class="form-group">
+      <label>ইমেজ পাথ বা URL <span style="color:red">*</span></label>
+      <input type="text" id="bf-src" value="${b.src||""}"
+             placeholder="images/banners/dr-name-banner.jpeg  অথবা  https://..."
+             oninput="previewBannerImg(this.value.trim())">
+      <small style="color:var(--text-muted);font-size:.75rem;">লোকাল ফাইলের জন্য ছবিটি <code>images/banners/</code> ফোল্ডারে রাখুন।</small>
+    </div>
+
+    <div id="bf-preview-wrap" style="display:${b.src?'block':'none'};margin-bottom:1rem;">
+      <p style="font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;">ছবির পূর্বরূপ:</p>
+      <div style="border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;max-width:220px;background:var(--pale-blue);">
+        <img id="bf-preview" src="${b.src||''}" alt="preview"
+             style="width:100%;height:auto;max-height:200px;object-fit:cover;display:${b.src?'block':'none'};"
+             onerror="this.style.display='none';document.getElementById('bf-preview-err').style.display='block'">
+        <p id="bf-preview-err" style="display:none;padding:.5rem;font-size:.75rem;color:#C62828;text-align:center;">❌ ছবি লোড হয়নি — পাথ যাচাই করুন</p>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>শিরোনাম / Alt Text</label>
+      <input type="text" id="bf-alt" value="${b.alt||""}" placeholder="ব্যানারের বিবরণ (বাংলায়)">
+    </div>
+    <div class="form-group">
+      <label>ক্লিক করলে যাবে (Link)</label>
+      <input type="text" id="bf-link" value="${b.link||""}" placeholder="doctors.html  অথবা  https://...">
+    </div>
+    <div class="form-group" style="display:flex;align-items:center;gap:.75rem;">
+      <label style="margin:0;font-weight:600;font-size:.88rem;cursor:pointer;">
+        <input type="checkbox" id="bf-active" ${b.active?"checked":""} style="margin-right:.4rem;width:auto;">
+        সক্রিয় (Active)
+      </label>
+    </div>`;
+}
+
+function getBannerFormValues() {
+  return {
+    id:     "b" + Date.now(),
+    src:    document.getElementById("bf-src").value.trim(),
+    alt:    document.getElementById("bf-alt").value.trim(),
+    link:   document.getElementById("bf-link").value.trim(),
+    active: document.getElementById("bf-active").checked
+  };
+}
+
+/* ═══════════════════════════════════════
+   CONTACT
+═══════════════════════════════════════ */
+function renderContactTab() {
+  const d = getLiveData().contact;
+  document.getElementById("contact-phones-input").value = (d.phones||[]).join("\n");
+  document.getElementById("contact-address-en").value   = d.address  || "";
+  document.getElementById("contact-address-bn").value   = d.addressBn || "";
+  document.getElementById("contact-hours").value   = d.hours   || "";
+  document.getElementById("contact-website").value = d.website || "";
+}
+
+function saveContact() {
+  const phones = document.getElementById("contact-phones-input").value
+    .split("\n").map(p => p.trim()).filter(Boolean);
+  const contact = {
+    phones,
+    address:   document.getElementById("contact-address-en").value.trim(),
+    addressBn: document.getElementById("contact-address-bn").value.trim(),
+    hours:     document.getElementById("contact-hours").value.trim(),
+    website:   document.getElementById("contact-website").value.trim(),
+    email:     getLiveData().contact.email || ""
+  };
+  saveKey("contact", contact);
+  showMsg("contact-save-msg", "alert-success", "✅ যোগাযোগের তথ্য সংরক্ষিত হয়েছে।");
+}
+
+/* ═══════════════════════════════════════
+   DOCTORS
+═══════════════════════════════════════ */
+function renderDoctorsTab() {
+  const doctors = getLiveData().doctors;
+  const list    = document.getElementById("doctors-admin-list");
+  list.innerHTML = doctors.map(d => `
+    <div class="admin-row">
+      <div>
+        <div class="admin-row-label">${d.name}</div>
+        <div class="admin-row-sub">${d.specialty} | ${d.degrees}</div>
+      </div>
+      <div class="admin-actions">
+        <button class="btn btn-sm btn-ghost" onclick="openEditDoctor('${d.id}')">সম্পাদনা</button>
+        <button class="btn btn-sm btn-danger" onclick="deleteDoctor('${d.id}')">মুছুন</button>
+      </div>
+    </div>`
+  ).join("");
+}
+
+function openAddDoctor() {
+  const cats = getLiveData().doctorCategories.filter(c => c.id !== "all");
+  openModal("নতুন চিকিৎসক যোগ করুন",
+    buildDoctorForm({}, cats),
+    () => {
+      const doc = getDoctorFormValues();
+      if (!doc.name) { alert("নাম দিন।"); return false; }
+      doc.id = "d" + Date.now();
+      const data = getLiveData();
+      data.doctors.push(doc);
+      saveKey("doctors", data.doctors);
+      renderDoctorsTab();
+      return true;
+    }
+  );
+}
+
+function openEditDoctor(id) {
+  const data = getLiveData();
+  const doc  = data.doctors.find(d => d.id === id);
+  if (!doc) return;
+  const cats = data.doctorCategories.filter(c => c.id !== "all");
+  openModal("চিকিৎসক সম্পাদনা",
+    buildDoctorForm(doc, cats),
+    () => {
+      const updated = getDoctorFormValues();
+      updated.id    = id;
+      const arr     = data.doctors.map(d => d.id === id ? updated : d);
+      saveKey("doctors", arr);
+      renderDoctorsTab();
+      return true;
+    }
+  );
+}
+
+function deleteDoctor(id) {
+  if (!confirm("এই চিকিৎসককে মুছে ফেলবেন?")) return;
+  const data = getLiveData();
+  saveKey("doctors", data.doctors.filter(d => d.id !== id));
+  renderDoctorsTab();
+}
+
+function buildDoctorForm(d, cats) {
+  const opts = cats.map(c => `<option value="${c.id}" ${d.category===c.id?"selected":""}>${c.label}</option>`).join("");
+  return `
+    <div class="admin-grid-2">
+      <div class="form-group">
+        <label>নাম (বাংলা) <span style="color:red">*</span></label>
+        <input type="text" id="df-name" value="${d.name||""}" placeholder="ডা. নাম">
+      </div>
+      <div class="form-group">
+        <label>বিভাগ</label>
+        <select id="df-cat">${opts}</select>
+      </div>
+    </div>
+    <div class="admin-grid-2">
+      <div class="form-group">
+        <label>বিশেষত্ব (বাংলা)</label>
+        <input type="text" id="df-specialty" value="${d.specialty||""}" placeholder="হৃদরোগ বিশেষজ্ঞ">
+      </div>
+      <div class="form-group">
+        <label>Specialty (English)</label>
+        <input type="text" id="df-specialtyEn" value="${d.specialtyEn||""}" placeholder="Cardiologist">
+      </div>
+    </div>
+    <div class="form-group">
+      <label>ডিগ্রি সমূহ</label>
+      <input type="text" id="df-degrees" value="${d.degrees||""}" placeholder="এমবিবিএস, এমডি (কার্ডিওলজি)">
+    </div>
+    <div class="form-group">
+      <label>প্রতিষ্ঠান / পদবী</label>
+      <input type="text" id="df-inst" value="${d.institution||""}" placeholder="সহকারী অধ্যাপক">
+    </div>
+    <div class="form-group">
+      <label>ছবির পাথ</label>
+      <input type="text" id="df-image" value="${d.image||"images/doctors/placeholder.svg"}" placeholder="images/doctors/d1.jpg">
+      <small style="color:var(--text-muted);font-size:.75rem;">ছবিটি <code>images/doctors/</code> ফোল্ডারে রাখুন।</small>
+    </div>`;
+}
+
+function getDoctorFormValues() {
+  return {
+    name:       document.getElementById("df-name").value.trim(),
+    specialty:  document.getElementById("df-specialty").value.trim(),
+    specialtyEn:document.getElementById("df-specialtyEn").value.trim(),
+    degrees:    document.getElementById("df-degrees").value.trim(),
+    institution:document.getElementById("df-inst").value.trim(),
+      image:      document.getElementById("df-image").value.trim() || "images/doctors/placeholder.svg",
+    category:   document.getElementById("df-cat").value
+  };
+}
+
+/* ═══════════════════════════════════════
+   PACKAGES (JSON Editor)
+═══════════════════════════════════════ */
+function renderPackagesTab() {
+  const pkgs = getLiveData().packages;
+  const list = document.getElementById("packages-admin-list");
+  list.innerHTML = pkgs.map(p => `
+    <div class="admin-row">
+      <div>
+        <div class="admin-row-label">${p.nameBn}</div>
+        <div class="admin-row-sub">${p.nameEn} | মূল্য: ${p.price}</div>
+      </div>
+    </div>`
+  ).join("");
+}
+
+function renderServicesTab() {
+  const svcs = getLiveData().services;
+  const list = document.getElementById("services-admin-list");
+  list.innerHTML = svcs.map(s => `
+    <div class="admin-row">
+      <div>
+        <div class="admin-row-label">${s.icon} ${s.titleBn}</div>
+        <div class="admin-row-sub">${s.titleEn} | ${s.items.length} আইটেম</div>
+      </div>
+    </div>`
+  ).join("");
+}
+
+function renderEquipmentTab() {
+  const eqs  = getLiveData().equipment;
+  const list = document.getElementById("equipment-admin-list");
+  list.innerHTML = eqs.map(e => `
+    <div class="admin-row">
+      <div>
+        <div class="admin-row-label">${e.name}</div>
+        <div class="admin-row-sub">${e.brand} | 📷 ${e.image}</div>
+      </div>
+    </div>`
+  ).join("");
+}
+
+/* ═══════════════════════════════════════
+   STATS
+═══════════════════════════════════════ */
+function renderStatsTab() {
+  const stats = getLiveData().stats;
+  const list  = document.getElementById("stats-admin-list");
+  list.innerHTML = stats.map((s, i) => `
+    <div class="admin-row" style="flex-wrap:nowrap;">
+      <div style="flex:1;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
+        <input type="text" id="stat-val-${i}" value="${s.value}"
+               style="width:120px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;">
+        <input type="text" id="stat-lbl-${i}" value="${s.label}"
+               style="flex:1;min-width:180px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;">
+      </div>
+    </div>`
+  ).join("");
+}
+
+function saveStats() {
+  const data  = getLiveData();
+  const stats = data.stats.map((_, i) => ({
+    value: document.getElementById("stat-val-"+i).value.trim(),
+    label: document.getElementById("stat-lbl-"+i).value.trim()
+  }));
+  saveKey("stats", stats);
+  showMsg("stats-save-msg", "alert-success", "✅ পরিসংখ্যান সংরক্ষিত হয়েছে।");
+}
+
+/* ═══════════════════════════════════════
+   JSON EDITOR (Generic)
+═══════════════════════════════════════ */
+function openJsonEditor(key) {
+  const data = getLiveData();
+  const val  = JSON.stringify(data[key], null, 2);
+  openModal(`JSON সম্পাদনা — ${key}`,
+    `<p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem;">সরাসরি JSON সম্পাদনা করুন। ভুল JSON সংরক্ষণ করবেন না।</p>
+     <textarea class="json-editor" id="je-content" rows="20">${escapeHtml(val)}</textarea>`,
+    () => {
+      try {
+        const parsed = JSON.parse(document.getElementById("je-content").value);
+        saveKey(key, parsed);
+        loadAllTabs();
+        return true;
+      } catch(e) {
+        alert("JSON ফরম্যাট ভুল: " + e.message);
+        return false;
+      }
+    }
+  );
+}
+
+/* ═══════════════════════════════════════
+   SETTINGS
+═══════════════════════════════════════ */
+function loadSettingsTab() {
+  const url = localStorage.getItem("bsky_report_api") || "";
+  const el  = document.getElementById("report-api-url");
+  if (el) el.value = url;
+}
+
+function saveReportApi() {
+  const url = document.getElementById("report-api-url").value.trim();
+  localStorage.setItem("bsky_report_api", url);
+  showMsg("api-save-msg","alert-success","✅ API URL সংরক্ষিত হয়েছে। report.html স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।");
+}
+
+function changePassword() {
+  const old  = document.getElementById("old-pass").value;
+  const nw   = document.getElementById("new-pass").value;
+  const conf = document.getElementById("confirm-pass").value;
+
+  if (old !== getPass())        { showMsg("pass-msg","alert-error","❌ বর্তমান পাসওয়ার্ড ভুল।"); return; }
+  if (nw.length < 6)            { showMsg("pass-msg","alert-error","❌ নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে।"); return; }
+  if (nw !== conf)              { showMsg("pass-msg","alert-error","❌ পাসওয়ার্ড মিলছে না।"); return; }
+
+  localStorage.setItem("bsky_admin_pass", nw);
+  showMsg("pass-msg","alert-success","✅ পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে।");
+  ["old-pass","new-pass","confirm-pass"].forEach(id => document.getElementById(id).value = "");
+}
+
+function exportData() {
+  const data = getLiveData();
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: "application/json" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = "bluesky_data_" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function confirmReset() {
+  if (!confirm("সত্যিই সব ডেটা ডিফল্টে রিসেট করবেন? এটি ফেরানো যাবে না।")) return;
+  const keys = ["banners","contact","doctors","packages","services","equipment","stats"];
+  keys.forEach(k => localStorage.removeItem("bsky_"+k));
+  alert("সব ডেটা ডিফল্টে ফিরে গেছে।");
+  loadAllTabs();
+}
+
+function clearBannerCache() {
+  localStorage.removeItem("bsky_banner_dismissed_at");
+  localStorage.setItem("bsky_banner_force_show", "1");  // cross-tab: bypasses sessionStorage guard on any tab
+  sessionStorage.removeItem("bsky_banner_seen");         // same-tab: works if admin and index share a tab
+  alert("পপ-আপ ক্যাশ মুছে ফেলা হয়েছে। এখন যেকোনো ট্যাবে হোম পেজ ভিজিট করলে ব্যানার পপ-আপ দেখা যাবে।");
+}
+
+function resetBannersToDefault() {
+  if (!confirm("localStorage-এ সংরক্ষিত ব্যানার ডেটা মুছে DEFAULT ডেটায় ফিরে যাবে।\nসব ৬টি ডিফল্ট ব্যানার পুনরুদ্ধার হবে। নিশ্চিত করুন?")) return;
+  localStorage.removeItem("bsky_banners");
+  localStorage.removeItem("bsky_banner_dismissed_at");
+  sessionStorage.removeItem("bsky_banner_seen");
+  renderBannersTab();
+  alert("ব্যানার ডিফল্টে রিসেট হয়েছে — সব ৬টি ব্যানার এখন সক্রিয়।");
+}
+
+function previewBannerImg(src) {
+  const wrap = document.getElementById("bf-preview-wrap");
+  const img  = document.getElementById("bf-preview");
+  const err  = document.getElementById("bf-preview-err");
+  if (!src) { wrap.style.display = "none"; return; }
+  wrap.style.display = "block";
+  img.style.display  = "block";
+  err.style.display  = "none";
+  img.src = src;
+}
+
+/* ═══════════════════════════════════════
+   MODAL
+═══════════════════════════════════════ */
+let _onSave = null;
+
+function openModal(title, bodyHtml, onSave) {
+  document.getElementById("modal-title").textContent = title;
+  document.getElementById("modal-body").innerHTML    = bodyHtml;
+  document.getElementById("modal-footer").innerHTML  =
+    `<button class="btn btn-ghost btn-sm" onclick="closeModal()">বাতিল</button>
+     <button class="btn btn-blue btn-sm" onclick="doSave()">✓ সংরক্ষণ করুন</button>`;
+  _onSave = onSave;
+  document.getElementById("modal").style.display = "flex";
+}
+
+function closeModal(e) {
+  if (!e || e.target === document.getElementById("modal")) {
+    document.getElementById("modal").style.display = "none";
+    _onSave = null;
+  }
+}
+
+function doSave() {
+  if (_onSave && _onSave() !== false) {
+    document.getElementById("modal").style.display = "none";
+    _onSave = null;
+  }
+}
+
+/* ═══════════════════════════════════════
+   UTILITIES
+═══════════════════════════════════════ */
+function showMsg(id, cls, text) {
+  const el = document.getElementById(id);
+  el.className = "alert " + cls;
+  el.textContent = text;
+  el.style.display = "block";
+  setTimeout(() => { el.style.display = "none"; }, 4000);
+}
+
+function escapeHtml(str) {
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+</script>
+</body>
+</html>

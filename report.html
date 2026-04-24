@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Bluesky Health Limited — রোগীর ডায়াগনস্টিক রিপোর্ট ডাউনলোড করুন।">
+  <title>রিপোর্ট ডাউনলোড — Bluesky Health Limited</title>
+  <link rel="icon" href="logo.jpeg" type="image/jpeg">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<!-- Page Hero -->
+<section class="page-hero">
+  <div class="container">
+    <h1>রিপোর্ট ডাউনলোড</h1>
+    <p>আপনার পরীক্ষার রিপোর্ট নিরাপদে ডাউনলোড করুন</p>
+    <div class="breadcrumb">
+      <a href="index.html">হোম</a> › রিপোর্ট
+    </div>
+  </div>
+</section>
+
+<!-- ══════════ REPORT FORM ══════════ -->
+<section class="report-section bg-light">
+  <div class="container">
+    <div class="report-card">
+      <div style="text-align:center;margin-bottom:1.75rem;">
+        <img src="logo.jpeg" alt="Bluesky Health" style="height:50px;margin:0 auto .75rem;border-radius:8px;">
+        <h2>রিপোর্ট অ্যাক্সেস করুন</h2>
+        <p>আপনার রোগী আইডি ও মোবাইল নম্বর দিয়ে রিপোর্ট ডাউনলোড করুন।</p>
+      </div>
+
+      <!-- API Under Development Notice -->
+      <div class="alert alert-info" style="margin-bottom:1.5rem;">
+        <strong>🔧 সেবা শীঘ্রই আসছে</strong>
+        অনলাইন রিপোর্ট ডাউনলোড সিস্টেম বর্তমানে উন্নয়নাধীন। খুব শীঘ্রই চালু হবে। এই মুহূর্তে রিপোর্টের জন্য আমাদের কেন্দ্রে সরাসরি যোগাযোগ করুন।
+      </div>
+
+      <form id="report-form" novalidate>
+        <div class="form-group">
+          <label for="patient-id">রোগী আইডি / Patient ID</label>
+          <input type="text" id="patient-id" placeholder="যেমন: BH-2025-001" autocomplete="off">
+        </div>
+        <div class="form-group">
+          <label for="patient-phone">নিবন্ধিত মোবাইল নম্বর</label>
+          <input type="tel" id="patient-phone" placeholder="01XXXXXXXXX" autocomplete="tel">
+        </div>
+        <div class="form-group">
+          <label for="patient-dob">জন্ম তারিখ (যাচাইয়ের জন্য)</label>
+          <input type="date" id="patient-dob">
+        </div>
+
+        <button type="submit" class="btn btn-blue" style="width:100%;justify-content:center;margin-top:.5rem;" id="report-btn">
+          রিপোর্ট ডাউনলোড করুন
+        </button>
+      </form>
+
+      <div id="report-result" style="display:none;"></div>
+
+      <div class="api-notice" style="margin-top:1.5rem;">
+        <strong>📞 সরাসরি সহায়তা প্রয়োজন?</strong>
+        রিপোর্ট সংক্রান্ত যেকোনো সমস্যায় আমাদের সাথে যোগাযোগ করুন।
+        <div id="report-phones" style="margin-top:.65rem;"></div>
+      </div>
+    </div>
+
+    <!-- How it works -->
+    <div style="max-width:520px;margin:2.5rem auto 0;">
+      <h3 style="color:var(--navy);text-align:center;margin-bottom:1.5rem;font-size:1rem;">কীভাবে রিপোর্ট পাবেন?</h3>
+      <div style="display:flex;flex-direction:column;gap:1rem;">
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;">
+          <div style="width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">১</div>
+          <div>
+            <h4 style="font-size:.9rem;color:var(--navy);">পরীক্ষা সম্পন্ন করুন</h4>
+            <p style="font-size:.82rem;color:var(--text-muted);">আমাদের কেন্দ্রে এসে পরীক্ষা দিন এবং রোগী আইডি গ্রহণ করুন।</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;">
+          <div style="width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">২</div>
+          <div>
+            <h4 style="font-size:.9rem;color:var(--navy);">SMS বিজ্ঞপ্তি পান</h4>
+            <p style="font-size:.82rem;color:var(--text-muted);">রিপোর্ট তৈরি হলে আপনার নিবন্ধিত নম্বরে SMS পাঠানো হবে।</p>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;">
+          <div style="width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">৩</div>
+          <div>
+            <h4 style="font-size:.9rem;color:var(--navy);">ডাউনলোড করুন</h4>
+            <p style="font-size:.82rem;color:var(--text-muted);">আইডি ও ফোন নম্বর দিয়ে লগইন করে আপনার রিপোর্ট ডাউনলোড করুন।</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<div id="site-footer"></div>
+
+<script>try{if(localStorage.getItem('bsky_data_version')!=='2'){['banners','contact','doctors','packages','services','equipment','stats'].forEach(k=>localStorage.removeItem('bsky_'+k));localStorage.setItem('bsky_data_version','2');}}catch(_){}</script>
+<script src="data.js"></script>
+<script src="components.js"></script>
+<script>
+/* ─────────────────────────────────────────────
+   REPORT API INTEGRATION PLACEHOLDER
+   Replace REPORT_API_ENDPOINT and the fetch call
+   with actual API URL once available.
+───────────────────────────────────────────── */
+const REPORT_API_ENDPOINT = localStorage.getItem("bsky_report_api") || ""; // Set via Admin Panel → Settings, or insert URL here
+
+document.addEventListener("DOMContentLoaded", () => {
+  const data = getSiteData();
+  renderHeader("report");
+  renderFooter();
+  initBannerPopup();
+
+  // Phones
+  const phonesEl = document.getElementById("report-phones");
+  if (phonesEl) {
+    phonesEl.innerHTML = data.contact.phones.slice(0,3).map(p =>
+      `<a href="tel:${p.replace(/[^\d]/g,'')}" style="display:inline-block;margin-right:.75rem;color:var(--sky);font-weight:600;font-size:.88rem;">${p}</a>`
+    ).join("");
+  }
+
+  // Form submit
+  document.getElementById("report-form").addEventListener("submit", async function(e) {
+    e.preventDefault();
+    const id    = document.getElementById("patient-id").value.trim();
+    const phone = document.getElementById("patient-phone").value.trim();
+    const dob   = document.getElementById("patient-dob").value;
+    const btn   = document.getElementById("report-btn");
+    const result = document.getElementById("report-result");
+
+    if (!id || !phone) {
+      result.style.display = "block";
+      result.innerHTML = '<div class="alert alert-error">অনুগ্রহ করে রোগী আইডি ও মোবাইল নম্বর দিন।</div>';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "অনুগ্রহ করে অপেক্ষা করুন...";
+
+    /* ── API Integration ──────────────────────
+       When REPORT_API_ENDPOINT is set, replace
+       the block below with the real API call:
+
+       const resp = await fetch(REPORT_API_ENDPOINT, {
+         method: "POST",
+         headers: { "Content-Type": "application/json" },
+         body: JSON.stringify({ patientId: id, phone, dob })
+       });
+       const json = await resp.json();
+       // Handle json.reportUrl or json.error
+    ─────────────────────────────────────────── */
+
+    if (!REPORT_API_ENDPOINT) {
+      // API not yet integrated — show informational message
+      result.style.display = "block";
+      result.innerHTML = `
+        <div class="alert alert-info" style="margin-top:1rem;">
+          <strong>⏳ অনলাইন রিপোর্ট সিস্টেম শীঘ্রই চালু হবে।</strong><br>
+          বর্তমানে আপনার রিপোর্ট সরাসরি আমাদের কেন্দ্র থেকে অথবা ফোনে যোগাযোগ করে সংগ্রহ করুন।
+          রোগী আইডি: <strong>${id}</strong>
+        </div>`;
+    } else {
+      // Real API call (future implementation)
+      try {
+        const resp = await fetch(REPORT_API_ENDPOINT, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ patientId: id, phone, dob })
+        });
+        const json = await resp.json();
+
+        if (resp.ok && json.reportUrl) {
+          result.style.display = "block";
+          result.innerHTML = `
+            <div class="alert alert-success" style="margin-top:1rem;">
+              ✅ আপনার রিপোর্ট প্রস্তুত।
+              <a href="${json.reportUrl}" target="_blank" class="btn btn-green btn-sm" style="margin-top:.5rem;display:inline-flex;">
+                📄 রিপোর্ট ডাউনলোড করুন
+              </a>
+            </div>`;
+        } else {
+          result.style.display = "block";
+          result.innerHTML = `<div class="alert alert-error" style="margin-top:1rem;">❌ ${json.message || "রিপোর্ট পাওয়া যায়নি। তথ্য যাচাই করুন।"}</div>`;
+        }
+      } catch (err) {
+        result.style.display = "block";
+        result.innerHTML = `<div class="alert alert-error" style="margin-top:1rem;">❌ সার্ভার সংযোগে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।</div>`;
+      }
+    }
+
+    btn.disabled = false;
+    btn.textContent = "রিপোর্ট ডাউনলোড করুন";
+  });
+});
+</script>
+</body>
+</html>
