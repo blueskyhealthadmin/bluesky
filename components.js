@@ -358,6 +358,7 @@ function packageCard(pkg) {
     </div>`;
   }).join("");
   const title = lang === 'en' ? (pkg.nameEn || pkg.nameBn) : pkg.nameBn;
+  const displayPrice = lang === 'en' ? (pkg.priceEn || pkg.price) : pkg.price;
   const cta = lang === 'en' ? 'Call to Book' : 'বুকিং — কল করুন';
   return `
     <div class="pkg-card" data-category="${pkg.category}">
@@ -369,7 +370,7 @@ function packageCard(pkg) {
         ${groups}
       </div>
       <div class="pkg-footer">
-        <span class="pkg-price">${pkg.price}</span>
+        <span class="pkg-price">${displayPrice}</span>
         <a href="contact.html" class="btn btn-sm">${cta}</a>
       </div>
     </div>`;

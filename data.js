@@ -265,6 +265,7 @@ const DEFAULT_DATA = {
       nameEn: "Standard Health Package",
       nameBn: "স্ট্যান্ডার্ড স্বাস্থ্য পরীক্ষা প্যাকেজ",
       price: "৳ ৩,০০০/-",
+      priceEn: "৳ 3,000/-",
       category: "general",
       color: "#1565C0",
       groups: [
@@ -282,6 +283,7 @@ const DEFAULT_DATA = {
       nameEn: "Menstruation Health Package",
       nameBn: "মহিলাদের মাসিক স্বাস্থ্য পরীক্ষা প্যাকেজ",
       price: "৳ ৩,০০০/-",
+      priceEn: "৳ 3,000/-",
       category: "women",
       color: "#AD1457",
       groups: [
@@ -295,6 +297,7 @@ const DEFAULT_DATA = {
       nameEn: "Wellness Package for Woman",
       nameBn: "মহিলাদের জন্য সম্পূর্ণ ওয়েলনেস প্যাকেজ",
       price: "৳ ১৮,০০০/-",
+      priceEn: "৳ 18,000/-",
       category: "women",
       color: "#C2185B",
       groups: [
@@ -313,6 +316,7 @@ const DEFAULT_DATA = {
       nameEn: "Wellness Cardiac Check Up",
       nameBn: "কার্ডিয়াক চেক আপ প্যাকেজ",
       price: "৳ ৬,০০০/-",
+      priceEn: "৳ 6,000/-",
       category: "cardiac",
       color: "#B71C1C",
       groups: [
@@ -324,6 +328,7 @@ const DEFAULT_DATA = {
       nameEn: "Couple Fertility Health Package",
       nameBn: "দম্পতির জন্য ফার্টিলিটি স্বাস্থ্য প্যাকেজ",
       price: "৳ ১২,৫০০/-",
+      priceEn: "৳ 12,500/-",
       category: "fertility",
       color: "#6A1B9A",
       groups: [
@@ -342,6 +347,7 @@ const DEFAULT_DATA = {
       nameEn: "Pre-Marital Counselling Health Package",
       nameBn: "বিবাহ পূর্ব স্বাস্থ্য পরীক্ষা প্যাকেজ",
       price: "৳ ৩,০০০/-",
+      priceEn: "৳ 3,000/-",
       category: "general",
       color: "#00695C",
       groups: [
@@ -358,6 +364,7 @@ const DEFAULT_DATA = {
       nameEn: "Dengue & Chikungunya Screening",
       nameBn: "ডেঙ্গু এবং চিকুনগুনিয়া স্ক্রিনিং প্যাকেজ",
       price: "৳ ৪,০০০/-",
+      priceEn: "৳ 4,000/-",
       category: "infection",
       color: "#E65100",
       groups: [
@@ -375,6 +382,7 @@ const DEFAULT_DATA = {
       nameEn: "Thyroid Package",
       nameBn: "থাইরয়েড পরীক্ষা প্যাকেজ",
       price: "৳ ৭,০০০/-",
+      priceEn: "৳ 7,000/-",
       category: "hormone",
       color: "#0277BD",
       groups: [
@@ -391,6 +399,7 @@ const DEFAULT_DATA = {
       nameEn: "Executive Health Package",
       nameBn: "এক্সিকিউটিভ স্বাস্থ্য পরীক্ষা প্যাকেজ",
       price: "৳ ৬,০০০/-",
+      priceEn: "৳ 6,000/-",
       category: "general",
       color: "#1A237E",
       groups: [
@@ -408,6 +417,7 @@ const DEFAULT_DATA = {
       nameEn: "Whole Body Health Package",
       nameBn: "সম্পূর্ণ শরীর স্বাস্থ্য পরীক্ষা প্যাকেজ",
       price: "৳ ১৩,০০০/- (পুরুষ) | ৳ ১৫,০০০/- (মহিলা)",
+      priceEn: "৳ 13,000/- (Male) | ৳ 15,000/- (Female)",
       category: "comprehensive",
       color: "#0B3D91",
       groups: [
@@ -432,6 +442,7 @@ const DEFAULT_DATA = {
       nameEn: "Hypertension Package",
       nameBn: "উচ্চ রক্তচাপ পরীক্ষা প্যাকেজ",
       price: "৳ ৫,০০০/-",
+      priceEn: "৳ 5,000/-",
       category: "cardiac",
       color: "#C62828",
       groups: [
