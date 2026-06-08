@@ -15,18 +15,18 @@
 <!-- Page Hero -->
 <section class="page-hero">
   <div class="container">
-    <h1>স্বাস্থ্য পরীক্ষা প্যাকেজ</h1>
-    <p>আপনার প্রয়োজন অনুযায়ী প্যাকেজ বেছে নিন — বুকিং ও তথ্যের জন্য কল করুন</p>
+    <h1 id="tests-hero-title">স্বাস্থ্য পরীক্ষা প্যাকেজ</h1>
+    <p id="tests-hero-sub">আপনার প্রয়োজন অনুযায়ী প্যাকেজ বেছে নিন — বুকিং ও তথ্যের জন্য কল করুন</p>
     <div class="breadcrumb">
-      <a href="index.html">হোম</a> › টেস্ট প্যাকেজ
+      <a id="breadcrumb-home" href="index.html">হোম</a> › <span id="breadcrumb-current">টেস্ট প্যাকেজ</span>
     </div>
   </div>
 </section>
 
 <!-- ══════════ NOTICE ══════════ -->
-<div style="background:var(--light-blue);border-bottom:1px solid var(--border);padding:.85rem 0;">
+    <div style="background:var(--light-blue);border-bottom:1px solid var(--border);padding:.85rem 0;">
   <div class="container">
-    <p style="font-size:.88rem;color:var(--navy);display:flex;align-items:center;gap:.5rem;">
+    <p id="tests-notice" style="font-size:.88rem;color:var(--navy);display:flex;align-items:center;gap:.5rem;">
       📞 <strong>বিঃদ্রঃ</strong> এই ওয়েবসাইট থেকে সরাসরি বুকিং নেওয়া হয় না। টেস্ট বুক করতে বা তথ্যের জন্য আমাদের নম্বরে কল করুন।
     </p>
   </div>
@@ -44,7 +44,7 @@
 
     <!-- Empty -->
     <div id="pkg-empty" style="display:none;text-align:center;padding:3rem 0;">
-      <p style="color:var(--text-muted);">এই বিভাগে কোনো প্যাকেজ পাওয়া যায়নি।</p>
+      <p id="pkg-empty-msg" style="color:var(--text-muted);">এই বিভাগে কোনো প্যাকেজ পাওয়া যায়নি।</p>
     </div>
   </div>
 </section>
@@ -54,8 +54,8 @@
   <div class="container">
     <div class="callout-strip">
       <div>
-        <h3>পরীক্ষা করাতে চান?</h3>
-        <p>যেকোনো প্যাকেজ বা পরীক্ষার জন্য আজই আমাদের সাথে যোগাযোগ করুন।</p>
+        <h3 id="tests-cta-heading">পরীক্ষা করাতে চান?</h3>
+        <p id="tests-cta-sub">যেকোনো প্যাকেজ বা পরীক্ষার জন্য আজই আমাদের সাথে যোগাযোগ করুন।</p>
       </div>
       <a id="tests-cta-phone" href="contact.html" class="btn btn-blue">📞 এখনই কল করুন</a>
     </div>
@@ -75,6 +75,27 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHeader("tests");
   renderFooter();
   initBannerPopup();
+
+  // Page-level localization helper
+  const setText = (id, bn, en, html) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (html) el.innerHTML = window.l ? window.l(bn, en) : bn;
+    else el.textContent = window.l ? window.l(bn, en) : bn;
+  };
+
+  // Localize hero, breadcrumb and notices
+  setText('tests-hero-title', 'স্বাস্থ্য পরীক্ষা প্যাকেজ', 'Health Test Packages');
+  setText('tests-hero-sub', 'আপনার প্রয়োজন অনুযায়ী প্যাকেজ বেছে নিন — বুকিং ও তথ্যের জন্য কল করুন', 'Choose the right package for your needs — call for booking and information');
+  setText('breadcrumb-home', 'হোম', 'Home');
+  setText('breadcrumb-current', 'টেস্ট প্যাকেজ', 'Test Packages');
+  setText('tests-notice', '📞 বিঃদ্রঃ এই ওয়েবসাইট থেকে সরাসরি বুকিং নেওয়া হয় না। টেস্ট বুক করতে বা তথ্যের জন্য আমাদের নম্বরে কল করুন।', '📞 Note: This website does not accept direct bookings. Call our number to book tests or for information.');
+   // Page title and meta
+   if (window.l) document.title = window.l('টেস্ট প্যাকেজ — Bluesky Health Limited', 'Test Packages — Bluesky Health Limited');
+   const meta = document.querySelector('meta[name="description"]');
+   if (meta && window.l) meta.content = window.l('Bluesky Health Limited-এর স্বাস্থ্য পরীক্ষা প্যাকেজসমূহ — Standard, Cardiac, Women\'s, Executive, Whole Body এবং আরও অনেক প্যাকেজ।', 'Bluesky Health Limited test packages — Standard, Cardiac, Women\'s, Executive, Whole Body and many more.');
+  setText('tests-cta-heading', 'পরীক্ষা করাতে চান?', 'Want to get tested?');
+  setText('tests-cta-sub', 'যেকোনো প্যাকেজ বা পরীক্ষার জন্য আজই আমাদের সাথে যোগাযোগ করুন।', 'Contact us today for any package or test.');
 
   // Filter bar
   const filterBar = document.getElementById("pkg-filter-bar");

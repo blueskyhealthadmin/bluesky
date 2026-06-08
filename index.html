@@ -99,7 +99,7 @@
           </div>
         </div>
         <div style="margin-top:1.5rem;">
-          <a href="about.html" class="btn btn-blue">আরও জানুন</a>
+          <a id="about-learn-more" href="about.html" class="btn btn-blue">আরও জানুন</a>
         </div>
       </div>
     </div>
@@ -125,9 +125,9 @@
 <section class="pad bg-navy">
   <div class="container">
     <div class="section-header">
-      <p class="section-label">আমাদের সরঞ্জাম</p>
-      <h2 class="section-title">বিশ্বমানের যন্ত্রপাতি</h2>
-      <p class="section-subtitle">জাপান, স্পেন ও ইউরোপের সেরা ব্র্যান্ডের মেশিন ব্যবহার করা হয়।</p>
+      <p class="section-label" id="equip-label">আমাদের সরঞ্জাম</p>
+      <h2 class="section-title" id="equip-title">বিশ্বমানের যন্ত্রপাতি</h2>
+      <p class="section-subtitle" id="equip-sub">জাপান, স্পেন ও ইউরোপের সেরা ব্র্যান্ডের মেশিন ব্যবহার করা হয়।</p>
     </div>
     <div class="equipment-grid" id="equip-grid-home"></div>
   </div>
@@ -137,13 +137,13 @@
 <section class="pad bg-white">
   <div class="container">
     <div class="section-header">
-      <p class="section-label">স্বাস্থ্য প্যাকেজ</p>
-      <h2 class="section-title">জনপ্রিয় টেস্ট প্যাকেজসমূহ</h2>
-      <p class="section-subtitle">আপনার প্রয়োজন অনুযায়ী সঠিক প্যাকেজ বেছে নিন এবং অ্যাপয়েন্টমেন্টের জন্য কল করুন।</p>
+      <p class="section-label" id="pkg-section-label">স্বাস্থ্য প্যাকেজ</p>
+      <h2 class="section-title" id="pkg-section-title">জনপ্রিয় টেস্ট প্যাকেজসমূহ</h2>
+      <p class="section-subtitle" id="pkg-section-sub">আপনার প্রয়োজন অনুযায়ী সঠিক প্যাকেজ বেছে নিন এবং অ্যাপয়েন্টমেন্টের জন্য কল করুন।</p>
     </div>
     <div class="packages-grid" id="pkg-grid-home"></div>
     <div style="text-align:center; margin-top:2.5rem;">
-      <a href="tests.html" class="btn btn-ghost">সকল প্যাকেজ দেখুন →</a>
+      <a id="view-all-packages" href="tests.html" class="btn btn-ghost">সকল প্যাকেজ দেখুন →</a>
     </div>
   </div>
 </section>
@@ -153,12 +153,12 @@
   <div class="container">
     <div class="callout-strip">
       <div>
-        <h3>আজই অ্যাপয়েন্টমেন্ট নিন</h3>
-        <p>পরীক্ষা করাতে বা বিশেষজ্ঞ চিকিৎসকের পরামর্শ নিতে আমাদের সাথে যোগাযোগ করুন।</p>
+        <h3 id="home-cta-title">আজই অ্যাপয়েন্টমেন্ট নিন</h3>
+        <p id="home-cta-sub">পরীক্ষা করাতে বা বিশেষজ্ঞ চিকিৎসকের পরামর্শ নিতে আমাদের সাথে যোগাযোগ করুন।</p>
       </div>
       <div style="display:flex; gap:.75rem; flex-wrap:wrap;">
-        <a href="contact.html" class="btn btn-blue">যোগাযোগ করুন</a>
-        <a href="report.html" class="btn btn-ghost">রিপোর্ট ডাউনলোড</a>
+        <a id="home-cta-contact" href="contact.html" class="btn btn-blue">যোগাযোগ করুন</a>
+        <a id="home-cta-report" href="report.html" class="btn btn-ghost">রিপোর্ট ডাউনলোড</a>
       </div>
     </div>
   </div>
@@ -205,6 +205,10 @@ document.addEventListener("DOMContentLoaded", () => {
   setText('why-p1', 'Bluesky Health Limited একটি বিশেষায়িত ডায়াগনস্টিক ও মেডিকেল কনসালটেন্সি সেন্টার। ক্যান্সার নির্ণয়ে CT Guided Core Biopsy-তে আমরা বিশ্বমানের সেবা দিয়ে থাকি।', 'Bluesky Health Limited is a specialized diagnostic and medical consultancy center. We provide world-class CT Guided Core Biopsy for cancer diagnosis.');
   setText('why-p2', 'প্রথমবারের মতো বাংলাদেশে সম্পূর্ণ DNA সলিউশন প্যাকেজ চালু করতে আমরা আগ্রহী। আমাদের ১০,০০০ বর্গফুটের আধুনিক প্রিমিসেসে রয়েছে রেডিওলজি, প্যাথলজি ও কনসালটেন্সির সম্পূর্ণ সুবিধা।', 'We are introducing a complete DNA solution package in Bangladesh. Our modern 10,000 sqft premises house Radiology, Pathology and Consultancy services.');
 
+  setText('equip-label', 'আমাদের সরঞ্জাম', 'Our Equipment');
+  setText('equip-title', 'বিশ্বমানের যন্ত্রপাতি', 'World-class Equipment');
+  setText('equip-sub', 'জাপান, স্পেন ও ইউরোপের সেরা ব্র্যান্ডের মেশিন ব্যবহার করা হয়।', 'We use top brands from Japan, Spain and Europe.');
+
   // About value items
   setText('val1-title', 'নির্ভুল রিপোর্ট', 'Accurate Reports');
   setText('val1-desc', '৯৯.৯৯% পরীক্ষার নির্ভুলতার ইতিহাস', '99.99% historical test accuracy');
@@ -218,6 +222,24 @@ document.addEventListener("DOMContentLoaded", () => {
   setText('doctors-label', 'বিশেষজ্ঞ দল', 'Specialists');
   setText('doctors-title', 'আমাদের বিশেষজ্ঞ চিকিৎসকগণ', 'Our Specialist Doctors');
   setText('doctors-sub', 'দেশের সেরা বিশেষজ্ঞ চিকিৎসকরা এখানে সেবা দিচ্ছেন।', 'The country\'s top specialist doctors serve here.');
+  setText('view-doctors-link', 'সকল চিকিৎসক দেখুন →', 'View all doctors →');
+  setText('about-learn-more', 'আরও জানুন', 'Learn More');
+  setText('view-all-packages', 'সকল প্যাকেজ দেখুন →', 'View all packages →');
+
+  // Localize Health Packages section header
+  setText('pkg-section-label', 'স্বাস্থ্য প্যাকেজ', 'Health Packages');
+  setText('pkg-section-title', 'জনপ্রিয় টেস্ট প্যাকেজসমূহ', 'Popular Test Packages');
+  setText('pkg-section-sub', 'আপনার প্রয়োজন অনুযায়ী সঠিক প্যাকেজ বেছে নিন এবং অ্যাপয়েন্টমেন্টের জন্য কল করুন।', 'Choose the right package for your needs and call us to book an appointment.');
+
+  if (window.l) document.title = window.l('Bluesky Health Limited — বাংলাদেশের বিশ্বমানের ডায়াগনস্টিক ও মেডিকেল কনসালটেন্সি সেন্টার, মহাখালি, ঢাকা।','Bluesky Health Limited — Quality Diagnostic Center, Dhaka');
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta && window.l) meta.content = window.l('Bluesky Health Limited — বাংলাদেশের বিশ্বমানের ডায়াগনস্টিক ও মেডিকেল কনসালটেন্সি সেন্টার, মহাখালি, ঢাকা।','Bluesky Health Limited — Quality Diagnostic Center, Dhaka');
+
+  // Localize bottom CTA
+  setText('home-cta-title', 'আজই অ্যাপয়েন্টমেন্ট নিন', 'Book an Appointment Today');
+  setText('home-cta-sub', 'পরীক্ষা করাতে বা বিশেষজ্ঞ চিকিৎসকের পরামর্শ নিতে আমাদের সাথে যোগাযোগ করুন।', 'Contact us to schedule tests or consult a specialist.');
+  setText('home-cta-contact', 'যোগাযোগ করুন', 'Contact Us');
+  setText('home-cta-report', 'রিপোর্ট ডাউনলোড', 'Download Reports');
   setText('view-doctors-link', 'সকল চিকিৎসক দেখুন →', 'View All Doctors →');
 
   // Hero phones

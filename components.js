@@ -51,8 +51,8 @@ function renderHeader(activePage) {
         </nav>
 
         <div class="lang-switch" style="margin-left:1rem;display:flex;gap:.25rem;align-items:center;">
-          <button class="lang-btn" data-lang="bn" style="padding:.35rem .6rem;border-radius:4px;border:1px solid var(--border);background:transparent;">BN</button>
-          <button class="lang-btn" data-lang="en" style="padding:.35rem .6rem;border-radius:4px;border:1px solid var(--border);background:transparent;">EN</button>
+          <button class="lang-btn" data-lang="bn">BN</button>
+          <button class="lang-btn" data-lang="en">EN</button>
         </div>
       </div>
     </header>`;
@@ -127,7 +127,7 @@ function renderFooter() {
 
       <div class="footer-bottom">
         <div class="container">
-          <p>© ${new Date().getFullYear()} Bluesky Health Limited. সর্বস্বত্ব সংরক্ষিত।</p>
+          <p>${window.l('© '+new Date().getFullYear()+' Bluesky Health Limited. সর্বস্বত্ব সংরক্ষিত।', '© '+new Date().getFullYear()+' Bluesky Health Limited. All rights reserved.')}</p>
           <p><a href="admin.html">Admin Panel</a></p>
         </div>
       </div>

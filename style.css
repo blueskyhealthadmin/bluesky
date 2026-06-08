@@ -39,18 +39,38 @@ body.bsky-lang-bn::before { content: ""; position:fixed; left:0; right:0; top:0;
 body.bsky-lang-en::before { background: linear-gradient(90deg, var(--sky), var(--royal)); }
 body.bsky-lang-bn::before { background: linear-gradient(90deg, #10B981, #059669); }
 
+/* Active lang indicator in the switch itself — highlights which button is active */
+body.bsky-lang-en .lang-switch { border-color: var(--sky); }
+body.bsky-lang-bn .lang-switch { border-color: #10B981; }
+
 /* Language switch container */
-.lang-switch { background: rgba(255,255,255,0.9); padding: .15rem; border-radius:6px; border:1px solid var(--border); display:inline-flex; gap:.25rem; }
+.lang-switch {
+  background: var(--white);
+  padding: .15rem;
+  border-radius: 6px;
+  border: 2px solid var(--border);
+  display: inline-flex;
+  gap: .15rem;
+}
 
 /* Language button styles */
-.lang-btn { font-weight:600; cursor:pointer; border:1px solid var(--border); background:transparent; padding:.35rem .6rem; border-radius:4px; color:var(--navy); }
-.lang-btn:not(.active) { background: transparent; color: var(--navy); }
-.lang-btn.active { background: var(--sky); color: var(--white); border-color: var(--sky); }
-
-/* Ensure buttons are visible on light tints */
-body.bsky-lang-en .lang-btn:not(.active), body.bsky-lang-bn .lang-btn:not(.active) {
-  background: rgba(255,255,255,0.9);
-  border-color: rgba(0,0,0,0.06);
+.lang-btn {
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  background: var(--pale-blue);
+  color: var(--navy);
+  padding: .35rem .65rem;
+  border-radius: 4px;
+  font-size: .82rem;
+  letter-spacing: .04em;
+  transition: background .2s ease, color .2s ease;
+}
+.lang-btn:hover { background: var(--light-blue); }
+.lang-btn.active {
+  background: var(--sky);
+  color: var(--white);
+  box-shadow: 0 1px 4px rgba(33,150,243,.35);
 }
 
 /* ─── Reset & Base ─── */

@@ -18,7 +18,7 @@
     <h1 id="report-hero-title">রিপোর্ট ডাউনলোড</h1>
     <p id="report-hero-sub">আপনার পরীক্ষার রিপোর্ট নিরাপদে ডাউনলোড করুন</p>
     <div class="breadcrumb">
-      <a href="index.html">হোম</a> › রিপোর্ট
+      <a id="breadcrumb-home" href="index.html">হোম</a> › <span id="breadcrumb-current">রিপোর্ট</span>
     </div>
   </div>
 </section>
@@ -34,22 +34,22 @@
       </div>
 
       <!-- API Under Development Notice -->
-      <div class="alert alert-info" style="margin-bottom:1.5rem;">
+      <div class="alert alert-info" id="report-api-notice" style="margin-bottom:1.5rem;">
         <strong>🔧 সেবা শীঘ্রই আসছে</strong>
         অনলাইন রিপোর্ট ডাউনলোড সিস্টেম বর্তমানে উন্নয়নাধীন। খুব শীঘ্রই চালু হবে। এই মুহূর্তে রিপোর্টের জন্য আমাদের কেন্দ্রে সরাসরি যোগাযোগ করুন।
       </div>
 
       <form id="report-form" novalidate>
         <div class="form-group">
-          <label for="patient-id">রোগী আইডি / Patient ID</label>
+          <label id="label-patient-id" for="patient-id">রোগী আইডি / Patient ID</label>
           <input type="text" id="patient-id" placeholder="যেমন: BH-2025-001" autocomplete="off">
         </div>
         <div class="form-group">
-          <label for="patient-phone">নিবন্ধিত মোবাইল নম্বর</label>
+          <label id="label-patient-phone" for="patient-phone">নিবন্ধিত মোবাইল নম্বর</label>
           <input type="tel" id="patient-phone" placeholder="01XXXXXXXXX" autocomplete="tel">
         </div>
         <div class="form-group">
-          <label for="patient-dob">জন্ম তারিখ (যাচাইয়ের জন্য)</label>
+          <label id="label-patient-dob" for="patient-dob">জন্ম তারিখ (যাচাইয়ের জন্য)</label>
           <input type="date" id="patient-dob">
         </div>
 
@@ -61,35 +61,35 @@
       <div id="report-result" style="display:none;"></div>
 
       <div class="api-notice" style="margin-top:1.5rem;">
-        <strong>📞 সরাসরি সহায়তা প্রয়োজন?</strong>
-        রিপোর্ট সংক্রান্ত যেকোনো সমস্যায় আমাদের সাথে যোগাযোগ করুন।
+        <strong id="report-help-title">📞 সরাসরি সহায়তা প্রয়োজন?</strong>
+        <span id="report-help-sub">রিপোর্ট সংক্রান্ত যেকোনো সমস্যায় আমাদের সাথে যোগাযোগ করুন।</span>
         <div id="report-phones" style="margin-top:.65rem;"></div>
       </div>
     </div>
 
     <!-- How it works -->
     <div style="max-width:520px;margin:2.5rem auto 0;">
-      <h3 style="color:var(--navy);text-align:center;margin-bottom:1.5rem;font-size:1rem;">কীভাবে রিপোর্ট পাবেন?</h3>
+      <h3 id="how-report-title" style="color:var(--navy);text-align:center;margin-bottom:1.5rem;font-size:1rem;">কীভাবে রিপোর্ট পাবেন?</h3>
       <div style="display:flex;flex-direction:column;gap:1rem;">
         <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;">
           <div style="width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">১</div>
           <div>
-            <h4 style="font-size:.9rem;color:var(--navy);">পরীক্ষা সম্পন্ন করুন</h4>
-            <p style="font-size:.82rem;color:var(--text-muted);">আমাদের কেন্দ্রে এসে পরীক্ষা দিন এবং রোগী আইডি গ্রহণ করুন।</p>
+            <h4 id="how-step1-title" style="font-size:.9rem;color:var(--navy);">পরীক্ষা সম্পন্ন করুন</h4>
+            <p id="how-step1-desc" style="font-size:.82rem;color:var(--text-muted);">আমাদের কেন্দ্রে এসে পরীক্ষা দিন এবং রোগী আইডি গ্রহণ করুন।</p>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;">
           <div style="width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">২</div>
           <div>
-            <h4 style="font-size:.9rem;color:var(--navy);">SMS বিজ্ঞপ্তি পান</h4>
-            <p style="font-size:.82rem;color:var(--text-muted);">রিপোর্ট তৈরি হলে আপনার নিবন্ধিত নম্বরে SMS পাঠানো হবে।</p>
+            <h4 id="how-step2-title" style="font-size:.9rem;color:var(--navy);">SMS বিজ্ঞপ্তি পান</h4>
+            <p id="how-step2-desc" style="font-size:.82rem;color:var(--text-muted);">রিপোর্ট তৈরি হলে আপনার নিবন্ধিত নম্বরে SMS পাঠানো হবে।</p>
           </div>
         </div>
         <div style="display:flex;align-items:flex-start;gap:1rem;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:1rem;">
           <div style="width:32px;height:32px;background:var(--navy);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;flex-shrink:0;">৩</div>
           <div>
-            <h4 style="font-size:.9rem;color:var(--navy);">ডাউনলোড করুন</h4>
-            <p style="font-size:.82rem;color:var(--text-muted);">আইডি ও ফোন নম্বর দিয়ে লগইন করে আপনার রিপোর্ট ডাউনলোড করুন।</p>
+            <h4 id="how-step3-title" style="font-size:.9rem;color:var(--navy);">ডাউনলোড করুন</h4>
+            <p id="how-step3-desc" style="font-size:.82rem;color:var(--text-muted);">আইডি ও ফোন নম্বর দিয়ে লগইন করে আপনার রিপোর্ট ডাউনলোড করুন।</p>
           </div>
         </div>
       </div>
@@ -128,6 +128,23 @@ document.addEventListener("DOMContentLoaded", () => {
   setText('report-hero-sub', 'আপনার পরীক্ষার রিপোর্ট নিরাপদে ডাউনলোড করুন', 'Securely download your test report');
   setText('report-form-title', 'রিপোর্ট অ্যাক্সেস করুন', 'Access Your Report');
   setText('report-form-sub', 'আপনার রোগী আইডি ও মোবাইল নম্বর দিয়ে রিপোর্ট ডাউনলোড করুন।', 'Download your report using Patient ID and mobile number.');
+  setText('report-api-notice', '<strong>🔧 সেবা শীঘ্রই আসছে</strong> অনলাইন রিপোর্ট ডাউনলোড সিস্টেম বর্তমানে উন্নয়নাধীন। খুব শীঘ্রই চালু হবে। এই মুহূর্তে রিপোর্টের জন্য আমাদের কেন্দ্রে সরাসরি যোগাযোগ করুন।', '<strong>🔧 Service Coming Soon</strong> The online report download system is currently under development and will be available soon. For now, please contact our center directly for reports.', true);
+  setText('label-patient-id', 'রোগী আইডি / Patient ID', 'Patient ID');
+  setText('label-patient-phone', 'নিবন্ধিত মোবাইল নম্বর', 'Registered Mobile Number');
+  setText('label-patient-dob', 'জন্ম তারিখ (যাচাইয়ের জন্য)', 'Date of Birth (for verification)');
+  setText('report-btn', 'রিপোর্ট ডাউনলোড করুন', 'Download Report');
+  setText('report-help-title', '📞 সরাসরি সহায়তা প্রয়োজন?', '📞 Need direct assistance?');
+  setText('report-help-sub', 'রিপোর্ট সংক্রান্ত যেকোনো সমস্যায় আমাদের সাথে যোগাযোগ করুন।', 'Contact us for any report-related issues.');
+  setText('how-report-title', 'কীভাবে রিপোর্ট পাবেন?', 'How to get your report');
+  setText('breadcrumb-home', 'হোম', 'Home');
+  setText('breadcrumb-current', 'রিপোর্ট', 'Report');
+
+  setText('how-step1-title', 'পরীক্ষা সম্পন্ন করুন', 'Complete the test');
+  setText('how-step1-desc', 'আমাদের কেন্দ্রে এসে পরীক্ষা দিন এবং রোগী আইডি গ্রহণ করুন।', 'Visit our center to take the test and receive a Patient ID.');
+  setText('how-step2-title', 'SMS বিজ্ঞপ্তি পান', 'Receive an SMS notification');
+  setText('how-step2-desc', 'রিপোর্ট তৈরি হলে আপনার নিবন্ধিত নম্বরে SMS পাঠানো হবে।', 'You will receive an SMS on your registered number when the report is ready.');
+  setText('how-step3-title', 'ডাউনলোড করুন', 'Download');
+  setText('how-step3-desc', 'আইডি ও ফোন নম্বর দিয়ে লগইন করে আপনার রিপোর্ট ডাউনলোড করুন।', 'Log in with your ID and phone number to download the report.');
 
   // Phones
   const phonesEl = document.getElementById("report-phones");

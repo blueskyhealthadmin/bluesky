@@ -15,10 +15,10 @@
 <!-- Page Hero -->
 <section class="page-hero">
   <div class="container">
-    <h1>যোগাযোগ করুন</h1>
-    <p>অ্যাপয়েন্টমেন্ট বা তথ্যের জন্য আমাদের সাথে কথা বলুন</p>
+    <h1 id="contact-hero-title">যোগাযোগ করুন</h1>
+    <p id="contact-hero-sub">অ্যাপয়েন্টমেন্ট বা তথ্যের জন্য আমাদের সাথে কথা বলুন</p>
     <div class="breadcrumb">
-      <a href="index.html">হোম</a> › যোগাযোগ
+      <a id="breadcrumb-home" href="index.html">হোম</a> › <span id="breadcrumb-current">যোগাযোগ</span>
     </div>
   </div>
 </section>
@@ -31,12 +31,12 @@
       <!-- Info Card -->
       <div>
         <div class="contact-info-card">
-          <h3>📍 আমাদের অবস্থান ও যোগাযোগ</h3>
+          <h3 id="contact-info-heading">📍 আমাদের অবস্থান ও যোগাযোগ</h3>
 
           <div class="contact-item">
             <div class="contact-icon">📍</div>
             <div class="contact-item-body">
-              <h5>ঠিকানা</h5>
+              <h5 id="contact-address-label">ঠিকানা</h5>
               <p id="contact-address"></p>
             </div>
           </div>
@@ -44,7 +44,7 @@
           <div class="contact-item" id="contact-phones-block">
             <div class="contact-icon">📞</div>
             <div class="contact-item-body">
-              <h5>ফোন নম্বর</h5>
+              <h5 id="contact-phones-label">ফোন নম্বর</h5>
               <div id="contact-phones-list"></div>
             </div>
           </div>
@@ -52,7 +52,7 @@
           <div class="contact-item">
             <div class="contact-icon">🕗</div>
             <div class="contact-item-body">
-              <h5>সেবার সময়</h5>
+              <h5 id="contact-hours-label">সেবার সময়</h5>
               <p id="contact-hours"></p>
             </div>
           </div>
@@ -62,7 +62,7 @@
 
         <!-- Quick Phones -->
         <div style="margin-top:1.5rem;background:var(--pale-blue);border-radius:var(--radius-lg);padding:1.5rem;border:1px solid var(--border);">
-          <h4 style="color:var(--navy);margin-bottom:1rem;font-size:.95rem;">📞 দ্রুত কল করুন</h4>
+          <h4 id="quick-phones-heading" style="color:var(--navy);margin-bottom:1rem;font-size:.95rem;">📞 দ্রুত কল করুন</h4>
           <div id="quick-phones" style="display:flex;flex-direction:column;gap:.6rem;"></div>
         </div>
       </div>
@@ -90,35 +90,35 @@
 <section class="pad-sm bg-light">
   <div class="container">
     <div class="section-header" style="margin-bottom:2rem;">
-      <p class="section-label">যাতায়াত</p>
-      <h2 class="section-title">কীভাবে আসবেন?</h2>
+      <p class="section-label" id="how-label">যাতায়াত</p>
+      <h2 class="section-title" id="how-title">কীভাবে আসবেন?</h2>
     </div>
     <div class="services-grid">
-      <div class="service-card">
+          <div class="service-card">
         <div class="service-icon">🚌</div>
-        <h3>বাস যোগে</h3>
+        <h3 id="how-1-title">বাস যোগে</h3>
         <p class="svc-en">By Bus</p>
         <ul>
-          <li>মহাখালি বাস টার্মিনালে নেমে ৫ মিনিট হাঁটুন</li>
-          <li>ব্র্যাক সেন্টারের বিপরীত দিকে অবস্থিত</li>
+          <li id="how-1-li1">মহাখালি বাস টার্মিনালে নেমে ৫ মিনিট হাঁটুন</li>
+          <li id="how-1-li2">ব্র্যাক সেন্টারের বিপরীত দিকে অবস্থিত</li>
         </ul>
       </div>
       <div class="service-card">
         <div class="service-icon">🚗</div>
-        <h3>গাড়িযোগে</h3>
+        <h3 id="how-2-title">গাড়িযোগে</h3>
         <p class="svc-en">By Car / CNG</p>
         <ul>
-          <li>মহাখালি টিবি গেট বলুন</li>
-          <li>পার্কিং সুবিধা আছে</li>
+          <li id="how-2-li1">মহাখালি টিবি গেট বলুন</li>
+          <li id="how-2-li2">পার্কিং সুবিধা আছে</li>
         </ul>
       </div>
       <div class="service-card">
         <div class="service-icon">🚇</div>
-        <h3>যোগাযোগের সময়</h3>
+        <h3 id="how-3-title">যোগাযোগের সময়</h3>
         <p class="svc-en">Opening Hours</p>
         <ul>
-          <li>শনি থেকে বৃহস্পতিবার</li>
-          <li>সকাল ৮টা — রাত ৯টা</li>
+          <li id="how-3-li1">শনি থেকে বৃহস্পতিবার</li>
+          <li id="how-3-li2">সকাল ৮টা — রাত ৯টা</li>
         </ul>
       </div>
     </div>
@@ -136,6 +136,36 @@ document.addEventListener("DOMContentLoaded", () => {
   renderHeader("contact");
   renderFooter();
   initBannerPopup();
+
+  // Minimal localization helper (page-level)
+  const setText = (id, bn, en, html) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (html) el.innerHTML = window.l ? window.l(bn, en) : bn;
+    else el.textContent = window.l ? window.l(bn, en) : bn;
+  };
+
+  // Localize static labels on the contact page
+  setText('contact-hero-title', 'যোগাযোগ করুন', 'Contact Us');
+  setText('contact-hero-sub', 'অ্যাপয়েন্টমেন্ট বা তথ্যের জন্য আমাদের সাথে কথা বলুন', 'Talk to us for appointments or information');
+  setText('breadcrumb-home', 'হোম', 'Home');
+  setText('breadcrumb-current', 'যোগাযোগ', 'Contact');
+  setText('contact-address-label', 'ঠিকানা', 'Address');
+  setText('contact-phones-label', 'ফোন নম্বর', 'Phone Numbers');
+  setText('contact-hours-label', 'সেবার সময়', 'Opening Hours');
+  setText('quick-phones-heading', '📞 দ্রুত কল করুন', '📞 Quick Call');
+  setText('how-label', 'যাতায়াত', 'Getting Here');
+  setText('how-title', 'কীভাবে আসবেন?', 'How to Reach');
+  setText('how-1-title', 'বাস যোগে', 'By Bus');
+  setText('how-2-title', 'গাড়িযোগে', 'By Car / CNG');
+  setText('how-3-title', 'যোগাযোগের সময়', 'Opening Hours');
+  setText('contact-info-heading', '📍 আমাদের অবস্থান ও যোগাযোগ', '📍 Our Location & Contact');
+  setText('how-1-li1', 'মহাখালি বাস টার্মিনালে নেমে ৫ মিনিট হাঁটুন', 'Get off at Mohakhali Bus Terminal and walk 5 minutes');
+  setText('how-1-li2', 'ব্র্যাক সেন্টারের বিপরীত দিকে অবস্থিত', 'Located opposite the BRAC Center');
+  setText('how-2-li1', 'মহাখালি টিবি গেট বলুন', 'Tell the driver Mohakhali TB Gate');
+  setText('how-2-li2', 'পার্কিং সুবিধা আছে', 'Parking available');
+  setText('how-3-li1', 'শনি থেকে বৃহস্পতিবার', 'Saturday to Thursday');
+  setText('how-3-li2', 'সকাল ৮টা — রাত ৯টা', '8:00 AM — 9:00 PM');
 
   const c = data.contact;
 
@@ -170,6 +200,9 @@ document.addEventListener("DOMContentLoaded", () => {
   // Map caption language toggle
   const mapCap = document.getElementById('map-caption');
   if (mapCap && window.l) mapCap.textContent = window.l('📍 মহাখালি টিবি গেট, ব্র্যাক সেন্টারের বিপরীতে, ঢাকা', '📍 Mohakhali TB Gate, opposite BRAC Center, Dhaka');
+  if (window.l) document.title = window.l('যোগাযোগ — Bluesky Health Limited', 'Contact — Bluesky Health Limited');
+  const meta = document.querySelector('meta[name="description"]');
+  if (meta && window.l) meta.content = window.l('Bluesky Health Limited-এর সাথে যোগাযোগ করুন — ঠিকানা, ফোন নম্বর, এবং মানচিত্র।', 'Contact Bluesky Health Limited — address, phone numbers, and map.');
 });
 </script>
 </body>
