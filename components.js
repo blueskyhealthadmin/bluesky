@@ -380,6 +380,8 @@ window.getBskyLang = function() { return localStorage.getItem('bsky_lang') || 'b
 window.setBskyLang = function(l) {
   try {
     localStorage.setItem('bsky_lang', l);
+    // also set the document language for browser/tools
+    try { document.documentElement.lang = l; } catch (e) {}
     document.body.classList.remove('bsky-lang-bn','bsky-lang-en');
     document.body.classList.add(l === 'en' ? 'bsky-lang-en' : 'bsky-lang-bn');
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
@@ -394,6 +396,7 @@ window.setBskyLang = function(l) {
 window.applyBskyLangClass = function() {
   try {
     const lang = window.getBskyLang();
+    try { document.documentElement.lang = lang; } catch (e) {}
     document.body.classList.remove('bsky-lang-bn','bsky-lang-en');
     document.body.classList.add(lang === 'en' ? 'bsky-lang-en' : 'bsky-lang-bn');
     document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
