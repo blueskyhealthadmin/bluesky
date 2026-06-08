@@ -28,8 +28,8 @@ function renderHeader(activePage) {
   }).join("");
 
   const topbarText = lang === 'en'
-    ? '🕗 8:00 AM — 9:00 PM | Sat–Thu'
-    : '🕗 সকাল ৮টা — রাত ৯টা &nbsp;|&nbsp; শনি–বৃহস্পতি';
+    ? '🕗 8:00 AM — 10:00 PM | 7 days a week'
+    : '🕗 সকাল ৮টা — রাত ১০টা &nbsp;|&nbsp; সপ্তাহের ৭ দিন';
 
   document.getElementById("site-header").innerHTML = `
     <div class="topbar">
