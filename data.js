@@ -7,8 +7,15 @@
 const DATA_VERSION = "2"; // bump when DEFAULT_DATA shape changes
 
 const DEFAULT_DATA = {
-  // Optional homepage banners (popup). Empty array = no popup.
-  banners: [],
+  // Homepage popup banners — default doctor banners
+  banners: [
+    { id: "b1", src: "images/banners/dr-anisur-banner.jpeg",    alt: "Dr. Anisur Rahman — Cancer Specialist",      link: "doctors.html", active: true },
+    { id: "b2", src: "images/banners/dr-sahriar-banner.jpeg",   alt: "Dr. Shahriar Kabir — Cancer Specialist",       link: "doctors.html", active: true },
+    { id: "b3", src: "images/banners/dr-sahin-banner.jpeg",     alt: "Dr. Shaheen Kabir — Cardiologist",             link: "doctors.html", active: true },
+    { id: "b4", src: "images/banners/dr-kamruzzaman-banner.jpeg", alt: "Dr. Kamruzzaman — Medicine & Liver Specialist", link: "doctors.html", active: true },
+    { id: "b5", src: "images/banners/dr-asif-banner.jpeg",      alt: "Dr. Asif Iqbal — General Physician",           link: "doctors.html", active: true },
+    { id: "b6", src: "images/banners/dr-fouzia-banner.jpeg",    alt: "Dr. Fowzia Abul Fayez — Gynecologist",         link: "doctors.html", active: true }
+  ],
 
   // Contact information (both Bangla and English where applicable)
   contact: {
@@ -482,6 +489,11 @@ const DEFAULT_DATA = {
         "ক্লিনিক্যাল প্যাথলজি", "হেমাটোলজি", "মাইক্রোবায়োলজি",
         "বায়ো-কেমিস্ট্রি", "ইমিউনোলজি", "সেরোলজি",
         "হিস্টোপ্যাথলজি", "সাইটোপ্যাথলজি"
+      ],
+      itemsEn: [
+        "Clinical Pathology", "Haematology", "Microbiology",
+        "Bio-Chemistry", "Immunology", "Serology",
+        "Histopathology", "Cytopathology"
       ]
     },
     {
@@ -495,6 +507,13 @@ const DEFAULT_DATA = {
         "কালার ডপলার স্টাডি",
         "আল্ট্রাসনোগ্রাফি (2D & 4D)",
         "ম্যামোগ্রাফি"
+      ],
+      itemsEn: [
+        "Japanese CT Scan Machine (80 Slice)",
+        "500mA Digital X-Ray",
+        "Colour Doppler Study",
+        "Ultrasonography (2D & 4D)",
+        "Mammography"
       ]
     },
     {
@@ -507,6 +526,12 @@ const DEFAULT_DATA = {
         "ইকোকার্ডিওগ্রাফি (2D & 4D)",
         "কালার ডপলার স্টাডি",
         "পালমোনারি ফাংশন টেস্ট (PFT)"
+      ],
+      itemsEn: [
+        "ECG (24 Channel)",
+        "Echocardiography (2D & 4D)",
+        "Colour Doppler Study",
+        "Pulmonary Function Test (PFT)"
       ]
     },
     {
@@ -534,6 +559,14 @@ const DEFAULT_DATA = {
         "RT-PCR Test",
         "স্পাইরোমেট্রি",
         "অডিওমেট্রি"
+      ],
+      itemsEn: [
+        "CT Guided Core Biopsy",
+        "CT Guided FNAC",
+        "DNA Test",
+        "RT-PCR Test",
+        "Spirometry",
+        "Audiometry"
       ]
     },
     {
@@ -546,6 +579,12 @@ const DEFAULT_DATA = {
         "হেলথ চেক-আপ",
         "ভ্যাকসিনেশন",
         "অনলাইন ও অফলাইন অ্যাপয়েন্টমেন্ট"
+      ],
+      itemsEn: [
+        "Specialist Doctors' Chamber",
+        "Health Check-up",
+        "Vaccination",
+        "Online & Offline Appointment"
       ]
     }
   ],

@@ -702,9 +702,13 @@ function renderStatsTab() {
     <div class="admin-row" style="flex-wrap:nowrap;">
       <div style="flex:1;display:flex;gap:.75rem;align-items:center;flex-wrap:wrap;">
         <input type="text" id="stat-val-${i}" value="${s.value}"
-               style="width:120px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;">
+               style="width:120px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;" placeholder="Bangla value">
+        <input type="text" id="stat-valen-${i}" value="${s.valueEn || ''}"
+               style="width:120px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;" placeholder="English value">
         <input type="text" id="stat-lbl-${i}" value="${s.label}"
-               style="flex:1;min-width:180px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;">
+               style="flex:1;min-width:180px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;" placeholder="Bangla label">
+        <input type="text" id="stat-lblen-${i}" value="${s.labelEn || ''}"
+               style="flex:1;min-width:180px;padding:.45rem .75rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;" placeholder="English label">
       </div>
     </div>`
   ).join("");
@@ -714,7 +718,9 @@ function saveStats() {
   const data  = getLiveData();
   const stats = data.stats.map((_, i) => ({
     value: document.getElementById("stat-val-"+i).value.trim(),
-    label: document.getElementById("stat-lbl-"+i).value.trim()
+    valueEn: document.getElementById("stat-valen-"+i).value.trim(),
+    label: document.getElementById("stat-lbl-"+i).value.trim(),
+    labelEn: document.getElementById("stat-lblen-"+i).value.trim()
   }));
   saveKey("stats", stats);
   showMsg("stats-save-msg", "alert-success", "✅ পরিসংখ্যান সংরক্ষিত হয়েছে।");

@@ -269,7 +269,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="service-icon">${s.icon}</div>
         <h3>${window.l ? window.l(s.titleBn, s.titleEn) : s.titleBn}</h3>
         <p class="svc-en">${s.titleEn}</p>
-        <ul>${s.items.map(i => `<li>${i}</li>`).join("")}</ul>
+        <ul>${s.items.map((i, idx) => `<li>${window.l ? window.l(i, (s.itemsEn && s.itemsEn[idx]) || i) : i}</li>`).join("")}</ul>
         ${s.note ? `<p class="svc-note">🔬 ${s.note}</p>` : ""}
       </div>`
     ).join("");
