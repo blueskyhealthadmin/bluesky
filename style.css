@@ -37,7 +37,7 @@ body.bsky-lang-bn { background: linear-gradient(180deg, rgba(16,185,129,0.03), v
 body.bsky-lang-en::before,
 body.bsky-lang-bn::before { content: ""; position:fixed; left:0; right:0; top:0; height:6px; z-index:99999; }
 body.bsky-lang-en::before { background: linear-gradient(90deg, var(--sky), var(--royal)); }
-body.bsky-lang-bn::before { background: linear-gradient(90deg, #10B981, #059669); }
+body.bsky-lang-bn::before { background: linear-gradient(90deg, var(--sky), var(--royal)); }
 
 /* Hide the redundant English subtitle when page is in English mode */
 body.bsky-lang-en .svc-en { display: none; }
