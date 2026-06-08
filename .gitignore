@@ -9,6 +9,10 @@ information.md
 Thumbs.db
 ehthumbs.db
 desktop.ini
+nul
+NUL
+NUL.*
+nul.*
 
 # === Editor / IDE ===
 *.code-workspace
