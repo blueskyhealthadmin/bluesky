@@ -39,6 +39,9 @@ body.bsky-lang-bn::before { content: ""; position:fixed; left:0; right:0; top:0;
 body.bsky-lang-en::before { background: linear-gradient(90deg, var(--sky), var(--royal)); }
 body.bsky-lang-bn::before { background: linear-gradient(90deg, #10B981, #059669); }
 
+/* Hide the redundant English subtitle when page is in English mode */
+body.bsky-lang-en .svc-en { display: none; }
+
 /* Active lang indicator in the switch itself — highlights which button is active */
 body.bsky-lang-en .lang-switch { border-color: var(--sky); }
 body.bsky-lang-bn .lang-switch { border-color: #10B981; }
