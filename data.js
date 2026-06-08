@@ -269,12 +269,12 @@ const DEFAULT_DATA = {
       color: "#1565C0",
       groups: [
         { title: "Complete Blood Count", tests: ["CBC & ESR"] },
-        { title: "ডায়াবেটিস পরীক্ষা", tests: ["Fasting Blood Sugar (FBS)", "2 Hours after ABF"] },
+        { title: "ডায়াবেটিস পরীক্ষা", titleEn: "Diabetes Tests", tests: ["Fasting Blood Sugar (FBS)", "2 Hours after ABF"] },
         { title: "Fasting Lipid Profile", tests: ["Triglycerides", "HDL", "LDL", "Total Cholesterol"] },
-        { title: "লিভার পরীক্ষা", tests: ["SGPT", "SGOT", "HBsAg", "Anti HCV"] },
-        { title: "কিডনি পরীক্ষা", tests: ["Serum Creatinine", "Uric Acid", "eGFR", "BUN"] },
-        { title: "কার্ডিয়াক পরীক্ষা", tests: ["ECG", "Echocardiogram", "X-Ray Chest P/A View"] },
-        { title: "অন্যান্য", tests: ["USG of Whole Abdomen"] }
+        { title: "লিভার পরীক্ষা", titleEn: "Liver Function Tests", tests: ["SGPT", "SGOT", "HBsAg", "Anti HCV"] },
+        { title: "কিডনি পরীক্ষা", titleEn: "Kidney Function Tests", tests: ["Serum Creatinine", "Uric Acid", "eGFR", "BUN"] },
+        { title: "কার্ডিয়াক পরীক্ষা", titleEn: "Cardiac Tests", tests: ["ECG", "Echocardiogram", "X-Ray Chest P/A View"] },
+        { title: "অন্যান্য", titleEn: "Others", tests: ["USG of Whole Abdomen"] }
       ]
     },
     {
@@ -286,8 +286,8 @@ const DEFAULT_DATA = {
       color: "#AD1457",
       groups: [
         { title: "Complete Blood Count", tests: ["CBC & ESR", "RBS", "VDRL", "TPHA", "HBsAg"] },
-        { title: "হরমোন প্যানেল", tests: ["Prolactin", "Testosterone", "FSH", "LH", "Cortisol"] },
-        { title: "অন্যান্য", tests: ["USG of Whole Abdomen"] }
+        { title: "হরমোন প্যানেল", titleEn: "Hormone Panel", tests: ["Prolactin", "Testosterone", "FSH", "LH", "Cortisol"] },
+        { title: "অন্যান্য", titleEn: "Others", tests: ["USG of Whole Abdomen"] }
       ]
     },
     {
@@ -299,13 +299,13 @@ const DEFAULT_DATA = {
       color: "#C2185B",
       groups: [
         { title: "Complete Blood Count", tests: ["CBC & ESR"] },
-        { title: "ডায়াবেটিস পরীক্ষা", tests: ["Fasting Blood Sugar (FBS)", "2 Hours after ABF", "HbA1c"] },
+        { title: "ডায়াবেটিস পরীক্ষা", titleEn: "Diabetes Tests", tests: ["Fasting Blood Sugar (FBS)", "2 Hours after ABF", "HbA1c"] },
         { title: "Fasting Lipid Profile", tests: ["Triglycerides", "HDL", "LDL", "Total Cholesterol"] },
-        { title: "লিভার পরীক্ষা", tests: ["SGPT", "SGOT", "HBsAg", "Anti HCV"] },
-        { title: "কিডনি পরীক্ষা", tests: ["Serum Creatinine", "Uric Acid", "eGFR", "BUN"] },
-        { title: "থাইরয়েড পরীক্ষা", tests: ["T3", "T4", "TSH"] },
-        { title: "কার্ডিয়াক পরীক্ষা", tests: ["ECG", "Echocardiogram"] },
-        { title: "অন্যান্য", tests: ["PAP Smear", "X-Ray Chest P/A View", "USG of Whole Abdomen", "USG of Both Breast"] }
+        { title: "লিভার পরীক্ষা", titleEn: "Liver Function Tests", tests: ["SGPT", "SGOT", "HBsAg", "Anti HCV"] },
+        { title: "কিডনি পরীক্ষা", titleEn: "Kidney Function Tests", tests: ["Serum Creatinine", "Uric Acid", "eGFR", "BUN"] },
+        { title: "থাইরয়েড পরীক্ষা", titleEn: "Thyroid Tests", tests: ["T3", "T4", "TSH"] },
+        { title: "কার্ডিয়াক পরীক্ষা", titleEn: "Cardiac Tests", tests: ["ECG", "Echocardiogram"] },
+        { title: "অন্যান্য", titleEn: "Others", tests: ["PAP Smear", "X-Ray Chest P/A View", "USG of Whole Abdomen", "USG of Both Breast"] }
       ]
     },
     {
@@ -316,7 +316,7 @@ const DEFAULT_DATA = {
       category: "cardiac",
       color: "#B71C1C",
       groups: [
-        { title: "কার্ডিয়াক পরীক্ষা", tests: ["Troponin-I", "ECG", "X-Ray Chest P/A View", "Echo Color Doppler"] }
+        { title: "কার্ডিয়াক পরীক্ষা", titleEn: "Cardiac Tests", tests: ["Troponin-I", "ECG", "X-Ray Chest P/A View", "Echo Color Doppler"] }
       ]
     },
     {
@@ -327,7 +327,7 @@ const DEFAULT_DATA = {
       category: "fertility",
       color: "#6A1B9A",
       groups: [
-        { title: "সম্পূর্ণ পরীক্ষা তালিকা", tests: [
+        { title: "সম্পূর্ণ পরীক্ষা তালিকা", titleEn: "Complete Test List", tests: [
           "Complete Blood Count (CBC) & ESR",
           "RBS", "VDRL", "TPHA", "HBsAg",
           "Prolactin", "Progesterone", "Testosterone",
@@ -345,7 +345,7 @@ const DEFAULT_DATA = {
       category: "general",
       color: "#00695C",
       groups: [
-        { title: "সম্পূর্ণ পরীক্ষা তালিকা", tests: [
+        { title: "সম্পূর্ণ পরীক্ষা তালিকা", titleEn: "Complete Test List", tests: [
           "Complete Blood Count (CBC) & ESR",
           "Blood Grouping", "RBS", "VDRL", "TPHA", "HBsAg",
           "Prolactin", "TSH", "FT4",
@@ -361,7 +361,7 @@ const DEFAULT_DATA = {
       category: "infection",
       color: "#E65100",
       groups: [
-        { title: "স্ক্রিনিং পরীক্ষা", tests: [
+        { title: "স্ক্রিনিং পরীক্ষা", titleEn: "Screening Tests", tests: [
           "Complete Blood Count (CBC) & ESR",
           "Dengue NS1Ag",
           "Dengue Antibody IgM & IgG (ICT)",
@@ -378,7 +378,7 @@ const DEFAULT_DATA = {
       category: "hormone",
       color: "#0277BD",
       groups: [
-        { title: "থাইরয়েড পরীক্ষা সমূহ", tests: [
+        { title: "থাইরয়েড পরীক্ষা সমূহ", titleEn: "Thyroid Tests", tests: [
           "Complete Blood Count (CBC & ESR)",
           "T3", "T4", "TSH", "FT3", "FT4",
           "Anti-Thyroid Antibody",
@@ -395,12 +395,12 @@ const DEFAULT_DATA = {
       color: "#1A237E",
       groups: [
         { title: "Complete Blood Count", tests: ["CBC & ESR"] },
-        { title: "ডায়াবেটিস পরীক্ষা", tests: ["Fasting Blood Sugar (FBS)"] },
+        { title: "ডায়াবেটিস পরীক্ষা", titleEn: "Diabetes Tests", tests: ["Fasting Blood Sugar (FBS)"] },
         { title: "Fasting Lipid Profile", tests: ["Triglycerides", "Total Cholesterol", "HDL", "LDL"] },
-        { title: "লিভার পরীক্ষা", tests: ["SGPT", "SGOT", "HBsAg"] },
-        { title: "কিডনি পরীক্ষা", tests: ["Serum Creatinine"] },
-        { title: "কার্ডিয়াক পরীক্ষা", tests: ["ECG", "Echocardiogram", "X-Ray Chest P/A View"] },
-        { title: "অন্যান্য", tests: ["USG of Whole Abdomen"] }
+        { title: "লিভার পরীক্ষা", titleEn: "Liver Function Tests", tests: ["SGPT", "SGOT", "HBsAg"] },
+        { title: "কিডনি পরীক্ষা", titleEn: "Kidney Function Tests", tests: ["Serum Creatinine"] },
+        { title: "কার্ডিয়াক পরীক্ষা", titleEn: "Cardiac Tests", tests: ["ECG", "Echocardiogram", "X-Ray Chest P/A View"] },
+        { title: "অন্যান্য", titleEn: "Others", tests: ["USG of Whole Abdomen"] }
       ]
     },
     {
@@ -412,13 +412,13 @@ const DEFAULT_DATA = {
       color: "#0B3D91",
       groups: [
         { title: "Complete Blood Count", tests: ["CBC & ESR"] },
-        { title: "ডায়াবেটিস পরীক্ষা", tests: ["Fasting Blood Sugar (FBS)", "2 Hours after ABF", "HbA1c"] },
+        { title: "ডায়াবেটিস পরীক্ষা", titleEn: "Diabetes Tests", tests: ["Fasting Blood Sugar (FBS)", "2 Hours after ABF", "HbA1c"] },
         { title: "Fasting Lipid Profile", tests: ["Triglycerides", "HDL", "LDL", "Total Cholesterol"] },
-        { title: "লিভার পরীক্ষা", tests: ["SGPT", "SGOT", "HBsAg"] },
-        { title: "কিডনি পরীক্ষা", tests: ["Serum Creatinine", "BUN", "Uric Acid", "eGFR"] },
-        { title: "থাইরয়েড পরীক্ষা", tests: ["T3", "T4", "TSH", "FT4"] },
-        { title: "কার্ডিয়াক পরীক্ষা", tests: ["ECG", "Echocardiogram"] },
-        { title: "অন্যান্য", tests: [
+        { title: "লিভার পরীক্ষা", titleEn: "Liver Function Tests", tests: ["SGPT", "SGOT", "HBsAg"] },
+        { title: "কিডনি পরীক্ষা", titleEn: "Kidney Function Tests", tests: ["Serum Creatinine", "BUN", "Uric Acid", "eGFR"] },
+        { title: "থাইরয়েড পরীক্ষা", titleEn: "Thyroid Tests", tests: ["T3", "T4", "TSH", "FT4"] },
+        { title: "কার্ডিয়াক পরীক্ষা", titleEn: "Cardiac Tests", tests: ["ECG", "Echocardiogram"] },
+        { title: "অন্যান্য", titleEn: "Others", tests: [
           "Serum Calcium", "Vitamin D3 (OH)", "Serum Electrolytes",
           "PSA / PAP Smear", "Urine R/E", "Stool R/E",
           "X-Ray Chest P/A View",
@@ -435,7 +435,7 @@ const DEFAULT_DATA = {
       category: "cardiac",
       color: "#C62828",
       groups: [
-        { title: "হাইপারটেনশন স্ক্রিনিং", tests: [
+        { title: "হাইপারটেনশন স্ক্রিনিং", titleEn: "Hypertension Screening", tests: [
           "Complete Blood Count (CBC & ESR)",
           "Fasting Blood Sugar (FBS)",
           "Serum Creatinine",
