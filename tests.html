@@ -57,7 +57,7 @@
         <h3>পরীক্ষা করাতে চান?</h3>
         <p>যেকোনো প্যাকেজ বা পরীক্ষার জন্য আজই আমাদের সাথে যোগাযোগ করুন।</p>
       </div>
-      <a href="contact.html" class="btn btn-blue">📞 এখনই কল করুন</a>
+      <a id="tests-cta-phone" href="contact.html" class="btn btn-blue">📞 এখনই কল করুন</a>
     </div>
   </div>
 </section>
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Filter bar
   const filterBar = document.getElementById("pkg-filter-bar");
   filterBar.innerHTML = data.packageCategories.map(c =>
-    `<button class="filter-btn${c.id==="all"?" active":""}" data-cat="${c.id}">${c.label}</button>`
+    `<button class="filter-btn${c.id==="all"?" active":""}" data-cat="${c.id}">${window.l(c.label, c.labelEn)}</button>`
   ).join("");
 
   filterBar.addEventListener("click", e => {
@@ -102,6 +102,10 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   render();
+
+  // Language-aware CTA text
+  const cta = document.getElementById('tests-cta-phone');
+  if (cta && window.l) cta.textContent = window.l('📞 এখনই কল করুন', '📞 Call Now');
 });
 </script>
 </body>

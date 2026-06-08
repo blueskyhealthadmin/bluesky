@@ -2,316 +2,260 @@
  * BLUESKY HEALTH LTD — Site Data Layer
  * Admin edits are stored in localStorage and override these defaults.
  * Keys: bsky_banners, bsky_contact, bsky_doctors, bsky_packages, bsky_services
- *
- * DATA_VERSION: bump this string whenever DEFAULT_DATA structure changes
- * (e.g. new image fields, renamed keys). On mismatch all localStorage is
- * cleared automatically so stale cached data never hides new content.
  */
-const DATA_VERSION = "2";
+
+const DATA_VERSION = "2"; // bump when DEFAULT_DATA shape changes
 
 const DEFAULT_DATA = {
+  // Optional homepage banners (popup). Empty array = no popup.
+  banners: [],
 
-  /* ─────────────── BANNERS ─────────────── */
-  banners: [
-    {
-      id: "b1",
-      src: "/images/banners/dr-anisur-banner.jpeg",
-      alt: "প্রফেসর ডা. এস.এম. আনিসুর রহমান — ক্যান্সার বিশেষজ্ঞ",
-      link: "doctors.html",
-      active: true
-    },
-    {
-      id: "b2",
-      src: "/images/banners/dr-asif-banner.jpeg",
-      alt: "ডা. আসিফ ইকবাল — জেনারেল ফিজিশিয়ান",
-      link: "doctors.html",
-      active: true
-    },
-    {
-      id: "b3",
-      src: "/images/banners/dr-fouzia-banner.jpeg",
-      alt: "ডা. ফৌজিয়া আবুল ফয়েজ — গাইনী ও প্রসূতি বিশেষজ্ঞ",
-      link: "doctors.html",
-      active: true
-    },
-    {
-      id: "b4",
-      src: "/images/banners/dr-kamruzzaman-banner.jpeg",
-      alt: "ডা. কামরুজ্জামান — বিশেষজ্ঞ চিকিৎসক",
-      link: "doctors.html",
-      active: true
-    },
-    {
-      id: "b5",
-      src: "/images/banners/dr-sahin-banner.jpeg",
-      alt: "ডা. মোঃ শাহীন কবির — কার্ডিওলজি বিশেষজ্ঞ",
-      link: "doctors.html",
-      active: true
-    },
-    {
-      id: "b6",
-      src: "/images/banners/dr-sahriar-banner.jpeg",
-      alt: "ডা. মোঃ সাহরিয়ার কবির — ক্যান্সার মেডিসিন বিশেষজ্ঞ",
-      link: "doctors.html",
-      active: true
-    }
-  ],
-
-  /* ─────────────── CONTACT ─────────────── */
+  // Contact information (both Bangla and English where applicable)
   contact: {
-    phones: [
-      "01918 000 1000",
-      "01918 000 2000",
-      "01918 000 3000",
-      "01918 400 3000",
-      "01918 400 2000"
-    ],
-    address: "Mohakhali TB Gate (Opposite of BRAC Center), Dhaka",
-    addressBn: "মহাখালি টিবি গেট (ব্র্যাক সেন্টারের বিপরীতে), ঢাকা",
-    hours: "সকাল ৮টা — রাত ৯টা (শনি–বৃহস্পতি)",
-    email: "info@blueskyhealth.com.bd",
-    mapEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3650.7509059819213!2d90.40198!3d23.7794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c702f9f7e041%3A0x7dce7cd6f2f5b7a0!2sMohakhali%20TB%20Gate%2C%20Dhaka!5e0!3m2!1sen!2sbd!4v1700000000000!5m2!1sen!2sbd"
+    phones: ["0191 8000 1000", "0191 8000 2000", "0191 8000 3000"],
+    addressBn: "৪২/৮/সি, গ্রিন রোড (কেন্দ্রীয় বাসস্ট্যান্ড), ঢাকা-১২১৫",
+    addressEn: "42/8C Green Road (Central Bus Stand), Dhaka-1215",
+    hoursBn: "সকাল ৮টা — রাত ১০টা | সপ্তাহের ৭ দিন",
+    hoursEn: "8:00 AM – 10:00 PM | 7 days a week",
+    website: "www.blueskyhealthltd.com",
+    email: "info@blueskyhealthltd.com"
   },
 
   /* ─────────────── DOCTORS ─────────────── */
   doctors: [
     {
       id: "d1",
+      name: "ডা. এ.কে.এম. কামরুল হুদা",
+      nameEn: "Associate Prof. Dr. AKM Kamrul Huda",
+      specialty: "Diabetes, Thyroid & Hormone Diseases Specialist",
+      specialtyEn: "Diabetes, Thyroid & Hormone Diseases Specialist",
+      specialtyBn: "ডায়াবেটিস, থাইরয়েড ও হরমোন রোগ বিশেষজ্ঞ",
+      degrees: "MBBS (DMC), DEM (BIRDEM)",
+      institution: "Associate Professor, Endocrinology; Director, NHN, Mohammadpur, Dhaka",
+      image: "/images/doctors/d20.jpg",
+      category: "endocrinology"
+    },
+    {
+      id: "d2",
       name: "প্রফেসর ডা. এস.এম. আনিসুর রহমান",
-      specialty: "ক্যান্সার বিশেষজ্ঞ",
+      nameEn: "Prof. Dr. S M Anisur Rahman",
+      specialty: "Cancer Specialist",
       specialtyEn: "Cancer Specialist",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এমডি (রেডিওথেরাপি)",
-      institution: "সাবেক বিভাগীয় প্রধান ও সিনিয়র অধ্যাপক, জাতীয় ক্যান্সার গবেষণা ইনস্টিটিউট",
+      specialtyBn: "ক্যান্সার বিশেষজ্ঞ",
+      degrees: "MBBS, DIH, DMRT",
+      institution: "Professor & Former Head; Department of Radiation Oncology; National Institute of Cancer Research & Hospital",
       image: "/images/doctors/d1.jpg",
       category: "cancer"
     },
     {
-      id: "d2",
-      name: "ডা. মোঃ শাহিদুল করিম",
-      specialty: "ক্যান্সার বিশেষজ্ঞ",
+      id: "d3",
+      name: "ডা. মুহাম্মদ শাহরিয়ার কবির",
+      nameEn: "Dr. Muhammad Shahriar Kabir",
+      specialty: "Cancer Specialist",
       specialtyEn: "Cancer Specialist",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এমডি (রেডিওথেরাপি)",
-      institution: "জাতীয় ক্যান্সার গবেষণা ইনস্টিটিউট ও হাসপাতাল, ঢাকা",
+      specialtyBn: "ক্যান্সার বিশেষজ্ঞ",
+      degrees: "MBBS, BCS (Health); MD (Medical Oncology)",
+      institution: "Assistant Professor; National Institute of Cancer Research & Hospital",
+      image: "/images/doctors/d22.jpeg",
+      category: "cancer"
+    },
+    {
+      id: "d4",
+      name: "ডা. মোঃ শাহীন কবির",
+      nameEn: "Associate Prof. Dr. Mohammed Shaheen Kabir",
+      specialty: "Cardiologist & Medicine Specialist",
+      specialtyEn: "Cardiologist & Medicine Specialist",
+      specialtyBn: "হৃদরোগ ও মেডিসিন বিশেষজ্ঞ",
+      degrees: "MBBS, D-Card (BSMMU); MD (Cardiology)",
+      institution: "Associate Professor of Cardiology; National Institute of Cardio Vascular Diseases & Hospital",
+      image: "/images/doctors/d21.jpeg",
+      category: "cardiology"
+    },
+    {
+      id: "d5",
+      name: "ডা. এ.কে.এম. জোবায়ের",
+      nameEn: "Dr. AKM Jobayer",
+      specialty: "Medicine & Liver Specialist",
+      specialtyEn: "Medicine & Liver Specialist",
+      specialtyBn: "মেডিসিন ও লিভার বিশেষজ্ঞ",
+      degrees: "MBBS, BCS (Health), MD (Gastroenterology)",
+      institution: "Assistant Professor; National Gastroliver Institute & Hospital",
+      image: "/images/doctors/placeholder.svg",
+      category: "medicine"
+    },
+    {
+      id: "d6",
+      name: "ডা. মোঃ শাহিদুর রহমান (মিলন)",
+      nameEn: "Dr. Md. Shahidur Rahman (Milon)",
+      specialty: "Medicine & Gastroliver Diseases Specialist",
+      specialtyEn: "Medicine & Gastroliver Diseases Specialist",
+      specialtyBn: "পাকস্থলী ও লিভার রোগ বিশেষজ্ঞ",
+      degrees: "MBBS, BCS (Health), FCPS (Medicine); FCPS (Gastroenterology), MACP (USA)",
+      institution: "National Gastroliver Institute & Hospital",
+      image: "/images/doctors/placeholder.svg",
+      category: "medicine"
+    },
+    {
+      id: "d7",
+      name: "ডা. ফৌজিয়া আবুল ফয়েজ",
+      nameEn: "Dr. Fowzia Abul Fayez",
+      specialty: "Gynecologist & Obstetrician",
+      specialtyEn: "Gynecologist & Obstetrician",
+      specialtyBn: "গাইনী ও প্রসূতি রোগ বিশেষজ্ঞ",
+      degrees: "MBBS, BCS (Health), DGO (DU); FCPS (Gynae & OBS)",
+      institution: "Assistant Professor; Dhaka Medical College & Hospital",
+      image: "/images/doctors/d11.jpg",
+      category: "gynecology"
+    },
+    {
+      id: "d8",
+      name: "ডা. বুশরা নূর আল চৌধুরী",
+      nameEn: "Dr. Bushra Noor Al Chowdhury",
+      specialty: "Breast Surgeon & Cancer Surgery Specialist",
+      specialtyEn: "Breast Surgeon & Cancer Surgery Specialist",
+      specialtyBn: "স্তন সার্জন ও ক্যান্সার সার্জারি বিশেষজ্ঞ",
+      degrees: "MBBS, BCS (Health), MS (Surgical Oncology)",
+      institution: "Assistant Professor; National Institute of Cancer Research & Hospital",
       image: "/images/doctors/placeholder.svg",
       category: "cancer"
     },
     {
-      id: "d3",
-      name: "ডা. মোহাম্মদ মাহিন করিম",
-      specialty: "মেডিসিন ও হৃদরোগ বিশেষজ্ঞ",
-      specialtyEn: "Medicine & Cardiology",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এমডি (কার্ডিওলজি)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "cardiology"
-    },
-    {
-      id: "d4",
-      name: "ডা. মোঃ গোলাম মোস্তফা",
-      specialty: "মেডিসিন ও হৃদরোগ বিশেষজ্ঞ",
-      specialtyEn: "Medicine & Cardiology",
-      degrees: "এমবিবিএস, এমডি (মেডিসিন), এফসিপিএস (মেডিসিন)",
-      institution: "সহকারী অধ্যাপক",
+      id: "d9",
+      name: "ডা. শমল কুমার রায়",
+      nameEn: "Dr. Shamol Kumar Roy",
+      specialty: "General & Laparoscopic Surgeon",
+      specialtyEn: "General & Laparoscopic Surgeon",
+      specialtyBn: "জেনারেল ও ল্যাপারোস্কোপিক সার্জন",
+      degrees: "MBBS, BCS (Health), MS (Surgery)",
+      institution: "Registrar, Causality Surgery Dept; Dhaka Medical College & Hospital",
       image: "/images/doctors/placeholder.svg",
       category: "medicine"
     },
     {
-      id: "d5",
-      name: "ডা. তাসলিম জাহান",
-      specialty: "নবজাতক ও শিশু রোগ বিশেষজ্ঞ",
-      specialtyEn: "Neonatology & Pediatrics",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এমডি (শিশু রোগ)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "pediatrics"
-    },
-    {
-      id: "d6",
-      name: "অধ্যাপক ডা. কুদ্দুস আলম বাদল",
-      specialty: "অর্থোপেডিক সার্জন",
-      specialtyEn: "Orthopedic Surgeon",
-      degrees: "এমবিবিএস, এমএস (অর্থোপেডিকস)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "orthopedics"
-    },
-    {
-      id: "d7",
-      name: "ডা. গোলাম হোসেন তৌহিদ",
-      specialty: "মেডিসিন বিশেষজ্ঞ",
-      specialtyEn: "Medicine Specialist",
-      degrees: "এমবিবিএস, এফসিপিএস (মেডিসিন)",
-      institution: "",
+      id: "d10",
+      name: "ডা. এ. বি. এম. ফারুকুল ইসলাম",
+      nameEn: "Dr. A. B. M Farukul Islam",
+      specialty: "Medicine, Asthma, Allergy & Chest Disease Specialist",
+      specialtyEn: "Medicine, Asthma, Allergy & Chest Disease Specialist",
+      specialtyBn: "মেডিসিন, অ্যাজমা, অ্যালার্জি ও ফুসফুস রোগ বিশেষজ্ঞ",
+      degrees: "MBBS (Dhaka), PGT (Chest Disease), MPH",
+      institution: "National Institute of Disease of the Chest and Hospital",
       image: "/images/doctors/placeholder.svg",
       category: "medicine"
     },
     {
-      id: "d8",
-      name: "ডা. মোঃ খালিদ মাহমুদ",
-      specialty: "নাক, কান, গলা রোগ বিশেষজ্ঞ",
-      specialtyEn: "ENT Specialist",
-      degrees: "এমবিবিএস, এফসিপিএস (ইএনটি), এমসিপিএস (ইএনটি)",
+      id: "d11",
+      name: "ডা. আফরোজা আক্তার",
+      nameEn: "Dr. Afroza Akter",
+      specialty: "Psychiatrist",
+      specialtyEn: "Psychiatrist",
+      specialtyBn: "মনোরোগ বিশেষজ্ঞ",
+      degrees: "MBBS, MD (Psychiatry)",
+      institution: "Assistant Professor; National Institute of Mental Health",
+      image: "/images/doctors/placeholder.svg",
+      category: "psychiatry"
+    },
+    {
+      id: "d12",
+      name: "ডা. চৌধুরী সামির শওকত",
+      nameEn: "Dr. Chowdhury Samir Shawakat",
+      specialty: "ENT Specialist & Head-Neck Surgeon",
+      specialtyEn: "ENT Specialist & Head-Neck Surgeon",
+      specialtyBn: "নাক-কান-গলা বিশেষজ্ঞ ও হেড-নেক সার্জন",
+      degrees: "MBBS (Dhaka), DLO (BSMMU); FCPS (ENT & Head-Neck Surgery) (Final Part); MRCS (ENT) (UK), DOHNS (ENT) (UK)",
       institution: "",
       image: "/images/doctors/placeholder.svg",
       category: "ent"
     },
     {
-      id: "d9",
-      name: "ডা. আতিকুর রহমান নিতু",
-      specialty: "কার্ডিওলজি বিশেষজ্ঞ",
-      specialtyEn: "Cardiologist",
-      degrees: "এমবিবিএস, এমডি (কার্ডিওলজি)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "cardiology"
+      id: "d13",
+      name: "ডা. আসিফ ইকবাল",
+      nameEn: "Dr. Asif Iqbal",
+      specialty: "General Physician",
+      specialtyEn: "General Physician",
+      specialtyBn: "সাধারণ চিকিৎসক",
+      degrees: "MBBS, BCS (Health)",
+      institution: "Assistant Director, DGHS, Dhaka; Specialized Training on Medicine & Cardiology",
+      image: "/images/doctors/d19.jpeg",
+      category: "medicine"
     },
     {
-      id: "d10",
-      name: "ডা. শরিফুল আল কাদির",
-      specialty: "চর্ম ও যৌন রোগ বিশেষজ্ঞ",
-      specialtyEn: "Dermatology & Venereology",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এমডি (ডার্মাটোলজি)",
+      id: "d14",
+      name: "ডা. ফারিয়া আল কাফি",
+      nameEn: "Dr. Faria Al Kafi",
+      specialty: "Dermatologist & Veneriologist",
+      specialtyEn: "Dermatologist & Veneriologist",
+      specialtyBn: "চর্মরোগ ও যৌনরোগ বিশেষজ্ঞ",
+      degrees: "MBBS, DDV (BSMMU); Advance Training in Aesthetic Medicine",
       institution: "",
       image: "/images/doctors/placeholder.svg",
       category: "dermatology"
     },
     {
-      id: "d11",
-      name: "ডা. ফৌজিয়া আবুল ফয়েজ",
-      specialty: "গাইনী ও প্রসূতি রোগ বিশেষজ্ঞ",
-      specialtyEn: "Gynecology & Obstetrics",
-      degrees: "এমবিবিএস, এমসিপিএস (গাইনী), এফসিপিএস (গাইনী)",
-      institution: "সহকারী অধ্যাপক, গাইনী ও প্রসূতিবিদ্যা",
-      image: "/images/doctors/d11.jpg",
-      category: "gynecology"
-    },
-    {
-      id: "d12",
-      name: "ডা. রাশিদা বেগম",
-      specialty: "গাইনী ও প্রসূতি রোগ বিশেষজ্ঞ",
-      specialtyEn: "Gynecology & Obstetrics",
-      degrees: "এমবিবিএস, এমসিপিএস (গাইনী)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "gynecology"
-    },
-    {
-      id: "d13",
-      name: "ডা. এ.কে.এম মোবারক",
-      specialty: "চক্ষু, ডায়াবেটিস ও মেডিসিন বিশেষজ্ঞ",
-      specialtyEn: "Eye, Diabetes & Medicine",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "medicine"
-    },
-    {
-      id: "d14",
-      name: "ডা. সৈয়দুর রহমান",
-      specialty: "জেনারেল ফিজিশিয়ান",
-      specialtyEn: "General Physician",
-      degrees: "এমবিবিএস",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "medicine"
-    },
-    {
       id: "d15",
-      name: "ডা. আনোয়ারুল ইসলাম সানি",
-      specialty: "নিউরোলজি বিশেষজ্ঞ",
-      specialtyEn: "Neurologist",
-      degrees: "এমবিবিএস, এমডি (নিউরোলজি)",
-      institution: "",
+      name: "অ্যাসোসিয়েট প্রফেসর ডা. আসিফুর রহমান (বিজু)",
+      nameEn: "Associate Prof. Dr. Asifur Rahman (Bijou)",
+      specialty: "Brain & Spine Surgeon",
+      specialtyEn: "Brain & Spine Surgeon",
+      specialtyBn: "মস্তিষ্ক ও মেরুদন্ড সার্জন",
+      degrees: "MBBS, MS (Neurosurgery); Trained in Micro-neurosurgery (Turkey, Germany & India)",
+      institution: "Associate Professor; Bangabandhu Sheikh Mujib Medical University",
       image: "/images/doctors/placeholder.svg",
       category: "neurology"
     },
     {
       id: "d16",
-      name: "ডা. মোস্তাফিজুর রহমান",
-      specialty: "রেডিওলজি এন্ড ইমেজিং",
-      specialtyEn: "Radiology & Imaging",
-      degrees: "এমবিবিএস, এমডি (রেডিওলজি)",
-      institution: "",
+      name: "প্রফেসর ডা. সামিউল ইসলাম সাদি",
+      nameEn: "Professor Dr. Samiul Islam Sadi",
+      specialty: "Histopathologist & Cytopathologist",
+      specialtyEn: "Histopathologist & Cytopathologist",
+      specialtyBn: "হিস্টোপ্যাথলজিস্ট ও সাইটোপ্যাথলজিস্ট",
+      degrees: "MBBS, M. Phil",
+      institution: "Former Professor; Mugda Medical College; Director, Administration, DG Health",
+      image: "/images/doctors/placeholder.svg",
+      category: "all"
+    },
+    {
+      id: "d17",
+      name: "অ্যাসোসিয়েট প্রফেসর ডা. মুস্তাক আহমেদ জালালী",
+      nameEn: "Associate Prof. Dr. Mustak Ahmed Jalali",
+      specialty: "Radiology & Imaging Specialist",
+      specialtyEn: "Radiology & Imaging Specialist",
+      specialtyBn: "রেডিওলজি ও ইমেজিং বিশেষজ্ঞ",
+      degrees: "MBBS, FCPS (Radiology & Imaging)",
+      institution: "Associate Professor & Ex Department Head; National Institute of Cancer Research & Hospital",
       image: "/images/doctors/placeholder.svg",
       category: "radiology"
     },
     {
-      id: "d17",
-      name: "ডা. আনোয়ারা বেগম",
-      specialty: "মনোরোগ বিশেষজ্ঞ",
-      specialtyEn: "Psychiatrist",
-      degrees: "এমবিবিএস, এমফিল (সাইকিয়াট্রি)",
-      institution: "",
-      image: "/images/doctors/placeholder.svg",
-      category: "psychiatry"
-    },
-    {
       id: "d18",
-      name: "ডা. তাসলিমা হক",
-      specialty: "ইন্টারনাল মেডিসিন বিশেষজ্ঞ",
-      specialtyEn: "Internal Medicine",
-      degrees: "এমবিবিএস, এমডি (মেডিসিন)",
-      institution: "",
+      name: "প্রফেসর ডা. মাহফুজ আরা ফেরদৌসি",
+      nameEn: "Professor Dr. Mahfuz Ara Ferdousi",
+      specialty: "Radiology & Imaging Specialist",
+      specialtyEn: "Radiology & Imaging Specialist",
+      specialtyBn: "রেডিওলজি ও ইমেজিং বিশেষজ্ঞ",
+      degrees: "MBBS, FCPS (Radiology & Imaging)",
+      institution: "Professor; BIRDEM",
       image: "/images/doctors/placeholder.svg",
-      category: "medicine"
-    },
-    {
-      id: "d19",
-      name: "ডা. আসিফ ইকবাল",
-      specialty: "জেনারেল ফিজিশিয়ান",
-      specialtyEn: "General Physician",
-      degrees: "এমবিবিএস",
-      institution: "সহকারী পরিচালক, স্বাস্থ্য অধিদপ্তর",
-      image: "/images/doctors/d19.jpeg",
-      category: "medicine"
-    },
-    {
-      id: "d20",
-      name: "ডা. এ.কে.এম. কামরুল হুদা",
-      specialty: "ডায়াবেটিস, থাইরয়েড ও হরমোনাল রোগ বিশেষজ্ঞ",
-      specialtyEn: "Diabetes, Thyroid & Hormonal Diseases",
-      degrees: "এমবিবিএস (ডিএমসি), এমডি (বারডেম)",
-      institution: "পরিচালক, ন্যাশনাল হেলথকেয়ার নেটওয়ার্ক (বারডেম); সহযোগী অধ্যাপক, এন্ডোক্রিনোলজি",
-      image: "/images/doctors/d20.jpg",
-      category: "endocrinology"
-    },
-    {
-      id: "d21",
-      name: "ডা. মোঃ শাহীন কবির",
-      specialty: "কার্ডিওলজি (হৃদরোগ) বিশেষজ্ঞ",
-      specialtyEn: "Cardiologist (Heart Specialist)",
-      degrees: "এমবিবিএস",
-      institution: "সহযোগী অধ্যাপক, জাতীয় হৃদরোগ ইনস্টিটিউট",
-      image: "/images/doctors/d21.jpeg",
-      category: "cardiology"
-    },
-    {
-      id: "d22",
-      name: "ডা. মোঃ সাহরিয়ার কবির",
-      specialty: "ক্যান্সার মেডিসিন বিশেষজ্ঞ",
-      specialtyEn: "Cancer Medicine Specialist",
-      degrees: "এমবিবিএস, বিসিএস (স্বাস্থ্য), এমডি (মেডিকেল অনকোলজি)",
-      institution: "সহকারী অধ্যাপক, জাতীয় ক্যান্সার গবেষণা ইনস্টিটিউট",
-      image: "/images/doctors/d22.jpeg",
-      category: "cancer"
+      category: "radiology"
     }
   ],
 
   /* ─────────────── DOCTOR CATEGORIES ─────────────── */
   doctorCategories: [
-    { id: "all",          label: "সকল বিশেষজ্ঞ" },
-    { id: "cancer",       label: "ক্যান্সার" },
-    { id: "cardiology",   label: "হৃদরোগ" },
-    { id: "medicine",     label: "মেডিসিন" },
-    { id: "pediatrics",   label: "শিশু রোগ" },
-    { id: "gynecology",   label: "গাইনী" },
-    { id: "orthopedics",  label: "অর্থোপেডিক" },
-    { id: "neurology",    label: "নিউরোলজি" },
-    { id: "dermatology",  label: "চর্মরোগ" },
-    { id: "ent",          label: "নাক-কান-গলা" },
-    { id: "radiology",    label: "রেডিওলজি" },
-    { id: "psychiatry",   label: "মনোরোগ" },
-    { id: "endocrinology", label: "ডায়াবেটিস ও হরমোন" }
+    { id: "all",          label: "সকল বিশেষজ্ঞ", labelEn: "All Specialists" },
+    { id: "cancer",       label: "ক্যান্সার", labelEn: "Cancer" },
+    { id: "cardiology",   label: "হৃদরোগ", labelEn: "Cardiology" },
+    { id: "medicine",     label: "মেডিসিন", labelEn: "Medicine" },
+    { id: "pediatrics",   label: "শিশু রোগ", labelEn: "Pediatrics" },
+    { id: "gynecology",   label: "গাইনী", labelEn: "Gynecology" },
+    { id: "orthopedics",  label: "অর্থোপেডিক", labelEn: "Orthopedics" },
+    { id: "neurology",    label: "নিউরোলজি", labelEn: "Neurology" },
+    { id: "dermatology",  label: "চর্মরোগ", labelEn: "Dermatology" },
+    { id: "ent",          label: "নাক-কান-গলা", labelEn: "ENT" },
+    { id: "radiology",    label: "রেডিওলজি", labelEn: "Radiology" },
+    { id: "psychiatry",   label: "মনোরোগ", labelEn: "Psychiatry" },
+    { id: "endocrinology", label: "ডায়াবেটিস ও হরমোন", labelEn: "Endocrinology" }
   ],
 
   /* ─────────────── TEST PACKAGES ─────────────── */
@@ -506,14 +450,14 @@ const DEFAULT_DATA = {
 
   /* ─────────────── PACKAGE CATEGORIES ─────────────── */
   packageCategories: [
-    { id: "all",           label: "সকল প্যাকেজ" },
-    { id: "general",       label: "জেনারেল" },
-    { id: "women",         label: "মহিলা" },
-    { id: "cardiac",       label: "হার্ট ও রক্ত" },
-    { id: "comprehensive", label: "সম্পূর্ণ পরীক্ষা" },
-    { id: "hormone",       label: "হরমোন" },
-    { id: "infection",     label: "সংক্রমণ" },
-    { id: "fertility",     label: "ফার্টিলিটি" }
+    { id: "all",           label: "সকল প্যাকেজ", labelEn: "All Packages" },
+    { id: "general",       label: "জেনারেল", labelEn: "General" },
+    { id: "women",         label: "মহিলা", labelEn: "Women" },
+    { id: "cardiac",       label: "হার্ট ও রক্ত", labelEn: "Cardiac" },
+    { id: "comprehensive", label: "সম্পূর্ণ পরীক্ষা", labelEn: "Comprehensive" },
+    { id: "hormone",       label: "হরমোন", labelEn: "Hormone" },
+    { id: "infection",     label: "সংক্রমণ", labelEn: "Infection" },
+    { id: "fertility",     label: "ফার্টিলিটি", labelEn: "Fertility" }
   ],
 
   /* ─────────────── SERVICES / DEPARTMENTS ─────────────── */
@@ -650,13 +594,14 @@ const DEFAULT_DATA = {
 
   /* ─────────────── STATS ─────────────── */
   stats: [
-    { value: "২৪+",    label: "বিশেষজ্ঞ চিকিৎসক" },
-    { value: "৯৯.৯৯%", label: "পরীক্ষার নির্ভুলতা" },
-    { value: "২৫+",    label: "বছরের অভিজ্ঞতা" },
-    { value: "১০,০০০", label: "বর্গফুট প্রিমিসেস" }
+    { value: "২৪+",    label: "বিশেষজ্ঞ চিকিৎসক",        labelEn: "Specialist Doctors" },
+    { value: "৯৯.৯৯%", label: "পরীক্ষার নির্ভুলতা",        labelEn: "Test Accuracy" },
+    { value: "২৫+",    label: "বছরের অভিজ্ঞতা",          labelEn: "Years of Experience" },
+    { value: "১০,০০০", label: "বর্গফুট প্রিমিসেস",       labelEn: "Premises (sqft)" }
   ]
 };
 
+/* ───────── Runtime loader (merges localStorage overrides) ───────── */
 /* ───────── Runtime loader (merges localStorage overrides) ───────── */
 function getSiteData() {
   const keys = ["banners", "contact", "doctors", "packages", "services", "equipment", "stats"];

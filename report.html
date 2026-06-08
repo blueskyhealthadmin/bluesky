@@ -15,8 +15,8 @@
 <!-- Page Hero -->
 <section class="page-hero">
   <div class="container">
-    <h1>রিপোর্ট ডাউনলোড</h1>
-    <p>আপনার পরীক্ষার রিপোর্ট নিরাপদে ডাউনলোড করুন</p>
+    <h1 id="report-hero-title">রিপোর্ট ডাউনলোড</h1>
+    <p id="report-hero-sub">আপনার পরীক্ষার রিপোর্ট নিরাপদে ডাউনলোড করুন</p>
     <div class="breadcrumb">
       <a href="index.html">হোম</a> › রিপোর্ট
     </div>
@@ -27,10 +27,10 @@
 <section class="report-section bg-light">
   <div class="container">
     <div class="report-card">
-      <div style="text-align:center;margin-bottom:1.75rem;">
+        <div style="text-align:center;margin-bottom:1.75rem;">
         <img src="logo.jpeg" alt="Bluesky Health" style="height:50px;margin:0 auto .75rem;border-radius:8px;">
-        <h2>রিপোর্ট অ্যাক্সেস করুন</h2>
-        <p>আপনার রোগী আইডি ও মোবাইল নম্বর দিয়ে রিপোর্ট ডাউনলোড করুন।</p>
+        <h2 id="report-form-title">রিপোর্ট অ্যাক্সেস করুন</h2>
+        <p id="report-form-sub">আপনার রোগী আইডি ও মোবাইল নম্বর দিয়ে রিপোর্ট ডাউনলোড করুন।</p>
       </div>
 
       <!-- API Under Development Notice -->
@@ -117,6 +117,18 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFooter();
   initBannerPopup();
 
+  // Localize static report page strings
+  const setText = (id, bn, en, html) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (html) el.innerHTML = window.l ? window.l(bn, en) : bn;
+    else el.textContent = window.l ? window.l(bn, en) : bn;
+  };
+  setText('report-hero-title', 'রিপোর্ট ডাউনলোড', 'Report Download');
+  setText('report-hero-sub', 'আপনার পরীক্ষার রিপোর্ট নিরাপদে ডাউনলোড করুন', 'Securely download your test report');
+  setText('report-form-title', 'রিপোর্ট অ্যাক্সেস করুন', 'Access Your Report');
+  setText('report-form-sub', 'আপনার রোগী আইডি ও মোবাইল নম্বর দিয়ে রিপোর্ট ডাউনলোড করুন।', 'Download your report using Patient ID and mobile number.');
+
   // Phones
   const phonesEl = document.getElementById("report-phones");
   if (phonesEl) {
@@ -136,12 +148,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (!id || !phone) {
       result.style.display = "block";
-      result.innerHTML = '<div class="alert alert-error">অনুগ্রহ করে রোগী আইডি ও মোবাইল নম্বর দিন।</div>';
+      result.innerHTML = window.l ? `<div class="alert alert-error">${window.l('অনুগ্রহ করে রোগী আইডি ও মোবাইল নম্বর দিন।','Please provide Patient ID and mobile number.')}</div>` : '<div class="alert alert-error">অনুগ্রহ করে রোগী আইডি ও মোবাইল নম্বর দিন।</div>';
       return;
     }
 
     btn.disabled = true;
-    btn.textContent = "অনুগ্রহ করে অপেক্ষা করুন...";
+    btn.textContent = window.l ? window.l('অনুগ্রহ করে অপেক্ষা করুন...', 'Please wait...') : 'অনুগ্রহ করে অপেক্ষা করুন...';
 
     /* ── API Integration ──────────────────────
        When REPORT_API_ENDPOINT is set, replace
@@ -159,7 +171,12 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!REPORT_API_ENDPOINT) {
       // API not yet integrated — show informational message
       result.style.display = "block";
-      result.innerHTML = `
+      result.innerHTML = window.l ? `
+        <div class="alert alert-info" style="margin-top:1rem;">
+          <strong>⏳ ${window.l('অনলাইন রিপোর্ট সিস্টেম শীঘ্রই চালু হবে।', 'Online report system coming soon.')}</strong><br>
+          ${window.l('বর্তমানে আপনার রিপোর্ট সরাসরি আমাদের কেন্দ্র থেকে অথবা ফোনে যোগাযোগ করে সংগ্রহ করুন।', 'For now, please collect your report directly from our center or contact us by phone.')}
+          রোগী আইডি: <strong>${id}</strong>
+        </div>` : `
         <div class="alert alert-info" style="margin-top:1rem;">
           <strong>⏳ অনলাইন রিপোর্ট সিস্টেম শীঘ্রই চালু হবে।</strong><br>
           বর্তমানে আপনার রিপোর্ট সরাসরি আমাদের কেন্দ্র থেকে অথবা ফোনে যোগাযোগ করে সংগ্রহ করুন।
@@ -177,7 +194,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (resp.ok && json.reportUrl) {
           result.style.display = "block";
-          result.innerHTML = `
+          result.innerHTML = window.l ? `
+            <div class="alert alert-success" style="margin-top:1rem;">
+              ✅ ${window.l('আপনার রিপোর্ট প্রস্তুত।','Your report is ready.')}
+              <a href="${json.reportUrl}" target="_blank" class="btn btn-green btn-sm" style="margin-top:.5rem;display:inline-flex;">
+                📄 ${window.l('রিপোর্ট ডাউনলোড করুন','Download Report')}
+              </a>
+            </div>` : `
             <div class="alert alert-success" style="margin-top:1rem;">
               ✅ আপনার রিপোর্ট প্রস্তুত।
               <a href="${json.reportUrl}" target="_blank" class="btn btn-green btn-sm" style="margin-top:.5rem;display:inline-flex;">
@@ -186,11 +209,12 @@ document.addEventListener("DOMContentLoaded", () => {
             </div>`;
         } else {
           result.style.display = "block";
-          result.innerHTML = `<div class="alert alert-error" style="margin-top:1rem;">❌ ${json.message || "রিপোর্ট পাওয়া যায়নি। তথ্য যাচাই করুন।"}</div>`;
+          const msg = json.message || window.l ? window.l('রিপোর্ট পাওয়া যায়নি। তথ্য যাচাই করুন।', 'Report not found. Please verify your details.') : 'রিপোর্ট পাওয়া যায়নি। তথ্য যাচাই করুন।';
+          result.innerHTML = `<div class="alert alert-error" style="margin-top:1rem;">❌ ${msg}</div>`;
         }
       } catch (err) {
         result.style.display = "block";
-        result.innerHTML = `<div class="alert alert-error" style="margin-top:1rem;">❌ সার্ভার সংযোগে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।</div>`;
+        result.innerHTML = `<div class="alert alert-error" style="margin-top:1rem;">❌ ${window.l ? window.l('সার্ভার সংযোগে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।', 'Server connection error. Please try again later.') : 'সার্ভার সংযোগে সমস্যা হয়েছে। পরে আবার চেষ্টা করুন।'}</div>`;
       }
     }
 

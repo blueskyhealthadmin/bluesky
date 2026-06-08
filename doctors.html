@@ -30,7 +30,7 @@
     <!-- Search & Filter -->
     <div style="display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem;">
       <input type="text" id="doctor-search" placeholder="চিকিৎসকের নাম খুঁজুন..."
-             style="padding:.65rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;font-family:inherit;min-width:240px;flex:1;max-width:360px;">
+           style="padding:.65rem 1rem;border:1.5px solid var(--border);border-radius:var(--radius);font-size:.9rem;font-family:inherit;min-width:240px;flex:1;max-width:360px;">
     </div>
 
     <!-- Category Filter -->
@@ -75,10 +75,10 @@ document.addEventListener("DOMContentLoaded", () => {
   renderFooter();
   initBannerPopup();
 
-  // Build filter bar
+  // Build filter bar (language-aware)
   const filterBar = document.getElementById("doctor-filter-bar");
   filterBar.innerHTML = data.doctorCategories.map(c =>
-    `<button class="filter-btn${c.id==="all"?" active":""}" data-cat="${c.id}">${c.label}</button>`
+    `<button class="filter-btn${c.id==="all"?" active":""}" data-cat="${c.id}">${window.l(c.label, c.labelEn)}</button>`
   ).join("");
 
   filterBar.addEventListener("click", e => {
@@ -91,7 +91,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   // Search
-  document.getElementById("doctor-search").addEventListener("input", render);
+  const searchInput = document.getElementById("doctor-search");
+  // Set placeholder based on language
+  if (window.l) searchInput.placeholder = window.l("চিকিৎসকের নাম খুঁজুন...", "Search doctors...");
+  searchInput.addEventListener("input", render);
 
   function render() {
     const q    = document.getElementById("doctor-search").value.toLowerCase();
@@ -99,7 +102,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const empty = document.getElementById("doctors-empty");
     const filtered = doctors.filter(d => {
       const matchCat  = active === "all" || d.category === active;
-      const matchName = !q || d.name.toLowerCase().includes(q) || d.specialty.toLowerCase().includes(q) || d.specialtyEn.toLowerCase().includes(q);
+      const nameBn = (d.name || "").toLowerCase();
+      const nameEn = (d.nameEn || "").toLowerCase();
+      const specBn = (d.specialtyBn || "").toLowerCase();
+      const specEn = (d.specialtyEn || d.specialty || "").toLowerCase();
+      const matchName = !q || nameBn.includes(q) || nameEn.includes(q) || specBn.includes(q) || specEn.includes(q);
       return matchCat && matchName;
     });
     grid.innerHTML = filtered.map(doctorCard).join("");

@@ -28,8 +28,8 @@
 <div id="login-screen">
   <div class="admin-login">
     <img src="logo.jpeg" alt="Bluesky Health">
-    <h2>Admin Panel</h2>
-    <p>Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম</p>
+    <h2 id="login-heading">Admin Panel</h2>
+    <p id="login-sub">Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম</p>
     <div id="login-error" class="login-error" style="display:none;"></div>
     <div class="form-group">
       <label for="admin-pass">পাসওয়ার্ড</label>
@@ -47,9 +47,9 @@
 
   <!-- Admin Header -->
   <div class="admin-header">
-    <div style="display:flex;align-items:center;gap:.75rem;">
+      <div style="display:flex;align-items:center;gap:.75rem;">
       <img src="logo.jpeg" alt="Logo" style="height:32px;border-radius:4px;">
-      <h1>Bluesky Health — Admin Panel</h1>
+      <h1 id="admin-header-title">Bluesky Health — Admin Panel</h1>
     </div>
     <div style="display:flex;gap:.75rem;align-items:center;">
       <a href="index.html" class="btn btn-sm btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);" target="_blank">🌐 Visit Site</a>
@@ -140,12 +140,18 @@
           <h3>অন্যান্য তথ্য</h3>
           <div class="admin-grid-2">
             <div class="form-group">
-              <label>সেবার সময়</label>
-              <input type="text" id="contact-hours">
+              <label>সেবার সময় (ইংরেজি)</label>
+              <input type="text" id="contact-hours-en" placeholder="8:00 AM – 9:00 PM | Sat–Thu">
             </div>
             <div class="form-group">
               <label>ওয়েবসাইট</label>
               <input type="text" id="contact-website">
+            </div>
+          </div>
+          <div style="margin-top:.75rem;">
+            <div class="form-group">
+              <label>সেবার সময় (বাংলা)</label>
+              <input type="text" id="contact-hours-bn" placeholder="সকাল ৮টা — রাত ৯টা | শনি–বৃহস্পতি">
             </div>
           </div>
         </div>
@@ -505,9 +511,13 @@ function getBannerFormValues() {
 function renderContactTab() {
   const d = getLiveData().contact;
   document.getElementById("contact-phones-input").value = (d.phones||[]).join("\n");
-  document.getElementById("contact-address-en").value   = d.address  || "";
+  document.getElementById("contact-address-en").value   = d.addressEn || d.address || "";
   document.getElementById("contact-address-bn").value   = d.addressBn || "";
-  document.getElementById("contact-hours").value   = d.hours   || "";
+  // Populate both English and Bangla hours fields if available, fall back to legacy `d.hours` when present
+  const hrsEn = d.hoursEn || d.hours || "";
+  const hrsBn = d.hoursBn || d.hours || "";
+  const he = document.getElementById("contact-hours-en"); if (he) he.value = hrsEn;
+  const hb = document.getElementById("contact-hours-bn"); if (hb) hb.value = hrsBn;
   document.getElementById("contact-website").value = d.website || "";
 }
 
@@ -516,9 +526,11 @@ function saveContact() {
     .split("\n").map(p => p.trim()).filter(Boolean);
   const contact = {
     phones,
-    address:   document.getElementById("contact-address-en").value.trim(),
+    // Store bilingual fields using the canonical keys expected by pages
+    addressEn: document.getElementById("contact-address-en").value.trim(),
     addressBn: document.getElementById("contact-address-bn").value.trim(),
-    hours:     document.getElementById("contact-hours").value.trim(),
+    hoursEn:   (document.getElementById("contact-hours-en") ? document.getElementById("contact-hours-en").value.trim() : document.getElementById("contact-hours").value.trim()),
+    hoursBn:   (document.getElementById("contact-hours-bn") ? document.getElementById("contact-hours-bn").value.trim() : document.getElementById("contact-hours").value.trim()),
     website:   document.getElementById("contact-website").value.trim(),
     email:     getLiveData().contact.email || ""
   };
@@ -849,6 +861,23 @@ function showMsg(id, cls, text) {
 function escapeHtml(str) {
   return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
 }
+</script>
+<script>
+// Minimal admin-page localization (reads `bsky_lang` from localStorage)
+(function(){
+  const lang = (localStorage.getItem('bsky_lang') || 'bn');
+  const l = (bn, en) => (lang === 'en') ? (en || bn) : (bn || en || '');
+  const setText = (id, bn, en, html) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    if (html) el.innerHTML = l(bn, en);
+    else el.textContent = l(bn, en);
+  };
+
+  setText('login-heading', 'অ্যাডমিন প্যানেল', 'Admin Panel');
+  setText('login-sub', 'Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম', 'Bluesky Health Limited — Site Management System');
+  setText('admin-header-title', 'Bluesky Health — অ্যাডমিন প্যানেল', 'Bluesky Health — Admin Panel');
+})();
 </script>
 </body>
 </html>

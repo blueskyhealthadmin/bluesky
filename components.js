@@ -8,25 +8,32 @@
    HEADER
 ═══════════════════════════════════════════════ */
 function renderHeader(activePage) {
+  // Navigation with bilingual labels (Bn/En)
   const nav = [
-    { href: "index.html",   label: "Home",         id: "home"    },
-    { href: "about.html",   label: "About", id: "about"   },
-    { href: "doctors.html", label: "Doctors", id: "doctors" },
-    { href: "tests.html",   label: "Test Package",  id: "tests"   },
-    { href: "report.html",  label: "Report",       id: "report"  },
-    { href: "contact.html", label: "Contact",       id: "contact" }
+    { href: "index.html",   labelBn: "হোম", labelEn: "Home",         id: "home"    },
+    { href: "about.html",   labelBn: "আমাদের সম্পর্কে", labelEn: "About", id: "about"   },
+    { href: "doctors.html", labelBn: "বিশেষজ্ঞ চিকিৎসক", labelEn: "Doctors", id: "doctors" },
+    { href: "tests.html",   labelBn: "টেস্ট প্যাকেজ", labelEn: "Test Package",  id: "tests"   },
+    { href: "report.html",  labelBn: "রিপোর্ট", labelEn: "Report",       id: "report"  },
+    { href: "contact.html", labelBn: "যোগাযোগ", labelEn: "Contact",       id: "contact" }
   ];
 
   const data  = getSiteData();
   const phone = data.contact.phones[0] || "";
+  const lang  = window.getBskyLang ? window.getBskyLang() : (localStorage.getItem('bsky_lang') || 'bn');
 
-  const links = nav.map(n =>
-    `<a href="${n.href}" class="nav-link${activePage === n.id ? " active" : ""}">${n.label}</a>`
-  ).join("");
+  const links = nav.map(n => {
+    const label = lang === 'en' ? n.labelEn : n.labelBn;
+    return `<a href="${n.href}" class="nav-link${activePage === n.id ? " active" : ""}">${label}</a>`
+  }).join("");
+
+  const topbarText = lang === 'en'
+    ? '🕗 8:00 AM — 9:00 PM | Sat–Thu'
+    : '🕗 সকাল ৮টা — রাত ৯টা &nbsp;|&nbsp; শনি–বৃহস্পতি';
 
   document.getElementById("site-header").innerHTML = `
     <div class="topbar">
-      <span>🕗 সকাল ৮টা — রাত ৯টা &nbsp;|&nbsp; শনি–বৃহস্পতি</span>
+      <span>${topbarText}</span>
       <span>📞 <a href="tel:+88${phone.replace(/\s/g,'')}">${phone}</a></span>
     </div>
     <header class="main-header">
@@ -42,6 +49,11 @@ function renderHeader(activePage) {
         <nav class="main-nav" id="main-nav">
           ${links}
         </nav>
+
+        <div class="lang-switch" style="margin-left:1rem;display:flex;gap:.25rem;align-items:center;">
+          <button class="lang-btn" data-lang="bn" style="padding:.35rem .6rem;border-radius:4px;border:1px solid var(--border);background:transparent;">BN</button>
+          <button class="lang-btn" data-lang="en" style="padding:.35rem .6rem;border-radius:4px;border:1px solid var(--border);background:transparent;">EN</button>
+        </div>
       </div>
     </header>`;
 
@@ -49,6 +61,19 @@ function renderHeader(activePage) {
   const btn = document.getElementById("hamburger");
   const mn  = document.getElementById("main-nav");
   if (btn) btn.addEventListener("click", () => mn.classList.toggle("open"));
+
+  // Language buttons
+  const langBtns = Array.from(document.querySelectorAll('.lang-btn'));
+  if (langBtns.length) {
+    langBtns.forEach(b => {
+      if (b.dataset.lang === lang) b.classList.add('active');
+      b.addEventListener('click', () => {
+        const target = b.dataset.lang;
+        if (window.setBskyLang) window.setBskyLang(target);
+        else { localStorage.setItem('bsky_lang', target); location.reload(); }
+      });
+    });
+  }
 }
 
 /* ═══════════════════════════════════════════════
@@ -56,44 +81,45 @@ function renderHeader(activePage) {
 ═══════════════════════════════════════════════ */
 function renderFooter() {
   const data = getSiteData();
-  const { phones, addressBn, email } = data.contact;
+  const { phones, addressBn, addressEn, email } = data.contact;
+  const lang = window.getBskyLang ? window.getBskyLang() : (localStorage.getItem('bsky_lang') || 'bn');
 
   document.getElementById("site-footer").innerHTML = `
     <footer class="footer">
       <div class="container footer-grid">
         <div class="footer-col">
           <img src="logo.jpeg" alt="Bluesky Health" class="footer-logo">
-          <p class="footer-about">Bluesky Health Limited — বাংলাদেশের একটি বিশ্বমানের ডায়াগনস্টিক ও মেডিকেল কনসালটেন্সি সেন্টার।</p>
+          <p class="footer-about">${window.l('Bluesky Health Limited — বাংলাদেশের একটি বিশ্বমানের ডায়াগনস্টিক ও মেডিকেল কনসালটেন্সি সেন্টার।', 'Bluesky Health Limited — Quality Diagnostic & Medical Consultancy Center, Mohakhali, Dhaka.')}</p>
         </div>
 
         <div class="footer-col">
-          <h4>দ্রুত লিঙ্ক</h4>
+          <h4>${window.l('দ্রুত লিঙ্ক', 'Quick Links')}</h4>
           <ul>
-            <li><a href="index.html">হোম</a></li>
-            <li><a href="about.html">আমাদের সম্পর্কে</a></li>
-            <li><a href="doctors.html">বিশেষজ্ঞ চিকিৎসক</a></li>
-            <li><a href="tests.html">টেস্ট প্যাকেজ</a></li>
-            <li><a href="report.html">রিপোর্ট ডাউনলোড</a></li>
-            <li><a href="contact.html">যোগাযোগ</a></li>
+            <li><a href="index.html">${window.l('হোম','Home')}</a></li>
+            <li><a href="about.html">${window.l('আমাদের সম্পর্কে','About')}</a></li>
+            <li><a href="doctors.html">${window.l('বিশেষজ্ঞ চিকিৎসক','Doctors')}</a></li>
+            <li><a href="tests.html">${window.l('টেস্ট প্যাকেজ','Test Packages')}</a></li>
+            <li><a href="report.html">${window.l('রিপোর্ট ডাউনলোড','Report Download')}</a></li>
+            <li><a href="contact.html">${window.l('যোগাযোগ','Contact')}</a></li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>সেবা সমূহ</h4>
+          <h4>${window.l('সেবা সমূহ','Services')}</h4>
           <ul>
-            <li>প্যাথলজি</li>
-            <li>রেডিওলজি ও ইমেজিং</li>
-            <li>কার্ডিয়াক টেস্ট</li>
-            <li>ভিডিও এন্ডোস্কোপি</li>
+            <li>${window.l('প্যাথলজি','Pathology')}</li>
+            <li>${window.l('রেডিওলজি ও ইমেজিং','Radiology & Imaging')}</li>
+            <li>${window.l('কার্ডিয়াক টেস্ট','Cardiac Tests')}</li>
+            <li>${window.l('ভিডিও এন্ডোস্কোপি','Video Endoscopic Procedures')}</li>
             <li>CT Guided Core Biopsy</li>
             <li>DNA & RT-PCR Test</li>
           </ul>
         </div>
 
         <div class="footer-col">
-          <h4>যোগাযোগ</h4>
+          <h4>${window.l('যোগাযোগ','Contact')}</h4>
           <address>
-            <p>📍 ${addressBn}</p>
+            <p>📍 ${window.l(addressBn || '', addressEn || '')}</p>
             ${phones.map(p => `<p>📞 <a href="tel:${p.replace(/[^\d]/g, '')}">${p}</a></p>`).join("")}
           </address>
         </div>
@@ -216,7 +242,6 @@ function initBannerPopup() {
 
     idx = newIdx;
   }
-
   // ── Dismiss popup ───────────────────────────────────────────────────────
   function dismissPopup() {
     clearInterval(autoTimer);
@@ -299,19 +324,22 @@ function initBannerPopup() {
    UTILITY: Doctor card HTML
 ═══════════════════════════════════════════════ */
 function doctorCard(doc) {
+  const lang = window.getBskyLang ? window.getBskyLang() : (localStorage.getItem('bsky_lang') || 'bn');
+  const displayName = (lang === 'en' && doc.nameEn) ? doc.nameEn : doc.name;
+  const displaySpecialty = (lang === 'en' && doc.specialtyEn) ? doc.specialtyEn : (doc.specialtyBn || doc.specialty);
   return `
     <div class="doctor-card" data-category="${doc.category}">
       <div class="doctor-img-wrap">
-        <img src="${doc.image}" alt="${doc.name}" loading="lazy"
+        <img src="${doc.image}" alt="${displayName}" loading="lazy"
              onerror="this.onerror=null;this.style.display='none';this.parentElement.querySelector('.doc-placeholder').style.display='flex'">
         <div class="doc-placeholder" style="display:none;align-items:center;justify-content:center;width:100%;height:100%;font-size:3.5rem;opacity:.4;">👨‍⚕️</div>
       </div>
       <div class="doctor-info">
-        <span class="badge badge-specialty">${doc.specialtyEn}</span>
-        <h3 class="doctor-name">${doc.name}</h3>
+        <span class="badge badge-specialty">${displaySpecialty}</span>
+        <h3 class="doctor-name">${displayName}</h3>
         <p class="doctor-degrees">${doc.degrees}</p>
         ${doc.institution ? `<p class="doctor-inst">${doc.institution}</p>` : ""}
-        <div class="doctor-spec-tag">${doc.specialty}</div>
+        <div class="doctor-spec-tag">${displaySpecialty}</div>
       </div>
     </div>`;
 }
@@ -320,16 +348,21 @@ function doctorCard(doc) {
    UTILITY: Package card HTML
 ═══════════════════════════════════════════════ */
 function packageCard(pkg) {
-  const groups = pkg.groups.map(g => `
+  const lang = window.getBskyLang ? window.getBskyLang() : (localStorage.getItem('bsky_lang') || 'bn');
+  const groups = pkg.groups.map(g => {
+    const gTitle = (lang === 'en') ? (g.titleEn || g.title) : (g.titleBn || g.title);
+    return `
     <div class="pkg-group">
-      <h5>${g.title}</h5>
+      <h5>${gTitle}</h5>
       <ul>${g.tests.map(t => `<li>${t}</li>`).join("")}</ul>
-    </div>`).join("");
-
+    </div>`;
+  }).join("");
+  const title = lang === 'en' ? (pkg.nameEn || pkg.nameBn) : pkg.nameBn;
+  const cta = lang === 'en' ? 'Call to Book' : 'বুকিং — কল করুন';
   return `
     <div class="pkg-card" data-category="${pkg.category}">
       <div class="pkg-header" style="background:${pkg.color || "#0B3D91"}">
-        <h3>${pkg.nameBn}</h3>
+        <h3>${title}</h3>
         <p class="pkg-name-en">${pkg.nameEn}</p>
       </div>
       <div class="pkg-body">
@@ -337,7 +370,18 @@ function packageCard(pkg) {
       </div>
       <div class="pkg-footer">
         <span class="pkg-price">${pkg.price}</span>
-        <a href="contact.html" class="btn btn-sm">বুকিং — কল করুন</a>
+        <a href="contact.html" class="btn btn-sm">${cta}</a>
       </div>
     </div>`;
 }
+
+// Minimal i18n runtime helpers
+// Minimal i18n runtime helpers
+window.getBskyLang = function() { return localStorage.getItem('bsky_lang') || 'bn'; };
+window.setBskyLang = function(l) { localStorage.setItem('bsky_lang', l); location.reload(); };
+
+// Simple inline translator: provide Bangla and English variants
+window.l = function(bn, en) {
+  const lang = window.getBskyLang();
+  return (lang === 'en') ? (en || bn) : (bn || en || "");
+};

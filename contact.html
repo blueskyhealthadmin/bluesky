@@ -83,7 +83,7 @@
             title="Bluesky Health Limited Location">
           </iframe>
         </div>
-        <p style="font-size:.82rem;color:var(--text-muted);margin-top:.75rem;text-align:center;">
+        <p id="map-caption" style="font-size:.82rem;color:var(--text-muted);margin-top:.75rem;text-align:center;">
           📍 মহাখালি টিবি গেট, ব্র্যাক সেন্টারের বিপরীতে, ঢাকা
         </p>
       </div>
@@ -147,11 +147,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Address
   const addrEl = document.getElementById("contact-address");
-  if (addrEl) addrEl.textContent = c.addressBn;
+  if (addrEl) addrEl.textContent = window.l ? window.l(c.addressBn, c.addressEn) : (c.addressBn || c.addressEn || "");
 
-  // Hours
+  // Hours (bilingual)
   const hoursEl = document.getElementById("contact-hours");
-  if (hoursEl) hoursEl.textContent = c.hours;
+  if (hoursEl) hoursEl.textContent = window.l ? window.l(c.hoursBn, c.hoursEn) : (c.hoursBn || c.hoursEn || "");
 
   // Website
   const webEl = document.getElementById("contact-website");
@@ -172,6 +172,10 @@ document.addEventListener("DOMContentLoaded", () => {
       `<a href="tel:${p.replace(/[^\d]/g,'')}" class="btn btn-blue btn-sm" style="justify-content:center;">${p}</a>`
     ).join("");
   }
+
+  // Map caption language toggle
+  const mapCap = document.getElementById('map-caption');
+  if (mapCap && window.l) mapCap.textContent = window.l('📍 মহাখালি টিবি গেট, ব্র্যাক সেন্টারের বিপরীতে, ঢাকা', '📍 Mohakhali TB Gate, opposite BRAC Center, Dhaka');
 });
 </script>
 </body>
