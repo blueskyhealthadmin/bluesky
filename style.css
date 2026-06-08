@@ -28,6 +28,15 @@
   --header-h:    72px;
 }
 
+/* ─── Language indicator backgrounds ─── */
+/* Subtle page tint to indicate selected language */
+body.bsky-lang-en { background: linear-gradient(180deg, rgba(33,150,243,0.04), var(--off-white)); }
+body.bsky-lang-bn { background: linear-gradient(180deg, rgba(16,185,129,0.03), var(--off-white)); }
+
+/* Language button styles */
+.lang-btn { font-weight:600; cursor:pointer; border:1px solid var(--border); background:transparent; padding:.35rem .6rem; border-radius:4px; }
+.lang-btn.active { background: var(--sky); color: var(--white); border-color: var(--sky); }
+
 /* ─── Reset & Base ─── */
 *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 

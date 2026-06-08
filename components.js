@@ -376,9 +376,32 @@ function packageCard(pkg) {
 }
 
 // Minimal i18n runtime helpers
-// Minimal i18n runtime helpers
 window.getBskyLang = function() { return localStorage.getItem('bsky_lang') || 'bn'; };
-window.setBskyLang = function(l) { localStorage.setItem('bsky_lang', l); location.reload(); };
+window.setBskyLang = function(l) {
+  try {
+    localStorage.setItem('bsky_lang', l);
+    document.body.classList.remove('bsky-lang-bn','bsky-lang-en');
+    document.body.classList.add(l === 'en' ? 'bsky-lang-en' : 'bsky-lang-bn');
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === l));
+  } catch (e) {
+    // ignore if localStorage or DOM not available
+  }
+  // small delay so the visual change can be seen before reload
+  setTimeout(() => location.reload(), 120);
+};
+
+// Apply body class according to current language
+window.applyBskyLangClass = function() {
+  try {
+    const lang = window.getBskyLang();
+    document.body.classList.remove('bsky-lang-bn','bsky-lang-en');
+    document.body.classList.add(lang === 'en' ? 'bsky-lang-en' : 'bsky-lang-bn');
+    document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+  } catch (e) {}
+};
+// Run on DOM ready
+if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', window.applyBskyLangClass);
+else window.applyBskyLangClass();
 
 // Simple inline translator: provide Bangla and English variants
 window.l = function(bn, en) {
