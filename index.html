@@ -255,7 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (statsEl) {
     statsEl.innerHTML = data.stats.map(s =>
       `<div class="stat-item" data-reveal>
-        <div class="stat-value">${s.value}</div>
+        <div class="stat-value">${window.l ? window.l(s.value, s.valueEn) : s.value}</div>
         <div class="stat-label">${window.l ? window.l(s.label, s.labelEn) : s.label}</div>
       </div>`
     ).join("");
@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="equip-info">
           <h3>${eq.name}</h3>
           <div class="equip-brand">${eq.brand}</div>
-          <p>${eq.detail}</p>
+          <p>${window.l ? window.l(eq.detail, eq.detailEn) : eq.detail}</p>
         </div>
       </div>`
     ).join("");

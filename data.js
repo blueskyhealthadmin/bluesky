@@ -557,6 +557,7 @@ const DEFAULT_DATA = {
       name: "CT Scan Machine",
       brand: "Toshiba / Canon (Japan)",
       detail: "80-Slice জাপানি সিটি স্ক্যান মেশিন — ক্যান্সার ও জটিল রোগ নির্ণয়ে বাংলাদেশের সেরা",
+      detailEn: "80-Slice Japanese CT Scan Machine — Best in Bangladesh for cancer & complex disease diagnosis",
       image: "/images/equipment/ct-scan.jpg"
     },
     {
@@ -564,6 +565,7 @@ const DEFAULT_DATA = {
       name: "Digital X-Ray",
       brand: "Radieleia — Spain",
       detail: "500mA ডিজিটাল এক্স-রে মেশিন — স্পেন থেকে আনা উন্নতমানের রেডিওলজি যন্ত্রপাতি",
+      detailEn: "500mA Digital X-Ray Machine — High-quality radiology equipment from Spain",
       image: "/images/equipment/xray.jpg"
     },
     {
@@ -571,6 +573,7 @@ const DEFAULT_DATA = {
       name: "Ultrasonography (2D & 4D)",
       brand: "Philips",
       detail: "Philips-এর আধুনিক 2D ও 4D আল্ট্রাসনোগ্রাফি মেশিন",
+      detailEn: "Modern Philips 2D & 4D Ultrasonography Machine",
       image: "/images/equipment/usg.jpg"
     },
     {
@@ -578,6 +581,7 @@ const DEFAULT_DATA = {
       name: "Echocardiography (2D & 4D)",
       brand: "—",
       detail: "হৃদযন্ত্রের গভীর পরীক্ষার জন্য আধুনিক ইকোকার্ডিওগ্রাফি",
+      detailEn: "Modern Echocardiography for in-depth cardiac examination",
       image: "/images/equipment/echo.jpg"
     },
     {
@@ -585,6 +589,7 @@ const DEFAULT_DATA = {
       name: "Bio-Chemistry Analyser",
       brand: "Pentra",
       detail: "Pentra বায়ো-কেমিস্ট্রি অ্যানালাইজার — নির্ভুল রক্ত পরীক্ষার গ্যারান্টি",
+      detailEn: "Pentra Bio-Chemistry Analyser — guaranteed accurate blood tests",
       image: "/images/equipment/biochemistry.jpg"
     },
     {
@@ -592,6 +597,7 @@ const DEFAULT_DATA = {
       name: "Haematology Analyser",
       brand: "Yumarin",
       detail: "Yumarin হেমাটোলজি অ্যানালাইজার — CBC ও রক্তের বিস্তারিত পরীক্ষা",
+      detailEn: "Yumarin Haematology Analyser — CBC and detailed blood analysis",
       image: "/images/equipment/haematology.jpg"
     },
     {
@@ -599,16 +605,17 @@ const DEFAULT_DATA = {
       name: "Video Endoscope",
       brand: "Fujifilm 350 HD (Japan)",
       detail: "জাপানি Fujifilm 350 HD ভিডিও এন্ডোস্কোপ — পাকস্থলী ও অন্ত্রের পরীক্ষায় সর্বোচ্চ স্পষ্টতা",
+      detailEn: "Japanese Fujifilm 350 HD Video Endoscope — maximum clarity for stomach & intestinal examination",
       image: "/images/equipment/endoscope.jpg"
     }
   ],
 
   /* ─────────────── STATS ─────────────── */
   stats: [
-    { value: "২৪+",    label: "বিশেষজ্ঞ চিকিৎসক",        labelEn: "Specialist Doctors" },
-    { value: "৯৯.৯৯%", label: "পরীক্ষার নির্ভুলতা",        labelEn: "Test Accuracy" },
-    { value: "২৫+",    label: "বছরের অভিজ্ঞতা",          labelEn: "Years of Experience" },
-    { value: "১০,০০০", label: "বর্গফুট প্রিমিসেস",       labelEn: "Premises (sqft)" }
+    { value: "২৪+",    valueEn: "24+",    label: "বিশেষজ্ঞ চিকিৎসক",        labelEn: "Specialist Doctors" },
+    { value: "৯৯.৯৯%", valueEn: "99.99%", label: "পরীক্ষার নির্ভুলতা",        labelEn: "Test Accuracy" },
+    { value: "২৫+",    valueEn: "25+",    label: "বছরের অভিজ্ঞতা",          labelEn: "Years of Experience" },
+    { value: "১০,০০০", valueEn: "10,000", label: "বর্গফুট প্রিমিসেস",       labelEn: "Premises (sqft)" }
   ]
 };
 
