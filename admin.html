@@ -32,11 +32,11 @@
     <p id="login-sub">Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম</p>
     <div id="login-error" class="login-error" style="display:none;"></div>
     <div class="form-group">
-      <label for="admin-pass">পাসওয়ার্ড</label>
+      <label id="admin-pass-label" for="admin-pass">পাসওয়ার্ড</label>
       <input type="password" id="admin-pass" placeholder="Admin password" autocomplete="current-password">
     </div>
-    <button class="btn btn-blue" style="width:100%;justify-content:center;" onclick="doLogin()">লগইন করুন</button>
-    <p style="font-size:.75rem;color:var(--text-muted);margin-top:1rem;">
+    <button class="btn btn-blue" style="width:100%;justify-content:center;" onclick="doLogin()" id="admin-login-btn">লগইন করুন</button>
+    <p id="admin-default-pass-msg" style="font-size:.75rem;color:var(--text-muted);margin-top:1rem;">
       Default password: <code>admin123</code> (change via Settings)
     </p>
   </div>
@@ -51,9 +51,13 @@
       <img src="logo.jpeg" alt="Logo" style="height:32px;border-radius:4px;">
       <h1 id="admin-header-title">Bluesky Health — Admin Panel</h1>
     </div>
-    <div style="display:flex;gap:.75rem;align-items:center;">
-      <a href="index.html" class="btn btn-sm btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);" target="_blank">🌐 Visit Site</a>
-      <button class="btn btn-sm btn-danger" onclick="doLogout()">লগআউট</button>
+    <div style="display:flex;gap:.5rem;align-items:center;flex-wrap:wrap;">
+      <div class="lang-switch" style="margin-right:.25rem;">
+        <button class="lang-btn" data-lang="bn" onclick="adminToggleLang('bn')">BN</button>
+        <button class="lang-btn" data-lang="en" onclick="adminToggleLang('en')">EN</button>
+      </div>
+      <a href="index.html" class="btn btn-sm btn-outline" style="color:#fff;border-color:rgba(255,255,255,.4);" target="_blank">🌐 <span id="admin-visit-site">Visit Site</span></a>
+      <button class="btn btn-sm btn-danger" onclick="doLogout()" id="admin-logout-btn">লগআউট</button>
     </div>
   </div>
 
@@ -75,17 +79,17 @@
 
     <!-- Sidebar -->
     <aside class="admin-sidebar">
-      <h2>সাইট ব্যবস্থাপনা</h2>
-      <div class="admin-nav-item active" data-tab="tab-banners"   onclick="switchTab('tab-banners')">   🖼️ Banners</div>
-      <div class="admin-nav-item"        data-tab="tab-contact"   onclick="switchTab('tab-contact')">   📞 Contact Info</div>
-      <h2>Content</h2>
-      <div class="admin-nav-item"        data-tab="tab-doctors"   onclick="switchTab('tab-doctors')">   👨‍⚕️ Doctors</div>
-      <div class="admin-nav-item"        data-tab="tab-packages"  onclick="switchTab('tab-packages')">  🧪 Packages</div>
-      <div class="admin-nav-item"        data-tab="tab-services"  onclick="switchTab('tab-services')">  🔬 Services</div>
-      <div class="admin-nav-item"        data-tab="tab-equipment" onclick="switchTab('tab-equipment')"> 🏥 Equipment</div>
-      <div class="admin-nav-item"        data-tab="tab-stats"     onclick="switchTab('tab-stats')">     📊 Stats</div>
-      <h2>System</h2>
-      <div class="admin-nav-item"        data-tab="tab-settings"  onclick="switchTab('tab-settings')">  ⚙️ Settings</div>
+      <h2 id="admin-sidebar-heading1">সাইট ব্যবস্থাপনা</h2>
+      <div class="admin-nav-item" data-tab="tab-banners"   onclick="switchTab('tab-banners')">   🖼️ <span class="admin-nav-text">Banners</span></div>
+      <div class="admin-nav-item" data-tab="tab-contact"   onclick="switchTab('tab-contact')">   📞 <span class="admin-nav-text">Contact Info</span></div>
+      <h2 id="admin-sidebar-heading2">Content</h2>
+      <div class="admin-nav-item" data-tab="tab-doctors"   onclick="switchTab('tab-doctors')">   👨‍⚕️ <span class="admin-nav-text">Doctors</span></div>
+      <div class="admin-nav-item" data-tab="tab-packages"  onclick="switchTab('tab-packages')">  🧪 <span class="admin-nav-text">Packages</span></div>
+      <div class="admin-nav-item" data-tab="tab-services"  onclick="switchTab('tab-services')">  🔬 <span class="admin-nav-text">Services</span></div>
+      <div class="admin-nav-item" data-tab="tab-equipment" onclick="switchTab('tab-equipment')"> 🏥 <span class="admin-nav-text">Equipment</span></div>
+      <div class="admin-nav-item" data-tab="tab-stats"     onclick="switchTab('tab-stats')">     📊 <span class="admin-nav-text">Stats</span></div>
+      <h2 id="admin-sidebar-heading3">System</h2>
+      <div class="admin-nav-item" data-tab="tab-settings"  onclick="switchTab('tab-settings')">  ⚙️ <span class="admin-nav-text">Settings</span></div>
     </aside>
 
     <!-- Main Content -->
@@ -93,21 +97,21 @@
 
       <!-- ── BANNERS TAB ── -->
       <div class="admin-tab active" id="tab-banners">
-        <h2>Banner Management</h2>
-        <p>ওয়েবসাইটের পপ-আপ ব্যানার পরিচালনা করুন। প্রথম ভিজিটে ডিসমিস করলে পারের <strong>24 ঘন্টা</strong> পর্যন্ত ব্যানার দেখাবে না।</p>
+        <h2 id="tab-banners-title">Banner Management</h2>
+        <p id="tab-banners-desc">ওয়েবসাইটের পপ-আপ ব্যানার পরিচালনা করুন। প্রথম ভিজিটে ডিসমিস করলে পারের <strong>24 ঘন্টা</strong> পর্যন্ত ব্যানার দেখাবে না।</p>
 
         <div class="admin-section-actions">
-          <button class="btn btn-blue btn-sm" onclick="openAddBanner()">নতুন ব্যানার যোগ করুন</button>
-          <button class="btn btn-sm btn-ghost" onclick="clearBannerCache()" title="ব্যানার বাতিলের ডেটা মুছুন (পরীক্ষার জন্য)">&#x267B; পপ-আপ ক্যাশ রিসেট</button>
-          <button class="btn btn-sm btn-ghost" onclick="resetBannersToDefault()" title="সংরক্ষিত ব্যানার মুছে সব ৬টি ডিফল্ট ব্যানারে ফিরুন">&#x21BA; ডিফল্টে রিসেট</button>
+          <button class="btn btn-blue btn-sm" onclick="openAddBanner()" id="btn-add-banner">নতুন ব্যানার যোগ করুন</button>
+          <button class="btn btn-sm btn-ghost" onclick="clearBannerCache()" id="btn-clear-banner-cache" title="ব্যানার বাতিলের ডেটা মুছুন (পরীক্ষার জন্য)">&#x267B; পপ-আপ ক্যাশ রিসেট</button>
+          <button class="btn btn-sm btn-ghost" onclick="resetBannersToDefault()" id="btn-reset-banners" title="সংরক্ষিত ব্যানার মুছে সব ৬টি ডিফল্ট ব্যানারে ফিরুন">&#x21BA; ডিফল্টে রিসেট</button>
         </div>
 
         <div class="admin-card">
-          <h3>সক্রিয় ও নিষ্ক্রিয় ব্যানার</h3>
+          <h3 id="tab-banners-list-title">সক্রিয় ও নিষ্ক্রিয় ব্যানার</h3>
           <div id="banners-list"></div>
         </div>
 
-        <div class="alert alert-info">
+        <div class="alert alert-info" id="tab-banners-info">
           <strong>💡 নির্দেশনা:</strong>
           ব্যানার ছবি <code>images/banners/</code> ফোল্ডারে রাখুন এবং <em>Image Path</em>-এ পাথ দিন — যেমন: <code>images/banners/dr anisur banner.jpeg</code>।
           ডিসপ্লে সাইজ ভালো দেখাতে <strong>portrait (tall)</strong> ছবি ব্যবহার করুন (যেমন ডাক্তারের ব্যানার)।
@@ -116,170 +120,170 @@
 
       <!-- ── CONTACT TAB ── -->
       <div class="admin-tab" id="tab-contact">
-        <h2>Contact Information</h2>
-        <p>যোগাযোগের তথ্য সম্পাদনা করুন — পরিবর্তন সব পেজে একসাথে প্রযোজ্য হবে।</p>
+        <h2 id="tab-contact-title">Contact Information</h2>
+        <p id="tab-contact-desc">যোগাযোগের তথ্য সম্পাদনা করুন — পরিবর্তন সব পেজে একসাথে প্রযোজ্য হবে।</p>
 
         <div class="admin-card">
-          <h3>ফোন নম্বর (প্রতি লাইনে একটি)</h3>
+          <h3 id="tab-contact-phones-title">ফোন নম্বর (প্রতি লাইনে একটি)</h3>
           <textarea class="json-editor" id="contact-phones-input" rows="6"></textarea>
         </div>
 
         <div class="admin-card">
-          <h3>ঠিকানা</h3>
+          <h3 id="tab-contact-address-title">ঠিকানা</h3>
           <div class="form-group">
-            <label>ইংরেজি ঠিকানা</label>
+            <label id="label-address-en">ইংরেজি ঠিকানা</label>
             <input type="text" id="contact-address-en">
           </div>
           <div class="form-group">
-            <label>বাংলা ঠিকানা</label>
+            <label id="label-address-bn">বাংলা ঠিকানা</label>
             <input type="text" id="contact-address-bn">
           </div>
         </div>
 
         <div class="admin-card">
-          <h3>অন্যান্য তথ্য</h3>
+          <h3 id="tab-contact-other-title">অন্যান্য তথ্য</h3>
           <div class="admin-grid-2">
             <div class="form-group">
-              <label>সেবার সময় (ইংরেজি)</label>
+              <label id="label-hours-en">সেবার সময় (ইংরেজি)</label>
               <input type="text" id="contact-hours-en" placeholder="8:00 AM – 9:00 PM | Sat–Thu">
             </div>
             <div class="form-group">
-              <label>ওয়েবসাইট</label>
+              <label id="label-website">ওয়েবসাইট</label>
               <input type="text" id="contact-website">
             </div>
           </div>
           <div style="margin-top:.75rem;">
             <div class="form-group">
-              <label>সেবার সময় (বাংলা)</label>
+              <label id="label-hours-bn">সেবার সময় (বাংলা)</label>
               <input type="text" id="contact-hours-bn" placeholder="সকাল ৮টা — রাত ৯টা | শনি–বৃহস্পতি">
             </div>
           </div>
         </div>
 
-        <button class="btn btn-blue" onclick="saveContact()">✓ পরিবর্তন সংরক্ষণ করুন</button>
+        <button class="btn btn-blue" onclick="saveContact()" id="btn-save-contact">✓ পরিবর্তন সংরক্ষণ করুন</button>
         <div id="contact-save-msg" class="alert" style="display:none;margin-top:1rem;"></div>
       </div>
 
       <!-- ── DOCTORS TAB ── -->
       <div class="admin-tab" id="tab-doctors">
-        <h2>Doctors Management</h2>
-        <p>চিকিৎসকদের তথ্য যোগ, সম্পাদনা বা মুছে ফেলুন।</p>
+        <h2 id="tab-doctors-title">Doctors Management</h2>
+        <p id="tab-doctors-desc">চিকিৎসকদের তথ্য যোগ, সম্পাদনা বা মুছে ফেলুন।</p>
 
         <div class="admin-section-actions">
-          <button class="btn btn-blue btn-sm" onclick="openAddDoctor()">+ নতুন চিকিৎসক যোগ করুন</button>
-          <button class="btn btn-sm btn-ghost" onclick="openJsonEditor('doctors')">📋 JSON সম্পাদনা</button>
+          <button class="btn btn-blue btn-sm" onclick="openAddDoctor()" id="btn-add-doctor">+ নতুন চিকিৎসক যোগ করুন</button>
+          <button class="btn btn-sm btn-ghost" onclick="openJsonEditor('doctors')" id="btn-json-doctors">📋 JSON সম্পাদনা</button>
         </div>
 
         <div class="admin-card">
-          <h3>চিকিৎসক তালিকা</h3>
+          <h3 id="tab-doctors-list-title">চিকিৎসক তালিকা</h3>
           <div id="doctors-admin-list"></div>
         </div>
       </div>
 
       <!-- ── PACKAGES TAB ── -->
       <div class="admin-tab" id="tab-packages">
-        <h2>Health Packages</h2>
-        <p>স্বাস্থ্য পরীক্ষা প্যাকেজ পরিচালনা করুন।</p>
+        <h2 id="tab-packages-title">Health Packages</h2>
+        <p id="tab-packages-desc">স্বাস্থ্য পরীক্ষা প্যাকেজ পরিচালনা করুন।</p>
 
         <div class="admin-section-actions">
-          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('packages')">📋 JSON সম্পাদনা (সকল প্যাকেজ)</button>
+          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('packages')" id="btn-json-packages">📋 JSON সম্পাদনা (সকল প্যাকেজ)</button>
         </div>
 
         <div class="admin-card">
-          <h3>প্যাকেজ তালিকা</h3>
+          <h3 id="tab-packages-list-title">প্যাকেজ তালিকা</h3>
           <div id="packages-admin-list"></div>
         </div>
       </div>
 
       <!-- ── SERVICES TAB ── -->
       <div class="admin-tab" id="tab-services">
-        <h2>Services</h2>
-        <p>সেবার বিভাগ ও আইটেম সম্পাদনা করুন।</p>
+        <h2 id="tab-services-title">Services</h2>
+        <p id="tab-services-desc">সেবার বিভাগ ও আইটেম সম্পাদনা করুন।</p>
         <div class="admin-section-actions">
-          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('services')">📋 JSON সম্পাদনা</button>
+          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('services')" id="btn-json-services">📋 JSON সম্পাদনা</button>
         </div>
         <div class="admin-card">
-          <h3>সেবা তালিকা</h3>
+          <h3 id="tab-services-list-title">সেবা তালিকা</h3>
           <div id="services-admin-list"></div>
         </div>
       </div>
 
       <!-- ── EQUIPMENT TAB ── -->
       <div class="admin-tab" id="tab-equipment">
-        <h2>Equipment</h2>
-        <p>মেশিনারি ও সরঞ্জামের তথ্য পরিচালনা করুন।</p>
+        <h2 id="tab-equipment-title">Equipment</h2>
+        <p id="tab-equipment-desc">মেশিনারি ও সরঞ্জামের তথ্য পরিচালনা করুন।</p>
         <div class="admin-section-actions">
-          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('equipment')">📋 JSON সম্পাদনা</button>
+          <button class="btn btn-blue btn-sm" onclick="openJsonEditor('equipment')" id="btn-json-equipment">📋 JSON সম্পাদনা</button>
         </div>
         <div class="admin-card">
-          <h3>সরঞ্জাম তালিকা</h3>
+          <h3 id="tab-equipment-list-title">সরঞ্জাম তালিকা</h3>
           <div id="equipment-admin-list"></div>
         </div>
-        <div class="alert alert-info" style="margin-top:1rem;">
+        <div class="alert alert-info" style="margin-top:1rem;" id="tab-equipment-info">
           <strong>💡 ছবি আপলোড:</strong> প্রতিটি সরঞ্জামের জন্য <code>images/equipment/</code> ফোল্ডারে ছবি রাখুন এবং JSON-এ পাথ আপডেট করুন।
         </div>
       </div>
 
       <!-- ── STATS TAB ── -->
       <div class="admin-tab" id="tab-stats">
-        <h2>Stats / Highlights</h2>
-        <p>হোমপেজের পরিসংখ্যান বক্স আপডেট করুন।</p>
+        <h2 id="tab-stats-title">Stats / Highlights</h2>
+        <p id="tab-stats-desc">হোমপেজের পরিসংখ্যান বক্স আপডেট করুন।</p>
         <div class="admin-card">
-          <h3>পরিসংখ্যান</h3>
+          <h3 id="tab-stats-list-title">পরিসংখ্যান</h3>
           <div id="stats-admin-list"></div>
         </div>
-        <button class="btn btn-blue" style="margin-top:.75rem;" onclick="saveStats()">✓ পরিবর্তন সংরক্ষণ করুন</button>
+        <button class="btn btn-blue" style="margin-top:.75rem;" onclick="saveStats()" id="btn-save-stats">✓ পরিবর্তন সংরক্ষণ করুন</button>
         <div id="stats-save-msg" class="alert" style="display:none;margin-top:1rem;"></div>
       </div>
 
       <!-- ── SETTINGS TAB ── -->
       <div class="admin-tab" id="tab-settings">
-        <h2>Settings</h2>
-        <p>সিস্টেম সেটিংস পরিচালনা করুন।</p>
+        <h2 id="tab-settings-title">Settings</h2>
+        <p id="tab-settings-desc">সিস্টেম সেটিংস পরিচালনা করুন।</p>
 
         <div class="admin-card">
-          <h3>পাসওয়ার্ড পরিবর্তন</h3>
+          <h3 id="tab-settings-pass-title">পাসওয়ার্ড পরিবর্তন</h3>
           <div class="form-group">
-            <label>বর্তমান পাসওয়ার্ড</label>
+            <label id="label-old-pass">বর্তমান পাসওয়ার্ড</label>
             <input type="password" id="old-pass" placeholder="বর্তমান পাসওয়ার্ড">
           </div>
           <div class="form-group">
-            <label>নতুন পাসওয়ার্ড</label>
+            <label id="label-new-pass">নতুন পাসওয়ার্ড</label>
             <input type="password" id="new-pass" placeholder="নতুন পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)">
           </div>
           <div class="form-group">
-            <label>নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
+            <label id="label-confirm-pass">নতুন পাসওয়ার্ড নিশ্চিত করুন</label>
             <input type="password" id="confirm-pass" placeholder="পুনরায় লিখুন">
           </div>
-          <button class="btn btn-blue" onclick="changePassword()">পাসওয়ার্ড পরিবর্তন করুন</button>
+          <button class="btn btn-blue" onclick="changePassword()" id="btn-change-pass">পাসওয়ার্ড পরিবর্তন করুন</button>
           <div id="pass-msg" class="alert" style="display:none;margin-top:1rem;"></div>
         </div>
 
         <div class="admin-card">
-          <h3>ডেটা ব্যবস্থাপনা</h3>
+          <h3 id="tab-settings-data-title">ডেটা ব্যবস্থাপনা</h3>
           <div style="display:flex;gap:.75rem;flex-wrap:wrap;">
-            <button class="btn btn-ghost btn-sm" onclick="exportData()">📥 সমস্ত ডেটা Export করুন</button>
-            <button class="btn btn-warn btn-sm" onclick="confirmReset()">♻️ সব ডিফল্টে পুনরায় সেট করুন</button>
+            <button class="btn btn-ghost btn-sm" onclick="exportData()" id="btn-export-data">📥 সমস্ত ডেটা Export করুন</button>
+            <button class="btn btn-warn btn-sm" onclick="confirmReset()" id="btn-reset-data">♻️ সব ডিফল্টে পুনরায় সেট করুন</button>
           </div>
-          <p style="font-size:.8rem;color:var(--text-muted);margin-top:.75rem;">Export করলে একটি JSON ফাইল ডাউনলোড হবে যা পরে Import করা যাবে।</p>
+          <p id="tab-settings-data-desc" style="font-size:.8rem;color:var(--text-muted);margin-top:.75rem;">Export করলে একটি JSON ফাইল ডাউনলোড হবে যা পরে Import করা যাবে।</p>
         </div>
 
         <div class="admin-card">
-          <h3>Report Download API</h3>
-          <p style="font-size:.85rem;color:var(--text-muted);margin-bottom:.75rem;">ডেভেলপারের কাছ থেকে API URL পেলে এখানে সেট করুন। `report.html` স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।</p>
+          <h3 id="tab-settings-api-title">Report Download API</h3>
+          <p id="tab-settings-api-desc" style="font-size:.85rem;color:var(--text-muted);margin-bottom:.75rem;">ডেভেলপারের কাছ থেকে API URL পেলে এখানে সেট করুন। `report.html` স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।</p>
           <div class="form-group">
-            <label>API Endpoint URL</label>
+            <label id="label-api-url">API Endpoint URL</label>
             <input type="url" id="report-api-url" placeholder="https://api.example.com/reports/download">
           </div>
-          <button class="btn btn-blue btn-sm" onclick="saveReportApi()">✓ API URL সংরক্ষণ করুন</button>
+          <button class="btn btn-blue btn-sm" onclick="saveReportApi()" id="btn-save-api">✓ API URL সংরক্ষণ করুন</button>
           <div id="api-save-msg" class="alert" style="display:none;margin-top:1rem;"></div>
         </div>
 
         <div class="admin-card">
-          <h3>Doctor Image Folder</h3>
-          <p style="font-size:.85rem;color:var(--text-muted);">চিকিৎসকদের ছবি <code>images/doctors/</code> ফোল্ডারে রাখুন। ফাইল নাম হবে ডাক্তারের ID (যেমন: <code>d1.jpg</code>)।</p>
-          <p style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem;">সরঞ্জামের ছবি <code>images/equipment/</code> ফোল্ডারে রাখুন।</p>
-          <p style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem;">MD-এর ছবি <code>images/md/md-photo.jpg</code> নামে রাখুন।</p>
+          <h3 id="tab-settings-images-title">Doctor Image Folder</h3>
+          <p id="tab-settings-images-p1" style="font-size:.85rem;color:var(--text-muted);">চিকিৎসকদের ছবি <code>images/doctors/</code> ফোল্ডারে রাখুন। ফাইল নাম হবে ডাক্তারের ID (যেমন: <code>d1.jpg</code>)।</p>
+          <p id="tab-settings-images-p2" style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem;">সরঞ্জামের ছবি <code>images/equipment/</code> ফোল্ডারে রাখুন।</p>
+          <p id="tab-settings-images-p3" style="font-size:.85rem;color:var(--text-muted);margin-top:.5rem;">MD-এর ছবি <code>images/md/md-photo.jpg</code> নামে রাখুন।</p>
         </div>
       </div>
 
@@ -299,6 +303,32 @@
 <script src="data.js"></script>
 <script>
 /* ═══════════════════════════════════════
+   ADMIN I18N — shared with main site bsky_lang
+═══════════════════════════════════════ */
+window.adminL = function(bn, en) {
+  const lang = localStorage.getItem('bsky_lang') || 'bn';
+  return (lang === 'en') ? (en || bn) : (bn || en || '');
+};
+window.adminLang = function() { return localStorage.getItem('bsky_lang') || 'bn'; };
+
+
+function applyAdminLangClass() {
+  const lang = window.adminLang();
+  document.body.classList.remove('bsky-lang-bn','bsky-lang-en');
+  document.body.classList.add(lang === 'en' ? 'bsky-lang-en' : 'bsky-lang-bn');
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.toggle('active', b.dataset.lang === lang));
+}
+
+function adminToggleLang(l) {
+  localStorage.setItem('bsky_lang', l);
+  applyAdminLangClass();
+  location.reload();
+}
+
+// Set body class on load
+applyAdminLangClass();
+
+/* ═══════════════════════════════════════
    AUTH
 ═══════════════════════════════════════ */
 const DEFAULT_PASS = "admin123";
@@ -314,7 +344,7 @@ function doLogin() {
   } else {
     const err = document.getElementById("login-error");
     err.style.display = "block";
-    err.textContent = "ভুল পাসওয়ার্ড। আবার চেষ্টা করুন।";
+    err.textContent = window.adminL('ভুল পাসওয়ার্ড। আবার চেষ্টা করুন।','Wrong password. Please try again.');
   }
 }
 
@@ -390,25 +420,25 @@ function renderBannersTab() {
             </div>
             <div style="min-width:0;">
               <div class="admin-row-label" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                ${b.active ? `<span class="badge-active">Active</span>` : `<span class="badge-inactive">Inactive</span>`}
+                ${b.active ? `<span class="badge-active">${window.adminL('সক্রিয়','Active')}</span>` : `<span class="badge-inactive">${window.adminL('নিষ্ক্রিয়','Inactive')}</span>`}
                 &nbsp; <strong>${b.alt || "(no title)"}</strong>
               </div>
               <div class="admin-row-sub" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">
-                🔗 ${b.link || "No link"} &nbsp;|&nbsp; 📄 ${b.src}
+                🔗 ${b.link || window.adminL('কোনো লিংক নেই','No link')} &nbsp;|&nbsp; 📄 ${b.src}
               </div>
             </div>
           </div>
           <div class="admin-actions">
-            <label class="toggle-switch" title="${b.active?'নিষ্ক্রিয় করুন':'সক্রিয় করুন'}">
+            <label class="toggle-switch" title="${b.active?window.adminL('নিষ্ক্রিয় করুন','Deactivate'):window.adminL('সক্রিয় করুন','Activate')}">
               <input type="checkbox" ${b.active?"checked":""} onchange="toggleBanner('${b.id}',this.checked)">
               <span class="toggle-slider"></span>
             </label>
-            <button class="btn btn-sm btn-ghost" onclick="openEditBanner('${b.id}')">সম্পাদনা</button>
-            <button class="btn btn-sm btn-danger" onclick="deleteBanner('${b.id}')">মুছুন</button>
+            <button class="btn btn-sm btn-ghost" onclick="openEditBanner('${b.id}')">${window.adminL('সম্পাদনা','Edit')}</button>
+            <button class="btn btn-sm btn-danger" onclick="deleteBanner('${b.id}')">${window.adminL('মুছুন','Delete')}</button>
           </div>
         </div>`
       ).join("")
-    : `<p style="color:var(--text-muted);padding:1rem 0;">কোনো ব্যানার নেই।</p>`;
+    : `<p style="color:var(--text-muted);padding:1rem 0;">${window.adminL('কোনো ব্যানার নেই।','No banners.')}</p>`;
 }
 
 function saveBannersAndRefresh(banners) {
@@ -423,18 +453,18 @@ function toggleBanner(id, active) {
 }
 
 function deleteBanner(id) {
-  if (!confirm("এই ব্যানার মুছে ফেলবেন?")) return;
+  if (!confirm(window.adminL('এই ব্যানার মুছে ফেলবেন?','Delete this banner?'))) return;
   const data  = getLiveData();
   const arr   = data.banners.filter(b => b.id !== id);
   saveBannersAndRefresh(arr);
 }
 
 function openAddBanner() {
-  openModal("নতুন ব্যানার যোগ করুন",
+  openModal(window.adminL('নতুন ব্যানার যোগ করুন','Add New Banner'),
     buildBannerForm({ id: "b" + Date.now(), src: "", alt: "", link: "", active: true }),
     () => {
       const b = getBannerFormValues();
-      if (!b.src) { alert("ইমেজ পাথ বা URL দিন।"); return false; }
+      if (!b.src) { alert(window.adminL('ইমেজ পাথ বা URL দিন।','Enter image path or URL.')); return false; }
       const data = getLiveData();
       data.banners.push(b);
       saveBannersAndRefresh(data.banners);
@@ -447,7 +477,7 @@ function openEditBanner(id) {
   const data = getLiveData();
   const b    = data.banners.find(x => x.id === id);
   if (!b) return;
-  openModal("ব্যানার সম্পাদনা",
+  openModal(window.adminL('ব্যানার সম্পাদনা','Edit Banner'),
     buildBannerForm(b),
     () => {
       const updated = getBannerFormValues();
@@ -462,35 +492,35 @@ function openEditBanner(id) {
 function buildBannerForm(b) {
   return `
     <div class="form-group">
-      <label>ইমেজ পাথ বা URL <span style="color:red">*</span></label>
+      <label>${window.adminL('ইমেজ পাথ বা URL','Image Path or URL')} <span style="color:red">*</span></label>
       <input type="text" id="bf-src" value="${b.src||""}"
-             placeholder="images/banners/dr-name-banner.jpeg  অথবা  https://..."
+             placeholder="images/banners/dr-name-banner.jpeg  ${window.adminL('অথবা','or')}  https://..."
              oninput="previewBannerImg(this.value.trim())">
-      <small style="color:var(--text-muted);font-size:.75rem;">লোকাল ফাইলের জন্য ছবিটি <code>images/banners/</code> ফোল্ডারে রাখুন।</small>
+      <small style="color:var(--text-muted);font-size:.75rem;">${window.adminL('লোকাল ফাইলের জন্য ছবিটি','For local files, place the image in')} <code>images/banners/</code> ${window.adminL('ফোল্ডারে রাখুন।','folder.')}</small>
     </div>
 
     <div id="bf-preview-wrap" style="display:${b.src?'block':'none'};margin-bottom:1rem;">
-      <p style="font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;">ছবির পূর্বরূপ:</p>
+      <p style="font-size:.78rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;">${window.adminL('ছবির পূর্বরূপ:','Image Preview:')}</p>
       <div style="border:1.5px solid var(--border);border-radius:var(--radius);overflow:hidden;max-width:220px;background:var(--pale-blue);">
         <img id="bf-preview" src="${b.src||''}" alt="preview"
              style="width:100%;height:auto;max-height:200px;object-fit:cover;display:${b.src?'block':'none'};"
              onerror="this.style.display='none';document.getElementById('bf-preview-err').style.display='block'">
-        <p id="bf-preview-err" style="display:none;padding:.5rem;font-size:.75rem;color:#C62828;text-align:center;">❌ ছবি লোড হয়নি — পাথ যাচাই করুন</p>
+        <p id="bf-preview-err" style="display:none;padding:.5rem;font-size:.75rem;color:#C62828;text-align:center;">❌ ${window.adminL('ছবি লোড হয়নি — পাথ যাচাই করুন','Image not loaded — verify the path')}</p>
       </div>
     </div>
 
     <div class="form-group">
-      <label>শিরোনাম / Alt Text</label>
-      <input type="text" id="bf-alt" value="${b.alt||""}" placeholder="ব্যানারের বিবরণ (বাংলায়)">
+      <label>${window.adminL('শিরোনাম / Alt Text','Title / Alt Text')}</label>
+      <input type="text" id="bf-alt" value="${b.alt||""}" placeholder="${window.adminL('ব্যানারের বিবরণ (বাংলায়)','Banner description (Bengali)')}">
     </div>
     <div class="form-group">
-      <label>ক্লিক করলে যাবে (Link)</label>
-      <input type="text" id="bf-link" value="${b.link||""}" placeholder="doctors.html  অথবা  https://...">
+      <label>${window.adminL('ক্লিক করলে যাবে (Link)','Link when clicked')}</label>
+      <input type="text" id="bf-link" value="${b.link||""}" placeholder="doctors.html  ${window.adminL('অথবা','or')}  https://..."
     </div>
     <div class="form-group" style="display:flex;align-items:center;gap:.75rem;">
       <label style="margin:0;font-weight:600;font-size:.88rem;cursor:pointer;">
         <input type="checkbox" id="bf-active" ${b.active?"checked":""} style="margin-right:.4rem;width:auto;">
-        সক্রিয় (Active)
+        ${window.adminL('সক্রিয় (Active)','Active')}
       </label>
     </div>`;
 }
@@ -535,7 +565,7 @@ function saveContact() {
     email:     getLiveData().contact.email || ""
   };
   saveKey("contact", contact);
-  showMsg("contact-save-msg", "alert-success", "✅ যোগাযোগের তথ্য সংরক্ষিত হয়েছে।");
+  showMsg("contact-save-msg", "alert-success", window.adminL('✅ যোগাযোগের তথ্য সংরক্ষিত হয়েছে।','✅ Contact information saved.'));
 }
 
 /* ═══════════════════════════════════════
@@ -559,12 +589,11 @@ function renderDoctorsTab() {
 }
 
 function openAddDoctor() {
-  const cats = getLiveData().doctorCategories.filter(c => c.id !== "all");
-  openModal("নতুন চিকিৎসক যোগ করুন",
+  const cats = getLiveData().doctorCategories.filter(c => c.id !== "all");    openModal(window.adminL('নতুন চিকিৎসক যোগ করুন','Add New Doctor'),
     buildDoctorForm({}, cats),
     () => {
       const doc = getDoctorFormValues();
-      if (!doc.name) { alert("নাম দিন।"); return false; }
+      if (!doc.name) { alert(window.adminL('নাম দিন।','Enter a name.')); return false; }
       doc.id = "d" + Date.now();
       const data = getLiveData();
       data.doctors.push(doc);
@@ -580,7 +609,7 @@ function openEditDoctor(id) {
   const doc  = data.doctors.find(d => d.id === id);
   if (!doc) return;
   const cats = data.doctorCategories.filter(c => c.id !== "all");
-  openModal("চিকিৎসক সম্পাদনা",
+  openModal(window.adminL('চিকিৎসক সম্পাদনা','Edit Doctor'),
     buildDoctorForm(doc, cats),
     () => {
       const updated = getDoctorFormValues();
@@ -594,7 +623,7 @@ function openEditDoctor(id) {
 }
 
 function deleteDoctor(id) {
-  if (!confirm("এই চিকিৎসককে মুছে ফেলবেন?")) return;
+  if (!confirm(window.adminL('এই চিকিৎসককে মুছে ফেলবেন?','Delete this doctor?'))) return;
   const data = getLiveData();
   saveKey("doctors", data.doctors.filter(d => d.id !== id));
   renderDoctorsTab();
@@ -605,18 +634,18 @@ function buildDoctorForm(d, cats) {
   return `
     <div class="admin-grid-2">
       <div class="form-group">
-        <label>নাম (বাংলা) <span style="color:red">*</span></label>
-        <input type="text" id="df-name" value="${d.name||""}" placeholder="ডা. নাম">
+        <label>${window.adminL('নাম (বাংলা)','Name (Bengali)')} <span style="color:red">*</span></label>
+        <input type="text" id="df-name" value="${d.name||""}" placeholder="${window.adminL('ডা. নাম','Dr. Name')}">
       </div>
       <div class="form-group">
-        <label>বিভাগ</label>
+        <label>${window.adminL('বিভাগ','Department')}</label>
         <select id="df-cat">${opts}</select>
       </div>
     </div>
     <div class="admin-grid-2">
       <div class="form-group">
-        <label>বিশেষত্ব (বাংলা)</label>
-        <input type="text" id="df-specialty" value="${d.specialty||""}" placeholder="হৃদরোগ বিশেষজ্ঞ">
+        <label>${window.adminL('বিশেষত্ব (বাংলা)','Specialty (Bengali)')}</label>
+        <input type="text" id="df-specialty" value="${d.specialty||""}" placeholder="${window.adminL('হৃদরোগ বিশেষজ্ঞ','Cardiologist')}">
       </div>
       <div class="form-group">
         <label>Specialty (English)</label>
@@ -624,17 +653,17 @@ function buildDoctorForm(d, cats) {
       </div>
     </div>
     <div class="form-group">
-      <label>ডিগ্রি সমূহ</label>
-      <input type="text" id="df-degrees" value="${d.degrees||""}" placeholder="এমবিবিএস, এমডি (কার্ডিওলজি)">
+      <label>${window.adminL('ডিগ্রি সমূহ','Degrees')}</label>
+      <input type="text" id="df-degrees" value="${d.degrees||""}" placeholder="${window.adminL('এমবিবিএস, এমডি (কার্ডিওলজি)','MBBS, MD (Cardiology)')}">
     </div>
     <div class="form-group">
-      <label>প্রতিষ্ঠান / পদবী</label>
-      <input type="text" id="df-inst" value="${d.institution||""}" placeholder="সহকারী অধ্যাপক">
+      <label>${window.adminL('প্রতিষ্ঠান / পদবী','Institution / Title')}</label>
+      <input type="text" id="df-inst" value="${d.institution||""}" placeholder="${window.adminL('সহকারী অধ্যাপক','Assistant Professor')}">
     </div>
     <div class="form-group">
-      <label>ছবির পাথ</label>
+      <label>${window.adminL('ছবির পাথ','Image Path')}</label>
       <input type="text" id="df-image" value="${d.image||"images/doctors/placeholder.svg"}" placeholder="images/doctors/d1.jpg">
-      <small style="color:var(--text-muted);font-size:.75rem;">ছবিটি <code>images/doctors/</code> ফোল্ডারে রাখুন।</small>
+      <small style="color:var(--text-muted);font-size:.75rem;">${window.adminL('ছবিটি','Place the image in')} <code>images/doctors/</code> ${window.adminL('ফোল্ডারে রাখুন।','folder.')}</small>
     </div>`;
 }
 
@@ -660,7 +689,7 @@ function renderPackagesTab() {
     <div class="admin-row">
       <div>
         <div class="admin-row-label">${p.nameBn}</div>
-        <div class="admin-row-sub">${p.nameEn} | মূল্য: ${p.price}</div>
+        <div class="admin-row-sub">${p.nameEn} | ${window.adminL('মূল্য:','Price:')} ${p.price}</div>
       </div>
     </div>`
   ).join("");
@@ -673,7 +702,7 @@ function renderServicesTab() {
     <div class="admin-row">
       <div>
         <div class="admin-row-label">${s.icon} ${s.titleBn}</div>
-        <div class="admin-row-sub">${s.titleEn} | ${s.items.length} আইটেম</div>
+        <div class="admin-row-sub">${s.titleEn} | ${s.items.length} ${window.adminL('আইটেম','items')}</div>
       </div>
     </div>`
   ).join("");
@@ -723,7 +752,7 @@ function saveStats() {
     labelEn: document.getElementById("stat-lblen-"+i).value.trim()
   }));
   saveKey("stats", stats);
-  showMsg("stats-save-msg", "alert-success", "✅ পরিসংখ্যান সংরক্ষিত হয়েছে।");
+  showMsg("stats-save-msg", "alert-success", window.adminL('✅ পরিসংখ্যান সংরক্ষিত হয়েছে।','✅ Statistics saved.'));
 }
 
 /* ═══════════════════════════════════════
@@ -732,8 +761,8 @@ function saveStats() {
 function openJsonEditor(key) {
   const data = getLiveData();
   const val  = JSON.stringify(data[key], null, 2);
-  openModal(`JSON সম্পাদনা — ${key}`,
-    `<p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem;">সরাসরি JSON সম্পাদনা করুন। ভুল JSON সংরক্ষণ করবেন না।</p>
+  openModal(window.adminL('JSON সম্পাদনা —','JSON Editor —') + ' ' + key,
+    `<p style="font-size:.82rem;color:var(--text-muted);margin-bottom:.75rem;">${window.adminL('সরাসরি JSON সম্পাদনা করুন। ভুল JSON সংরক্ষণ করবেন না।','Edit JSON directly. Do not save invalid JSON.')}</p>
      <textarea class="json-editor" id="je-content" rows="20">${escapeHtml(val)}</textarea>`,
     () => {
       try {
@@ -742,7 +771,7 @@ function openJsonEditor(key) {
         loadAllTabs();
         return true;
       } catch(e) {
-        alert("JSON ফরম্যাট ভুল: " + e.message);
+        alert(window.adminL('JSON ফরম্যাট ভুল: ','Invalid JSON format: ') + e.message);
         return false;
       }
     }
@@ -761,7 +790,7 @@ function loadSettingsTab() {
 function saveReportApi() {
   const url = document.getElementById("report-api-url").value.trim();
   localStorage.setItem("bsky_report_api", url);
-  showMsg("api-save-msg","alert-success","✅ API URL সংরক্ষিত হয়েছে। report.html স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।");
+  showMsg("api-save-msg","alert-success",window.adminL('✅ API URL সংরক্ষিত হয়েছে। report.html স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।','✅ API URL saved. report.html will use it automatically.'));
 }
 
 function changePassword() {
@@ -769,12 +798,12 @@ function changePassword() {
   const nw   = document.getElementById("new-pass").value;
   const conf = document.getElementById("confirm-pass").value;
 
-  if (old !== getPass())        { showMsg("pass-msg","alert-error","❌ বর্তমান পাসওয়ার্ড ভুল।"); return; }
-  if (nw.length < 6)            { showMsg("pass-msg","alert-error","❌ নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে।"); return; }
-  if (nw !== conf)              { showMsg("pass-msg","alert-error","❌ পাসওয়ার্ড মিলছে না।"); return; }
+  if (old !== getPass())        { showMsg("pass-msg","alert-error",window.adminL('❌ বর্তমান পাসওয়ার্ড ভুল।','❌ Current password is incorrect.')); return; }
+  if (nw.length < 6)            { showMsg("pass-msg","alert-error",window.adminL('❌ নতুন পাসওয়ার্ড কমপক্ষে ৬ অক্ষর হতে হবে।','❌ New password must be at least 6 characters.')); return; }
+  if (nw !== conf)              { showMsg("pass-msg","alert-error",window.adminL('❌ পাসওয়ার্ড মিলছে না।','❌ Passwords do not match.')); return; }
 
   localStorage.setItem("bsky_admin_pass", nw);
-  showMsg("pass-msg","alert-success","✅ পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে।");
+  showMsg("pass-msg","alert-success",window.adminL('✅ পাসওয়ার্ড সফলভাবে পরিবর্তিত হয়েছে।','✅ Password changed successfully.'));
   ["old-pass","new-pass","confirm-pass"].forEach(id => document.getElementById(id).value = "");
 }
 
@@ -790,10 +819,10 @@ function exportData() {
 }
 
 function confirmReset() {
-  if (!confirm("সত্যিই সব ডেটা ডিফল্টে রিসেট করবেন? এটি ফেরানো যাবে না।")) return;
+  if (!confirm(window.adminL('সত্যিই সব ডেটা ডিফল্টে রিসেট করবেন? এটি ফেরানো যাবে না।','Reset all data to defaults? This cannot be undone.'))) return;
   const keys = ["banners","contact","doctors","packages","services","equipment","stats"];
   keys.forEach(k => localStorage.removeItem("bsky_"+k));
-  alert("সব ডেটা ডিফল্টে ফিরে গেছে।");
+  alert(window.adminL('সব ডেটা ডিফল্টে ফিরে গেছে।','All data has been reset to defaults.'));
   loadAllTabs();
 }
 
@@ -801,16 +830,16 @@ function clearBannerCache() {
   localStorage.removeItem("bsky_banner_dismissed_at");
   localStorage.setItem("bsky_banner_force_show", "1");  // cross-tab: bypasses sessionStorage guard on any tab
   sessionStorage.removeItem("bsky_banner_seen");         // same-tab: works if admin and index share a tab
-  alert("পপ-আপ ক্যাশ মুছে ফেলা হয়েছে। এখন যেকোনো ট্যাবে হোম পেজ ভিজিট করলে ব্যানার পপ-আপ দেখা যাবে।");
+  alert(window.adminL('পপ-আপ ক্যাশ মুছে ফেলা হয়েছে। এখন যেকোনো ট্যাবে হোম পেজ ভিজিট করলে ব্যানার পপ-আপ দেখা যাবে।','Popup cache cleared. Banners will appear on homepage visits.'));
 }
 
 function resetBannersToDefault() {
-  if (!confirm("localStorage-এ সংরক্ষিত ব্যানার ডেটা মুছে DEFAULT ডেটায় ফিরে যাবে।\nসব ৬টি ডিফল্ট ব্যানার পুনরুদ্ধার হবে। নিশ্চিত করুন?")) return;
+  if (!confirm(window.adminL('localStorage-এ সংরক্ষিত ব্যানার ডেটা মুছে DEFAULT ডেটায় ফিরে যাবে।\nসব ৬টি ডিফল্ট ব্যানার পুনরুদ্ধার হবে। নিশ্চিত করুন?','This will clear saved banner data and restore all 6 default banners. Confirm?'))) return;
   localStorage.removeItem("bsky_banners");
   localStorage.removeItem("bsky_banner_dismissed_at");
   sessionStorage.removeItem("bsky_banner_seen");
   renderBannersTab();
-  alert("ব্যানার ডিফল্টে রিসেট হয়েছে — সব ৬টি ব্যানার এখন সক্রিয়।");
+  alert(window.adminL('ব্যানার ডিফল্টে রিসেট হয়েছে — সব ৬টি ব্যানার এখন সক্রিয়।','Banners reset to defaults — all 6 banners are now active.'));
 }
 
 function previewBannerImg(src) {
@@ -833,8 +862,8 @@ function openModal(title, bodyHtml, onSave) {
   document.getElementById("modal-title").textContent = title;
   document.getElementById("modal-body").innerHTML    = bodyHtml;
   document.getElementById("modal-footer").innerHTML  =
-    `<button class="btn btn-ghost btn-sm" onclick="closeModal()">বাতিল</button>
-     <button class="btn btn-blue btn-sm" onclick="doSave()">✓ সংরক্ষণ করুন</button>`;
+    `<button class="btn btn-ghost btn-sm" onclick="closeModal()">${window.adminL('বাতিল','Cancel')}</button>
+     <button class="btn btn-blue btn-sm" onclick="doSave()">${window.adminL('✓ সংরক্ষণ করুন','✓ Save')}</button>`;
   _onSave = onSave;
   document.getElementById("modal").style.display = "flex";
 }
@@ -869,20 +898,136 @@ function escapeHtml(str) {
 }
 </script>
 <script>
-// Minimal admin-page localization (reads `bsky_lang` from localStorage)
+// Admin-page localization — reads `bsky_lang` from localStorage (shared with main site)
 (function(){
   const lang = (localStorage.getItem('bsky_lang') || 'bn');
   const l = (bn, en) => (lang === 'en') ? (en || bn) : (bn || en || '');
-  const setText = (id, bn, en, html) => {
+  const st = (id, bn, en, html) => {
     const el = document.getElementById(id);
     if (!el) return;
     if (html) el.innerHTML = l(bn, en);
     else el.textContent = l(bn, en);
   };
 
-  setText('login-heading', 'অ্যাডমিন প্যানেল', 'Admin Panel');
-  setText('login-sub', 'Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম', 'Bluesky Health Limited — Site Management System');
-  setText('admin-header-title', 'Bluesky Health — অ্যাডমিন প্যানেল', 'Bluesky Health — Admin Panel');
+  // ── Login screen ──
+  st('login-heading', 'অ্যাডমিন প্যানেল', 'Admin Panel');
+  st('login-sub', 'Bluesky Health Limited — সাইট ম্যানেজমেন্ট সিস্টেম', 'Bluesky Health Limited — Site Management System');
+  st('admin-pass-label', 'পাসওয়ার্ড', 'Password');
+  st('admin-login-btn', 'লগইন করুন', 'Login');
+  st('admin-default-pass-msg', 'Default password: <code>admin123</code> (সেটিংস থেকে পরিবর্তন করুন)', 'Default password: <code>admin123</code> (change via Settings)', true);
+
+  // ── Admin header ──
+  st('admin-header-title', 'Bluesky Health — অ্যাডমিন প্যানেল', 'Bluesky Health — Admin Panel');
+  st('admin-visit-site', 'সাইট দেখুন', 'Visit Site');
+  st('admin-logout-btn', 'লগআউট', 'Logout');
+
+  // ── Sidebar ──
+  st('admin-sidebar-heading1', 'সাইট ব্যবস্থাপনা', 'Site Management');
+  st('admin-sidebar-heading2', 'কন্টেন্ট', 'Content');
+  st('admin-sidebar-heading3', 'সিস্টেম', 'System');
+  document.querySelectorAll('.admin-nav-text').forEach(el => {
+    const txt = el.textContent.trim();
+    const map = {
+      'Banners': l('ব্যানার', 'Banners'),
+      'Contact Info': l('যোগাযোগের তথ্য', 'Contact Info'),
+      'Doctors': l('চিকিৎসক', 'Doctors'),
+      'Packages': l('প্যাকেজ', 'Packages'),
+      'Services': l('সেবা সমূহ', 'Services'),
+      'Equipment': l('সরঞ্জাম', 'Equipment'),
+      'Stats': l('পরিসংখ্যান', 'Stats'),
+      'Settings': l('সেটিংস', 'Settings')
+    };
+    if (map[txt] !== undefined) el.textContent = map[txt];
+  });
+
+  // ── Banners tab ──
+  st('tab-banners-title', 'ব্যানার ব্যবস্থাপনা', 'Banner Management');
+  st('tab-banners-desc', 'ওয়েবসাইটের পপ-আপ ব্যানার পরিচালনা করুন। প্রথম ভিজিটে ডিসমিস করলে <strong>২৪ ঘন্টা</strong> পর্যন্ত ব্যানার দেখাবে না।', 'Manage website pop-up banners. Once dismissed, the banner will not show for <strong>24 hours</strong>.', true);
+  st('btn-add-banner', 'নতুন ব্যানার যোগ করুন', 'Add New Banner');
+  st('btn-clear-banner-cache', '&#x267B; পপ-আপ ক্যাশ রিসেট', '&#x267B; Reset Popup Cache', true);
+  st('btn-reset-banners', '&#x21BA; ডিফল্টে রিসেট', '&#x21BA; Reset to Default', true);
+  st('tab-banners-list-title', 'সক্রিয় ও নিষ্ক্রিয় ব্যানার', 'Active & Inactive Banners');
+  st('tab-banners-info', '<strong>💡 নির্দেশনা:</strong> ব্যানার ছবি <code>images/banners/</code> ফোল্ডারে রাখুন এবং <em>Image Path</em>-এ পাথ দিন। ডিসপ্লে সাইজ ভালো দেখাতে <strong>portrait (tall)</strong> ছবি ব্যবহার করুন।', '<strong>💡 Guide:</strong> Place banner images in the <code>images/banners/</code> folder and enter the path in <em>Image Path</em>. Use <strong>portrait (tall)</strong> images for best display.', true);
+
+  // ── Contact tab ──
+  st('tab-contact-title', 'যোগাযোগের তথ্য', 'Contact Information');
+  st('tab-contact-desc', 'যোগাযোগের তথ্য সম্পাদনা করুন — পরিবর্তন সব পেজে একসাথে প্রযোজ্য হবে।', 'Edit contact information — changes apply to all pages at once.');
+  st('tab-contact-phones-title', 'ফোন নম্বর (প্রতি লাইনে একটি)', 'Phone Numbers (one per line)');
+  st('tab-contact-address-title', 'ঠিকানা', 'Address');
+  st('label-address-en', 'ইংরেজি ঠিকানা', 'English Address');
+  st('label-address-bn', 'বাংলা ঠিকানা', 'Bangla Address');
+  st('tab-contact-other-title', 'অন্যান্য তথ্য', 'Other Information');
+  st('label-hours-en', 'সেবার সময় (ইংরেজি)', 'Opening Hours (English)');
+  st('label-website', 'ওয়েবসাইট', 'Website');
+  st('label-hours-bn', 'সেবার সময় (বাংলা)', 'Opening Hours (Bangla)');
+  st('btn-save-contact', '✓ পরিবর্তন সংরক্ষণ করুন', '✓ Save Changes');
+
+  // ── Doctors tab ──
+  st('tab-doctors-title', 'চিকিৎসক ব্যবস্থাপনা', 'Doctors Management');
+  st('tab-doctors-desc', 'চিকিৎসকদের তথ্য যোগ, সম্পাদনা বা মুছে ফেলুন।', 'Add, edit or delete doctor information.');
+  st('btn-add-doctor', '+ নতুন চিকিৎসক যোগ করুন', '+ Add New Doctor');
+  st('btn-json-doctors', '📋 JSON সম্পাদনা', '📋 JSON Editor');
+  st('tab-doctors-list-title', 'চিকিৎসক তালিকা', 'Doctor List');
+
+  // ── Packages tab ──
+  st('tab-packages-title', 'স্বাস্থ্য প্যাকেজ', 'Health Packages');
+  st('tab-packages-desc', 'স্বাস্থ্য পরীক্ষা প্যাকেজ পরিচালনা করুন।', 'Manage health test packages.');
+  st('btn-json-packages', '📋 JSON সম্পাদনা (সকল প্যাকেজ)', '📋 JSON Editor (All Packages)');
+  st('tab-packages-list-title', 'প্যাকেজ তালিকা', 'Package List');
+
+  // ── Services tab ──
+  st('tab-services-title', 'সেবা সমূহ', 'Services');
+  st('tab-services-desc', 'সেবার বিভাগ ও আইটেম সম্পাদনা করুন।', 'Edit service departments and items.');
+  st('btn-json-services', '📋 JSON সম্পাদনা', '📋 JSON Editor');
+  st('tab-services-list-title', 'সেবা তালিকা', 'Service List');
+
+  // ── Equipment tab ──
+  st('tab-equipment-title', 'সরঞ্জাম', 'Equipment');
+  st('tab-equipment-desc', 'মেশিনারি ও সরঞ্জামের তথ্য পরিচালনা করুন।', 'Manage machinery and equipment information.');
+  st('btn-json-equipment', '📋 JSON সম্পাদনা', '📋 JSON Editor');
+  st('tab-equipment-list-title', 'সরঞ্জাম তালিকা', 'Equipment List');
+  st('tab-equipment-info', '<strong>💡 ছবি আপলোড:</strong> প্রতিটি সরঞ্জামের জন্য <code>images/equipment/</code> ফোল্ডারে ছবি রাখুন এবং JSON-এ পাথ আপডেট করুন।', '<strong>💡 Image Upload:</strong> Place images for each equipment in <code>images/equipment/</code> folder and update the path in JSON.', true);
+
+  // ── Stats tab ──
+  st('tab-stats-title', 'পরিসংখ্যান / হাইলাইটস', 'Stats / Highlights');
+  st('tab-stats-desc', 'হোমপেজের পরিসংখ্যান বক্স আপডেট করুন।', 'Update the homepage statistics boxes.');
+  st('tab-stats-list-title', 'পরিসংখ্যান', 'Statistics');
+  st('btn-save-stats', '✓ পরিবর্তন সংরক্ষণ করুন', '✓ Save Changes');
+
+  // ── Settings tab ──
+  st('tab-settings-title', 'সেটিংস', 'Settings');
+  st('tab-settings-desc', 'সিস্টেম সেটিংস পরিচালনা করুন।', 'Manage system settings.');
+  st('tab-settings-pass-title', 'পাসওয়ার্ড পরিবর্তন', 'Change Password');
+  st('label-old-pass', 'বর্তমান পাসওয়ার্ড', 'Current Password');
+  st('label-new-pass', 'নতুন পাসওয়ার্ড', 'New Password');
+  st('label-confirm-pass', 'নতুন পাসওয়ার্ড নিশ্চিত করুন', 'Confirm New Password');
+  st('btn-change-pass', 'পাসওয়ার্ড পরিবর্তন করুন', 'Change Password');
+
+  // ── Localize placeholders ──
+  const phMap = {
+    'old-pass':   [l('বর্তমান পাসওয়ার্ড','Current Password'), ''],
+    'new-pass':   [l('নতুন পাসওয়ার্ড (কমপক্ষে ৬ অক্ষর)','New password (min 6 characters)'), ''],
+    'confirm-pass': [l('পুনরায় লিখুন','Re-enter password'), ''],
+  };
+  Object.keys(phMap).forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.placeholder = phMap[id][0];
+  });
+  st('tab-settings-data-title', 'ডেটা ব্যবস্থাপনা', 'Data Management');
+  st('btn-export-data', '📥 সমস্ত ডেটা Export করুন', '📥 Export All Data');
+  st('btn-reset-data', '♻️ সব ডিফল্টে পুনরায় সেট করুন', '♻️ Reset All to Default');
+  st('tab-settings-data-desc', 'Export করলে একটি JSON ফাইল ডাউনলোড হবে যা পরে Import করা যাবে।', 'Export downloads a JSON file that can be imported later.');
+  st('tab-settings-api-title', 'রিপোর্ট ডাউনলোড API', 'Report Download API');
+  st('tab-settings-api-desc', 'ডেভেলপারের কাছ থেকে API URL পেলে এখানে সেট করুন। <code>report.html</code> স্বয়ংক্রিয়ভাবে এটি ব্যবহার করবে।', 'Set the API URL from your developer here. <code>report.html</code> will use it automatically.', true);
+  st('label-api-url', 'API Endpoint URL', 'API Endpoint URL');
+  st('btn-save-api', '✓ API URL সংরক্ষণ করুন', '✓ Save API URL');
+  st('tab-settings-images-title', 'ডাক্তারের ছবির ফোল্ডার', 'Doctor Image Folder');
+  st('tab-settings-images-p1', 'চিকিৎসকদের ছবি <code>images/doctors/</code> ফোল্ডারে রাখুন। ফাইল নাম হবে ডাক্তারের ID (যেমন: <code>d1.jpg</code>)।', 'Place doctor photos in the <code>images/doctors/</code> folder. File name should be the doctor\'s ID (e.g. <code>d1.jpg</code>).', true);
+  st('tab-settings-images-p2', 'সরঞ্জামের ছবি <code>images/equipment/</code> ফোল্ডারে রাখুন।', 'Place equipment images in the <code>images/equipment/</code> folder.', true);
+  st('tab-settings-images-p3', 'MD-এর ছবি <code>images/md/md-photo.jpg</code> নামে রাখুন।', 'Place the MD\'s photo as <code>images/md/md-photo.jpg</code>.', true);
+
+  // ── Dynamic text labels in rendered admin lists ──
+  // These are set once; the dynamic template literals use window.adminL() directly.
 })();
 </script>
 </body>
